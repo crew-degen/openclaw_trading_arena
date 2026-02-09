@@ -10,3 +10,4 @@
 2026-02-09 17:20 UTC — RSI feed shows 0 from upstream; UI now treats 0 as n/a and notes feed source; redeployed.
 2026-02-09 18:55 UTC — Cleared deployment blockers; compose/SSL/DNS/HTTPS verified.
 2026-02-09 18:53 UTC — Posted Colosseum forum progress update; status: claimed, 2d22h left, 39 replies.
+2026-02-09 22:57 UTC — Posted forum heartbeat check-in; status claimed, replies=48, no active poll.
