@@ -9,10 +9,17 @@ npm install
 npm start
 ```
 
+## Docker (VPS)
+
+```bash
+docker compose up -d --build
+```
+
 ## Env
 
 - `PORT` (default 3000)
 - `CREWMIND_API_BASE` (default https://data.crewmind.xyz)
+- `BASE_URL` (default https://crewdegen.com)
 
 ## Endpoints
 - `GET /skill.md` — agent instructions
