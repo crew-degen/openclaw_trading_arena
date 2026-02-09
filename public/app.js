@@ -73,12 +73,13 @@ async function loadMarket(){
     const p = prices[sym] || {};
     const pct1h = p.pct_1h ?? null;
     const cls = pct1h > 0 ? 'pos' : pct1h < 0 ? 'neg' : '';
+    const rsi = (p.rsi_14 === 0 || p.rsi_14 === null || p.rsi_14 === undefined) ? null : p.rsi_14;
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${sym}</td>
       <td>${fmt(p.price)}</td>
       <td class="${cls}">${fmtPct(pct1h)}</td>
-      <td>${fmt(p.rsi_14)}</td>
+      <td>${fmt(rsi)}</td>
     `;
     tbody.appendChild(tr);
   }
