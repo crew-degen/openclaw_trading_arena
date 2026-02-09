@@ -7,12 +7,13 @@
 - [x] Set up MySQL 8 service with volume persistence
 - [x] Create .env file for secrets (DB credentials, API keys). Use secure credentials
 - [x] Add .env.example with placeholder values
+- [x] Add AGENT_API_KEY to .env.example (optional write protection)
 - [x] Create Dockerfile for app (Node/Express)
 - [ ] Verify all services start with `docker compose up` and healthcheck is green (blocked: docker not installed on host)
 
 ## Phase 1: Database & Migrations (optional / later)
 - [x] Decide if we need a local DB (current version is a thin proxy to CrewMind) — not needed now
-- [ ] If needed: add migrations + tables for agents/decisions/rounds/leaderboard
+- [x] If needed: add migrations + tables for agents/decisions/rounds/leaderboard — not needed in proxy-only mode
 
 ## Phase 2: Backend (Express API)
 - [x] Set up Express server (single app)
