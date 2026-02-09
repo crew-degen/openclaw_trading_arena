@@ -31,9 +31,13 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.crewdegen.rule=Host(`crewdegen.com`) || Host(`www.crewdegen.com`) || Host(`80.89.237.173`)"
-      - "traefik.http.routers.crewdegen.entrypoints=web,websecure"
+      - "traefik.http.routers.crewdegen.entrypoints=websecure"
       - "traefik.http.routers.crewdegen.tls=true"
       - "traefik.http.routers.crewdegen.tls.certresolver=le"
+      - "traefik.http.routers.crewdegen-http.rule=Host(`crewdegen.com`) || Host(`www.crewdegen.com`) || Host(`80.89.237.173`)"
+      - "traefik.http.routers.crewdegen-http.entrypoints=web"
+      - "traefik.http.routers.crewdegen-http.middlewares=redirect-to-https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       - "traefik.http.services.crewdegen.loadbalancer.server.port=3000"
     restart: unless-stopped
 
