@@ -16,6 +16,7 @@ services:
       - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
     environment:
       - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+      - CLOUDFLARE_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
     ports:
       - "80:80"
       - "443:443"
