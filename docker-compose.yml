@@ -41,11 +41,13 @@ services:
   db:
     image: mysql:8.0
     container_name: db
+    env_file:
+      - .env
     environment:
-      - MYSQL_DATABASE=crewdegen
-      - MYSQL_USER=crewdegen
-      - MYSQL_PASSWORD=crewdegen
-      - MYSQL_ROOT_PASSWORD=crewdegen
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
       - db-data:/var/lib/mysql
     ports:
