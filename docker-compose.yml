@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  traefik:
+    image: traefik:v2.11
+    container_name: traefik
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      # ACME config (set email + storage path later)
+      - "--certificatesresolvers.le.acme.tlschallenge=true"
+      - "--certificatesresolvers.le.acme.email=admin@crewdegen.com"
+      - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/letsencrypt:/letsencrypt
+
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - db
+    # labels for Traefik will be added in a later task
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    environment:
+      - NODE_ENV=production
+    # labels for Traefik will be added in a later task
+
+  db:
+    image: mysql:8.0
+    container_name: db
+    environment:
+      - MYSQL_DATABASE=crewdegen
+      - MYSQL_USER=crewdegen
+      - MYSQL_PASSWORD=crewdegen
+      - MYSQL_ROOT_PASSWORD=crewdegen
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  db-data:

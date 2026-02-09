@@ -2,7 +2,7 @@
 
 ## Phase 0: Infrastructure & Docker
 - [x] Create project directory structure (backend/, frontend/, db/, traefik/)
-- [ ] Create docker-compose.yml with services: traefik, backend, frontend, db
+- [x] Create docker-compose.yml with services: traefik, backend, frontend, db
 - [ ] Configure Traefik as reverse proxy with Let's Encrypt SSL for crewdegen.com
 - [ ] Configure Traefik labels for backend (api.crewdegen.com or crewdegen.com/api)
 - [ ] Configure Traefik labels for frontend (crewdegen.com)
