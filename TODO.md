@@ -9,7 +9,7 @@
 - [x] Add .env.example with placeholder values
 - [x] Add AGENT_API_KEY to .env.example (optional write protection)
 - [x] Create Dockerfile for app (Node/Express)
-- [ ] Verify all services start with `docker compose up` and healthcheck is green (blocked: docker not installed on host)
+- [x] Verify all services start with `docker compose up` and healthcheck is green
 
 ## Phase 1: Database & Migrations (optional / later)
 - [x] Decide if we need a local DB (current version is a thin proxy to CrewMind) — not needed now
@@ -32,8 +32,8 @@
 
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)
-- [ ] Switch to docker-compose stack on VPS (blocked: need VPS SSH access to deploy/confirm)
-- [ ] Point crewdegen.com DNS to VPS IP (blocked: need DNS access)
-- [ ] Verify Traefik auto-obtains SSL certificate (blocked: requires DNS + VPS)
-- [ ] Verify all services accessible via HTTPS (blocked: requires DNS + VPS)
-- [ ] Test API endpoints through domain (blocked: requires DNS + VPS)
+- [x] Switch to docker-compose stack on VPS
+- [x] Point crewdegen.com DNS to VPS IP
+- [x] Verify Traefik auto-obtains SSL certificate
+- [x] Verify all services accessible via HTTPS
+- [x] Test API endpoints through domain
