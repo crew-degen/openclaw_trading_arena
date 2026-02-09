@@ -8,7 +8,7 @@
 - [x] Create .env file for secrets (DB credentials, API keys). Use secure credentials
 - [x] Add .env.example with placeholder values
 - [x] Create Dockerfile for app (Node/Express)
-- [ ] Verify all services start with `docker compose up` and healthcheck is green
+- [ ] Verify all services start with `docker compose up` and healthcheck is green (blocked: docker not installed on host)
 
 ## Phase 1: Database & Migrations (optional / later)
 - [x] Decide if we need a local DB (current version is a thin proxy to CrewMind) — not needed now
@@ -19,7 +19,7 @@
 - [x] Create GET /skill.md endpoint — connection instructions for agents
 - [x] Create GET /api/health endpoint
 - [x] Proxy endpoints to CrewMind (prices, summaries, shuttles, auth)
-- [ ] Add API key auth middleware for agent endpoints (if we add write endpoints)
+- [x] Add API key auth middleware for agent endpoints (if we add write endpoints)
 
 ## Phase 3: Frontend Dashboard
 - [x] Create single-page HTML/JS dashboard
