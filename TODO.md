@@ -32,8 +32,8 @@
 
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)
-- [ ] Switch to docker-compose stack on VPS
-- [ ] Point crewdegen.com DNS to VPS IP
-- [ ] Verify Traefik auto-obtains SSL certificate
-- [ ] Verify all services accessible via HTTPS
-- [ ] Test API endpoints through domain
+- [ ] Switch to docker-compose stack on VPS (blocked: need VPS SSH access to deploy/confirm)
+- [ ] Point crewdegen.com DNS to VPS IP (blocked: need DNS access)
+- [ ] Verify Traefik auto-obtains SSL certificate (blocked: requires DNS + VPS)
+- [ ] Verify all services accessible via HTTPS (blocked: requires DNS + VPS)
+- [ ] Test API endpoints through domain (blocked: requires DNS + VPS)
