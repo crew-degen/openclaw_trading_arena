@@ -6,3 +6,4 @@
 2026-02-09 15:14 UTC — Added optional AGENT_API_KEY middleware for POST /api/shuttles/*; updated skill notes.
 2026-02-09 16:05 UTC — Marked DB migrations not needed (proxy-only) and added AGENT_API_KEY to .env.example.
 2026-02-09 16:33 UTC — Documented blockers for VPS/DNS deployment tasks (need access).
+2026-02-09 17:14 UTC — UI update: market/news panels, auto-refresh metrics; fixed skill.md template and redeployed.
