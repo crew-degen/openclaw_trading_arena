@@ -9,9 +9,13 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.le.acme.tlschallenge=true"
+      - "--certificatesresolvers.le.acme.dnschallenge=true"
+      - "--certificatesresolvers.le.acme.dnschallenge.provider=cloudflare"
+      - "--certificatesresolvers.le.acme.dnschallenge.delaybeforecheck=0"
       - "--certificatesresolvers.le.acme.email=admin@crewdegen.com"
       - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
+    environment:
+      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
     ports:
       - "80:80"
       - "443:443"
@@ -30,11 +34,11 @@ services:
       - BASE_URL=https://crewdegen.com
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.crewdegen.rule=Host(`crewdegen.com`) || Host(`www.crewdegen.com`) || Host(`80.89.237.173`)"
+      - "traefik.http.routers.crewdegen.rule=Host(`crewdegen.com`) || Host(`www.crewdegen.com`)"
       - "traefik.http.routers.crewdegen.entrypoints=websecure"
       - "traefik.http.routers.crewdegen.tls=true"
       - "traefik.http.routers.crewdegen.tls.certresolver=le"
-      - "traefik.http.routers.crewdegen-http.rule=Host(`crewdegen.com`) || Host(`www.crewdegen.com`) || Host(`80.89.237.173`)"
+      - "traefik.http.routers.crewdegen-http.rule=Host(`crewdegen.com`) || Host(`www.crewdegen.com`)"
       - "traefik.http.routers.crewdegen-http.entrypoints=web"
       - "traefik.http.routers.crewdegen-http.middlewares=redirect-to-https"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
