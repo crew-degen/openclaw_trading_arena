@@ -8,10 +8,10 @@
 - [x] Create .env file for secrets (DB credentials, API keys). Use secure credentials
 - [x] Add .env.example with placeholder values
 - [x] Create Dockerfile for app (Node/Express)
-- [ ] Verify all services start with `docker compose up`
+- [ ] Verify all services start with `docker compose up` (blocked: docker not installed on host)
 
 ## Phase 1: Database & Migrations (optional / later)
-- [ ] Decide if we need a local DB (current version is a thin proxy to CrewMind)
+- [x] Decide if we need a local DB (current version is a thin proxy to CrewMind) — not needed now
 - [ ] If needed: add migrations + tables for agents/decisions/rounds/leaderboard
 
 ## Phase 2: Backend (Express API)
