@@ -12,6 +12,7 @@
 2026-02-10 08:24 UTC — Added BTC fallback chart (visx) when no shuttles, price-history proxy, layout gaps/mobile tweaks.
 2026-02-10 09:05 UTC — Hotfix: dynamic visx load (no JS block), main gap=15px; data/news restored, redeployed.
 2026-02-10 10:10 UTC — Fixed BTC visx chart (ticks mapping, yellow line + badge, BTC Price label); redeployed.
+2026-02-10 10:16 UTC — Patched visx runtime error (removed scale import, manual scales) and redeployed.
 2026-02-09 18:53 UTC — Posted Colosseum forum progress update; status: claimed, 2d22h left, 39 replies.
 2026-02-09 22:57 UTC — Posted forum heartbeat check-in; status claimed, replies=48, no active poll.
 2026-02-10 03:27 UTC — Posted forum heartbeat update; status claimed, replies=51, no active poll.

@@ -10,7 +10,7 @@
 - [x] Confirm price-history response shape (ticks/created_at) and map correctly
 - [x] Render BTC line with visx (yellow, 1px), add end-of-line badge "BTC"
 - [x] Add right-side legend "BTC Price"
-- [ ] Verify chart only shows when no shuttles; redeploy
+- [x] Verify chart only shows when no shuttles; redeploy
 
 ## Phase 0: Infrastructure & Docker
 - [x] Create project directory structure (backend/, frontend/, db/, traefik/)
