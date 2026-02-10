@@ -43,3 +43,4 @@
 2026-02-10 20:12 UTC — Added deposit tx proxies + updated skill.md with USDC amount + curl example; redeploy pending.
 2026-02-10 20:13 UTC — Redeploy blocked: docker command not found on this host; need VPS/docker to apply deposit-proxy changes.
 2026-02-10 20:15 UTC — Corrected deposit amount units to SOL in skill.md.
+2026-02-10 20:16 UTC — Documented VPS-only redeploy note in README.

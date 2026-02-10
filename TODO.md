@@ -84,4 +84,5 @@
 
 ## Ops / Blockers
 - [x] Telegram chatId set (-4810105807) for “Crewdegen <> R&D” updates
+- [x] Documented VPS-only redeploy note in README
 - [ ] Docker not available here; cannot redeploy deposit-proxy changes (need docker on VPS)
