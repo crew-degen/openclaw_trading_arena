@@ -1,4 +1,13 @@
+import React from "https://esm.sh/react@18?bundle";
+import { createRoot } from "https://esm.sh/react-dom@18/client?bundle";
+import { scaleTime, scaleLinear } from "https://esm.sh/@visx/scale@3?bundle";
+import { LinePath } from "https://esm.sh/@visx/shape@3?bundle";
+import { Text } from "https://esm.sh/@visx/text@3?bundle";
+
 let refreshing = false;
+let btcRoot = null;
+let btcDataCache = null;
+let showingBtc = false;
 
 async function fetchJSON(url){
   const r = await fetch(url);
@@ -7,12 +16,12 @@ async function fetchJSON(url){
 }
 
 function fmt(n){
-  if(n === null || n === undefined) return '—';
+  if(n === null || n === undefined || Number.isNaN(n)) return '—';
   return Number(n).toFixed(2);
 }
 
 function fmtPct(n){
-  if(n === null || n === undefined) return '—';
+  if(n === null || n === undefined || Number.isNaN(n)) return '—';
   const v = Number(n);
   const sign = v > 0 ? '+' : '';
   return `${sign}${v.toFixed(2)}%`;
@@ -21,6 +30,29 @@ function fmtPct(n){
 function setText(id, text){
   const el = document.getElementById(id);
   if(el) el.textContent = text;
+}
+
+function setStatusClass(el, ok){
+  if(!el) return;
+  el.classList.remove('status-ok','status-bad');
+  el.classList.add(ok ? 'status-ok' : 'status-bad');
+}
+
+function toggleCharts(showPnl){
+  const canvas = document.getElementById('pnlChart');
+  const btc = document.getElementById('btcChart');
+  const caption = document.getElementById('chart-caption');
+  if(showPnl){
+    showingBtc = false;
+    if(btc) btc.hidden = true;
+    if(canvas) canvas.style.display = 'block';
+    if(caption) caption.textContent = 'Top agents — P&L curves (last 5 days)';
+  } else {
+    showingBtc = true;
+    if(btc) btc.hidden = false;
+    if(canvas) canvas.style.display = 'none';
+    if(caption) caption.textContent = 'BTC price (last 24h)';
+  }
 }
 
 async function loadLeaderboard(){
@@ -51,7 +83,7 @@ async function loadLeaderboard(){
     tbody.appendChild(tr);
   }
 
-  return top;
+  return { top, rows };
 }
 
 async function loadRoundStatus(){
@@ -60,12 +92,6 @@ async function loadRoundStatus(){
   const isTrading = day >= 2 && day <= 5; // Tue-Fri
   const label = isTrading ? 'Active trading round' : 'Registration / Break';
   setText('round-status', `${label} · ${now.toUTCString()}`);
-}
-
-function setStatusClass(el, ok){
-  if(!el) return;
-  el.classList.remove('status-ok','status-bad');
-  el.classList.add(ok ? 'status-ok' : 'status-bad');
 }
 
 async function loadHealth(){
@@ -169,21 +195,94 @@ async function loadChart(top){
   if(series.length) drawChart(series);
 }
 
+function normalizeHistory(raw){
+  let arr = raw?.history || raw?.prices || raw?.data || raw?.items || raw;
+  if(arr && arr.BTC) arr = arr.BTC;
+  if(!Array.isArray(arr)) return [];
+  return arr.map(d => {
+    let t = d.timestamp ?? d.ts ?? d.time ?? d.t ?? d.datetime ?? d.date;
+    const price = d.price ?? d.p ?? d.close ?? d.value;
+    if(t === undefined || price === undefined) return null;
+    if(typeof t === 'number' && t < 1e12) t = t * 1000;
+    const dt = new Date(t);
+    return { t: dt, price: Number(price) };
+  }).filter(Boolean).sort((a,b)=>a.t-b.t);
+}
+
+function BtcChart({ data, width, height }){
+  const margin = { top: 24, right: 16, bottom: 24, left: 44 };
+  const xScale = scaleTime({
+    domain: [data[0].t, data[data.length-1].t],
+    range: [margin.left, width - margin.right]
+  });
+  const prices = data.map(d => d.price);
+  const yScale = scaleLinear({
+    domain: [Math.min(...prices), Math.max(...prices)],
+    nice: true,
+    range: [height - margin.bottom, margin.top]
+  });
+
+  return (
+    React.createElement('svg', { width, height },
+      React.createElement(LinePath, {
+        data,
+        x: d => xScale(d.t),
+        y: d => yScale(d.price),
+        stroke: '#4dd2ff',
+        strokeWidth: 2
+      }),
+      React.createElement(Text, { x: margin.left, y: margin.top - 8, fill: '#8b97a7', fontSize: 12 }, 'BTC')
+    )
+  );
+}
+
+function renderBtcChart(data){
+  const container = document.getElementById('btcChart');
+  if(!container) return;
+  const width = Math.max(320, container.clientWidth || 560);
+  const height = 320;
+  if(!btcRoot) btcRoot = createRoot(container);
+  btcRoot.render(React.createElement(BtcChart, { data, width, height }));
+}
+
+async function loadBtcChart(){
+  try {
+    const raw = await fetchJSON('/api/shuttles/price-history?ticker=BTC&hours=24&limit=1000');
+    const data = normalizeHistory(raw);
+    if(!data.length) return;
+    btcDataCache = data;
+    renderBtcChart(data);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 async function refreshAll(includeChart = false){
   if(refreshing) return;
   refreshing = true;
   try {
     await loadRoundStatus();
     await loadHealth();
-    const top = await loadLeaderboard();
+    const { top, rows } = await loadLeaderboard();
     await Promise.all([loadMarket(), loadNews()]);
-    if(includeChart) await loadChart(top);
+
+    if(rows.length === 0){
+      toggleCharts(false);
+      await loadBtcChart();
+    } else {
+      toggleCharts(true);
+      if(includeChart) await loadChart(top);
+    }
   } catch (e){
     console.error(e);
   } finally {
     refreshing = false;
   }
 }
+
+window.addEventListener('resize', () => {
+  if(showingBtc && btcDataCache) renderBtcChart(btcDataCache);
+});
 
 (async function init(){
   await refreshAll(true);

@@ -35,8 +35,9 @@
         </div>
       </div>
       <div class="panel">
+        <div id="btcChart" class="visx-chart" aria-label="BTC price chart" hidden></div>
         <canvas id="pnlChart" width="560" height="320"></canvas>
-        <div class="panel-caption">Top agents — P&L curves (last 5 days)</div>
+        <div id="chart-caption" class="panel-caption">Top agents — P&L curves (last 5 days)</div>
       </div>
     </section>
 
@@ -88,6 +89,6 @@
     <div>Built by CrewMind · Powered by Drift Protocol</div>
   </footer>
 
-  <script src="/app.js"></script>
+  <script type="module" src="/app.js"></script>
 </body>
 </html>

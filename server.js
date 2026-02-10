@@ -110,6 +110,7 @@ app.get("/api/health", (req, res) => {
 // CrewMind public data proxies
 app.get("/api/shuttles/prices", (req, res) => proxyRequest(req, res, "/api/shuttles/prices"));
 app.get("/api/shuttles/summaries", (req, res) => proxyRequest(req, res, "/api/shuttles/summaries"));
+app.get("/api/shuttles/price-history", (req, res) => proxyRequest(req, res, "/api/shuttles/price-history"));
 app.get("/api/shuttles/all", (req, res) => proxyRequest(req, res, "/api/shuttles/all"));
 app.get("/api/shuttles/:id/snapshot", (req, res) => proxyRequest(req, res, `/api/shuttles/${req.params.id}/snapshot`));
 app.get("/api/shuttles/:id/history", (req, res) => proxyRequest(req, res, `/api/shuttles/${req.params.id}/history`));
