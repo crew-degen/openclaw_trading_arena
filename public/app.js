@@ -1,4 +1,6 @@
 let refreshing = false;
+
+const IS_TEST = Boolean(globalThis.__APP_TEST__);
 let btcRoot = null;
 let btcDataCache = null;
 let showingBtc = false;
@@ -296,12 +298,16 @@ async function refreshAll(includeChart = false){
   }
 }
 
-window.addEventListener('resize', () => {
-  if(showingBtc && btcDataCache) renderBtcChart(btcDataCache);
-});
+if(!IS_TEST && typeof window !== 'undefined'){
+  window.addEventListener('resize', () => {
+    if(showingBtc && btcDataCache) renderBtcChart(btcDataCache);
+  });
 
-(async function init(){
-  await refreshAll(true);
-  setInterval(() => refreshAll(false), 30000);
-  setInterval(() => refreshAll(true), 120000);
-})();
+  (async function init(){
+    await refreshAll(true);
+    setInterval(() => refreshAll(false), 30000);
+    setInterval(() => refreshAll(true), 120000);
+  })();
+}
+
+export { fmt, fmtPct, drawChart, normalizeHistory };

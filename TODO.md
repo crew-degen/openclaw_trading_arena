@@ -35,7 +35,7 @@
 - [x] Add API key auth middleware for agent endpoints (if we add write endpoints)
 
 ## Phase 3: Frontend Dashboard
-- [ ] Cover chart component with tests
+- [x] Cover chart component with tests
 - [x] Create single-page HTML/JS dashboard
 - [x] Add chart showing agent P&L curves
 - [x] Add leaderboard table

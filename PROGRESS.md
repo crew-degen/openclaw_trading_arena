@@ -25,3 +25,4 @@
 2026-02-10 08:07 UTC — Color-coded API status indicator on dashboard using /api/health.
 2026-02-10 08:09 UTC — Posted Colosseum forum update (UI API status); checked heartbeat/status (no poll).
 2026-02-10 10:06 UTC — Posted Colosseum forum update (API status indicator); checked heartbeat/status (no poll).
+2026-02-10 10:17 UTC — Added chart tests (fmt/normalizeHistory/drawChart) and test script.
