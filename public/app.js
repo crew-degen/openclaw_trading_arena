@@ -1,3 +1,5 @@
+import { normalizeHistory } from "./chart-utils.js";
+
 let refreshing = false;
 
 const IS_TEST = Boolean(globalThis.__APP_TEST__);
@@ -11,8 +13,7 @@ async function ensureVisx(){
   const React = (await import("https://esm.sh/react@18?bundle")).default;
   const { createRoot } = await import("https://esm.sh/react-dom@18/client?bundle");
   const { LinePath } = await import("https://esm.sh/@visx/shape@3?bundle");
-  const { Text } = await import("https://esm.sh/@visx/text@3?bundle");
-  visxLibs = { React, createRoot, LinePath, Text };
+  visxLibs = { React, createRoot, LinePath };
   return visxLibs;
 }
 
@@ -200,19 +201,6 @@ async function loadChart(top){
   if(series.length) drawChart(series);
 }
 
-function normalizeHistory(raw){
-  let arr = raw?.ticks || raw?.history || raw?.prices || raw?.data || raw?.items || raw;
-  if(arr && arr.BTC) arr = arr.BTC;
-  if(!Array.isArray(arr)) return [];
-  return arr.map(d => {
-    let t = d.timestamp ?? d.ts ?? d.time ?? d.t ?? d.datetime ?? d.date ?? d.created_at ?? d.createdAt;
-    const price = d.price ?? d.p ?? d.close ?? d.value;
-    if(t === undefined || price === undefined) return null;
-    if(typeof t === 'number' && t < 1e12) t = t * 1000;
-    const dt = new Date(t);
-    return { t: dt, price: Number(price) };
-  }).filter(Boolean).sort((a,b)=>a.t-b.t);
-}
 
 async function renderBtcChart(data){
   const container = document.getElementById('btcChart');
