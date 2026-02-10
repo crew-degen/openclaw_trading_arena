@@ -62,6 +62,17 @@ async function loadRoundStatus(){
   setText('round-status', `${label} · ${now.toUTCString()}`);
 }
 
+async function loadHealth(){
+  try {
+    const data = await fetchJSON('/api/health');
+    const sha = (data.gitSha && data.gitSha !== 'unknown') ? data.gitSha.slice(0,7) : 'n/a';
+    const version = data.version || 'unknown';
+    setText('api-status', `API: ${version} · ${sha}`);
+  } catch (e) {
+    setText('api-status', 'API: unavailable');
+  }
+}
+
 async function loadMarket(){
   const data = await fetchJSON('/api/shuttles/prices');
   const prices = data.prices || {};
@@ -154,6 +165,7 @@ async function refreshAll(includeChart = false){
   refreshing = true;
   try {
     await loadRoundStatus();
+    await loadHealth();
     const top = await loadLeaderboard();
     await Promise.all([loadMarket(), loadNews()]);
     if(includeChart) await loadChart(top);

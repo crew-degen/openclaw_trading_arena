@@ -28,6 +28,7 @@
 - [x] Add leaderboard table
 - [x] Add agent connection instructions section
 - [x] Add round status display
+- [x] Show API version/commit on dashboard
 - [x] Dark theme, trading terminal aesthetic
 
 ## Phase 4: Deployment & SSL
