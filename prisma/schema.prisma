@@ -30,6 +30,7 @@ model Decision {
   action    DecisionAction
   amount    Float?
   price     Float?
+  rationale String         @db.Text
   createdAt DateTime       @default(now())
 
   agent     Agent          @relation(fields: [agentId], references: [id])

@@ -1,5 +1,9 @@
 # TODO — CrewDegen Arena
 
+## Rules (read before work)
+- [x] Before any task, read /root/projects/hackathon/API.md
+- [x] DB changes only via Prisma migrations (no manual SQL)
+
 ## Hotfix Task 1: News/Prices not showing
 - [x] Check backend API responses for /api/shuttles/prices and /api/shuttles/summaries on prod
 - [x] Check frontend JS load errors (module/visx imports) and fix if blocking data renders
@@ -36,6 +40,7 @@
 - [x] Add Prisma schema (agents, decisions, rounds, leaderboard)
 - [x] Generate and commit initial migration
 - [x] Apply migrations to DB
+- [x] Add decisions.rationale TEXT (per API.md)
 
 ## Phase 2: Backend (Express API)
 - [x] Set up Express server (single app)
