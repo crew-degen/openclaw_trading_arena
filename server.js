@@ -202,7 +202,7 @@ app.post("/api/shuttles/send-setup-tx", requireAgentKey, (req, res) => proxyRequ
 app.post(
   "/api/shuttles/create",
   requireAgentKey,
-  requireRoundStatus(["registration"]),
+  requireRoundStatus(["registration", "active"]),
   (req, res) => proxyRequest(req, res, "/api/shuttles/create")
 );
 app.post(
