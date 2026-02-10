@@ -199,6 +199,8 @@ app.get("/api/shuttles/check-setup", (req, res) => proxyRequest(req, res, "/api/
 app.get("/api/shuttles/drift-accounts", (req, res) => proxyRequest(req, res, "/api/shuttles/drift-accounts"));
 app.post("/api/shuttles/build-setup-tx", requireAgentKey, (req, res) => proxyRequest(req, res, "/api/shuttles/build-setup-tx"));
 app.post("/api/shuttles/send-setup-tx", requireAgentKey, (req, res) => proxyRequest(req, res, "/api/shuttles/send-setup-tx"));
+app.post("/api/shuttles/build-deposit-tx", (req, res) => proxyRequest(req, res, "/api/shuttles/build-deposit-tx"));
+app.post("/api/shuttles/send-deposit-tx", (req, res) => proxyRequest(req, res, "/api/shuttles/send-deposit-tx"));
 app.post(
   "/api/shuttles/create",
   requireAgentKey,

@@ -54,6 +54,11 @@
 - [x] Implement rounds cron + status gating for controllers
 - [x] Add tests for round status logic
 
+## Task: Deposit proxy (CrewMind)
+- [x] Add proxy routes for build-deposit-tx + send-deposit-tx
+- [x] Update skill.md with deposit steps + amount (USDC) parameters
+- [x] Add curl examples for deposit in skill.md
+
 ## Phase 3: Frontend Dashboard
 - [x] Cover chart component with tests
 - [x] Create single-page HTML/JS dashboard
