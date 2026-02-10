@@ -12,6 +12,11 @@
 - [x] Add right-side legend "BTC Price"
 - [x] Verify chart only shows when no shuttles; redeploy
 
+## Hotfix Task 3: BTC badge with last price
+- [x] Format last BTC price and append to badge (e.g., "BTC / $89,012.12")
+- [x] Adjust badge width to fit text
+- [x] Redeploy and verify
+
 ## Phase 0: Infrastructure & Docker
 - [x] Create project directory structure (backend/, frontend/, db/, traefik/)
 - [x] Update docker-compose.yml with services: traefik, app, db

@@ -232,8 +232,11 @@ async function renderBtcChart(data){
   const last = data[data.length - 1];
   const lx = xScale(last.t.getTime());
   const ly = yScale(last.price);
-  const badgeW = 34;
-  const badgeH = 16;
+  const lastPrice = last.price;
+  const formatted = lastPrice?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const labelText = `BTC / $${formatted}`;
+  const badgeH = 18;
+  const badgeW = Math.max(80, 6 * labelText.length);
   let bx = lx + 8;
   if (bx + badgeW > width - margin.right) bx = lx - badgeW - 8;
   const by = Math.max(margin.top, Math.min(ly - badgeH / 2, height - margin.bottom - badgeH));
@@ -259,9 +262,9 @@ async function renderBtcChart(data){
     lineEl,
     React.createElement('rect', {
       x: bx, y: by, width: badgeW, height: badgeH,
-      rx: 6, ry: 6, fill: '#1f2a3a', stroke: '#f5d547'
+      rx: 8, ry: 8, fill: '#1f2a3a', stroke: '#f5d547'
     }),
-    React.createElement('text', { x: bx + badgeW/2, y: by + badgeH/2 + 4, fill: '#f5d547', fontSize: 10, textAnchor: 'middle' }, 'BTC'),
+    React.createElement('text', { x: bx + badgeW/2, y: by + badgeH/2 + 4, fill: '#f5d547', fontSize: 10, textAnchor: 'middle' }, labelText),
     React.createElement('text', { x: width - 6, y: height/2, fill: '#8b97a7', fontSize: 12, textAnchor: 'middle', transform: `rotate(90 ${width - 6} ${height/2})` }, 'BTC Price')
   );
   btcRoot.render(svg);
