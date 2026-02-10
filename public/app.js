@@ -200,11 +200,11 @@ async function loadChart(top){
 }
 
 function normalizeHistory(raw){
-  let arr = raw?.history || raw?.prices || raw?.data || raw?.items || raw;
+  let arr = raw?.ticks || raw?.history || raw?.prices || raw?.data || raw?.items || raw;
   if(arr && arr.BTC) arr = arr.BTC;
   if(!Array.isArray(arr)) return [];
   return arr.map(d => {
-    let t = d.timestamp ?? d.ts ?? d.time ?? d.t ?? d.datetime ?? d.date;
+    let t = d.timestamp ?? d.ts ?? d.time ?? d.t ?? d.datetime ?? d.date ?? d.created_at ?? d.createdAt;
     const price = d.price ?? d.p ?? d.close ?? d.value;
     if(t === undefined || price === undefined) return null;
     if(typeof t === 'number' && t < 1e12) t = t * 1000;
@@ -215,11 +215,11 @@ function normalizeHistory(raw){
 
 async function renderBtcChart(data){
   const container = document.getElementById('btcChart');
-  if(!container) return;
+  if(!container || data.length < 2) return;
   const { React, createRoot, scaleTime, scaleLinear, LinePath, Text } = await ensureVisx();
   const width = Math.max(320, container.clientWidth || 560);
   const height = 320;
-  const margin = { top: 24, right: 16, bottom: 24, left: 44 };
+  const margin = { top: 24, right: 24, bottom: 24, left: 44 };
   const xScale = scaleTime({
     domain: [data[0].t, data[data.length-1].t],
     range: [margin.left, width - margin.right]
@@ -231,16 +231,30 @@ async function renderBtcChart(data){
     range: [height - margin.bottom, margin.top]
   });
 
+  const last = data[data.length - 1];
+  const lx = xScale(last.t);
+  const ly = yScale(last.price);
+  const badgeW = 34;
+  const badgeH = 16;
+  let bx = lx + 8;
+  if (bx + badgeW > width - margin.right) bx = lx - badgeW - 8;
+  const by = Math.max(margin.top, Math.min(ly - badgeH / 2, height - margin.bottom - badgeH));
+
   if(!btcRoot) btcRoot = createRoot(container);
   const svg = React.createElement('svg', { width, height },
     React.createElement(LinePath, {
       data,
       x: d => xScale(d.t),
       y: d => yScale(d.price),
-      stroke: '#4dd2ff',
-      strokeWidth: 2
+      stroke: '#f5d547',
+      strokeWidth: 1
     }),
-    React.createElement(Text, { x: margin.left, y: margin.top - 8, fill: '#8b97a7', fontSize: 12 }, 'BTC')
+    React.createElement('rect', {
+      x: bx, y: by, width: badgeW, height: badgeH,
+      rx: 6, ry: 6, fill: '#1f2a3a', stroke: '#f5d547'
+    }),
+    React.createElement(Text, { x: bx + badgeW/2, y: by + badgeH/2 + 4, fill: '#f5d547', fontSize: 10, textAnchor: 'middle' }, 'BTC'),
+    React.createElement(Text, { x: width - 6, y: height/2, fill: '#8b97a7', fontSize: 12, textAnchor: 'middle', angle: 90 }, 'BTC Price')
   );
   btcRoot.render(svg);
 }

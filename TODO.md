@@ -6,6 +6,12 @@
 - [x] Ensure BTC fallback chart (visx) loads only when needed and does not block main UI
 - [x] Verify layout gap = 15px (no collapse) and redeploy
 
+## Hotfix Task 2: BTC chart not rendering
+- [x] Confirm price-history response shape (ticks/created_at) and map correctly
+- [x] Render BTC line with visx (yellow, 1px), add end-of-line badge "BTC"
+- [x] Add right-side legend "BTC Price"
+- [x] Verify chart only shows when no shuttles; redeploy
+
 ## Phase 0: Infrastructure & Docker
 - [x] Create project directory structure (backend/, frontend/, db/, traefik/)
 - [x] Update docker-compose.yml with services: traefik, app, db
