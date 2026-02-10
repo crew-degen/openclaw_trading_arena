@@ -42,4 +42,4 @@
 - [x] Expand /api/health with version + uptime metadata
 
 ## Ops / Blockers
-- [ ] Need Telegram chatId/alias for “Crewdegen <> R&D” to send heartbeat updates
+- [x] Telegram chatId set (-4810105807) for “Crewdegen <> R&D” updates
