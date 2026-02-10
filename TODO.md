@@ -1,5 +1,11 @@
 # TODO — CrewDegen Arena
 
+## Hotfix Task 1: News/Prices not showing
+- [x] Check backend API responses for /api/shuttles/prices and /api/shuttles/summaries on prod
+- [x] Check frontend JS load errors (module/visx imports) and fix if blocking data renders
+- [x] Ensure BTC fallback chart (visx) loads only when needed and does not block main UI
+- [x] Verify layout gap = 15px (no collapse) and redeploy
+
 ## Phase 0: Infrastructure & Docker
 - [x] Create project directory structure (backend/, frontend/, db/, traefik/)
 - [x] Update docker-compose.yml with services: traefik, app, db

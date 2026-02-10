@@ -1,13 +1,19 @@
-import React from "https://esm.sh/react@18?bundle";
-import { createRoot } from "https://esm.sh/react-dom@18/client?bundle";
-import { scaleTime, scaleLinear } from "https://esm.sh/@visx/scale@3?bundle";
-import { LinePath } from "https://esm.sh/@visx/shape@3?bundle";
-import { Text } from "https://esm.sh/@visx/text@3?bundle";
-
 let refreshing = false;
 let btcRoot = null;
 let btcDataCache = null;
 let showingBtc = false;
+let visxLibs = null;
+
+async function ensureVisx(){
+  if(visxLibs) return visxLibs;
+  const React = (await import("https://esm.sh/react@18?bundle")).default;
+  const { createRoot } = await import("https://esm.sh/react-dom@18/client?bundle");
+  const { scaleTime, scaleLinear } = await import("https://esm.sh/@visx/scale@3?bundle");
+  const { LinePath } = await import("https://esm.sh/@visx/shape@3?bundle");
+  const { Text } = await import("https://esm.sh/@visx/text@3?bundle");
+  visxLibs = { React, createRoot, scaleTime, scaleLinear, LinePath, Text };
+  return visxLibs;
+}
 
 async function fetchJSON(url){
   const r = await fetch(url);
@@ -61,7 +67,6 @@ async function loadLeaderboard(){
   const top = rows.slice(0,10);
   setText('agent-count', `Agents: ${rows.length}`);
 
-  // stats
   const topPnl = rows[0]?.total_pnl ?? null;
   const avgPnl = rows.length ? (rows.reduce((s,r)=> s + (r.total_pnl||0), 0) / rows.length) : null;
   setText('top-pnl', `Top PnL: ${fmt(topPnl)}`);
@@ -88,8 +93,8 @@ async function loadLeaderboard(){
 
 async function loadRoundStatus(){
   const now = new Date();
-  const day = now.getUTCDay(); // 1=Mon
-  const isTrading = day >= 2 && day <= 5; // Tue-Fri
+  const day = now.getUTCDay();
+  const isTrading = day >= 2 && day <= 5;
   const label = isTrading ? 'Active trading round' : 'Registration / Break';
   setText('round-status', `${label} · ${now.toUTCString()}`);
 }
@@ -155,7 +160,6 @@ function drawChart(series){
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  // background grid
   ctx.strokeStyle = '#1a2333';
   for(let i=0;i<5;i++){
     const y = (canvas.height/5)*i;
@@ -209,7 +213,12 @@ function normalizeHistory(raw){
   }).filter(Boolean).sort((a,b)=>a.t-b.t);
 }
 
-function BtcChart({ data, width, height }){
+async function renderBtcChart(data){
+  const container = document.getElementById('btcChart');
+  if(!container) return;
+  const { React, createRoot, scaleTime, scaleLinear, LinePath, Text } = await ensureVisx();
+  const width = Math.max(320, container.clientWidth || 560);
+  const height = 320;
   const margin = { top: 24, right: 16, bottom: 24, left: 44 };
   const xScale = scaleTime({
     domain: [data[0].t, data[data.length-1].t],
@@ -222,27 +231,18 @@ function BtcChart({ data, width, height }){
     range: [height - margin.bottom, margin.top]
   });
 
-  return (
-    React.createElement('svg', { width, height },
-      React.createElement(LinePath, {
-        data,
-        x: d => xScale(d.t),
-        y: d => yScale(d.price),
-        stroke: '#4dd2ff',
-        strokeWidth: 2
-      }),
-      React.createElement(Text, { x: margin.left, y: margin.top - 8, fill: '#8b97a7', fontSize: 12 }, 'BTC')
-    )
-  );
-}
-
-function renderBtcChart(data){
-  const container = document.getElementById('btcChart');
-  if(!container) return;
-  const width = Math.max(320, container.clientWidth || 560);
-  const height = 320;
   if(!btcRoot) btcRoot = createRoot(container);
-  btcRoot.render(React.createElement(BtcChart, { data, width, height }));
+  const svg = React.createElement('svg', { width, height },
+    React.createElement(LinePath, {
+      data,
+      x: d => xScale(d.t),
+      y: d => yScale(d.price),
+      stroke: '#4dd2ff',
+      strokeWidth: 2
+    }),
+    React.createElement(Text, { x: margin.left, y: margin.top - 8, fill: '#8b97a7', fontSize: 12 }, 'BTC')
+  );
+  btcRoot.render(svg);
 }
 
 async function loadBtcChart(){
@@ -251,7 +251,7 @@ async function loadBtcChart(){
     const data = normalizeHistory(raw);
     if(!data.length) return;
     btcDataCache = data;
-    renderBtcChart(data);
+    await renderBtcChart(data);
   } catch (e) {
     console.error(e);
   }

@@ -9,8 +9,7 @@ a{color:var(--text); text-decoration:none}
 .brand span{color:var(--accent)}
 nav a{margin-left:16px;color:var(--muted)}
 nav a:hover{color:var(--text)}
-main{padding:32px;max-width:1200px;margin:0 auto}
-main > section + section{margin-top:var(--gap)}
+main{padding:32px;max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:var(--gap)}
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--gap);align-items:center}
 .hero h1{font-size:40px;margin:0 0 12px}
 .hero p{color:var(--muted);line-height:1.6}
