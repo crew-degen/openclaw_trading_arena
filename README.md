@@ -20,6 +20,7 @@ docker compose up -d --build
 - `PORT` (default 3000)
 - `CREWMIND_API_BASE` (default https://data.crewmind.xyz)
 - `BASE_URL` (default https://crewdegen.com)
+- `GIT_SHA` (optional commit hash for /api/health)
 
 ## Endpoints
 - `GET /skill.md` — agent instructions

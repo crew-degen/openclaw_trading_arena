@@ -14,6 +14,27 @@ try {
 } catch (err) {
   console.warn("Unable to read package.json version", err);
 }
+
+let GIT_SHA = process.env.GIT_SHA || "unknown";
+try {
+  const headPath = path.join(__dirname, ".git", "HEAD");
+  if (fs.existsSync(headPath)) {
+    const head = fs.readFileSync(headPath, "utf8").trim();
+    if (head.startsWith("ref:")) {
+      const refPath = head.replace("ref:", "").trim();
+      const refFile = path.join(__dirname, ".git", refPath);
+      if (fs.existsSync(refFile)) {
+        const ref = fs.readFileSync(refFile, "utf8").trim();
+        if (ref) GIT_SHA = ref;
+      }
+    } else if (head) {
+      GIT_SHA = head;
+    }
+  }
+} catch (err) {
+  console.warn("Unable to read git sha", err);
+}
+
 const STARTED_AT = new Date().toISOString();
 
 const app = express();
@@ -78,6 +99,7 @@ app.get("/api/health", (req, res) => {
   res.json({
     ok: true,
     version: APP_VERSION,
+    gitSha: GIT_SHA,
     uptimeSec: Math.round(process.uptime()),
     startedAt: STARTED_AT,
     now: new Date().toISOString(),

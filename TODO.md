@@ -40,6 +40,7 @@
 
 ## Phase 5: Observability
 - [x] Expand /api/health with version + uptime metadata
+- [x] Add git commit hash to /api/health when available
 
 ## Ops / Blockers
 - [x] Telegram chatId set (-4810105807) for “Crewdegen <> R&D” updates
