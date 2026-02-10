@@ -4,6 +4,9 @@
 - [x] Before any task, read /root/projects/hackathon/API.md
 - [x] DB changes only via Prisma migrations (no manual SQL)
 
+## Hackathon
+- [x] Update Colosseum project description with latest features
+
 ## Hotfix Task 1: News/Prices not showing
 - [x] Check backend API responses for /api/shuttles/prices and /api/shuttles/summaries on prod
 - [x] Check frontend JS load errors (module/visx imports) and fix if blocking data renders
