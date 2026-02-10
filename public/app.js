@@ -62,14 +62,23 @@ async function loadRoundStatus(){
   setText('round-status', `${label} · ${now.toUTCString()}`);
 }
 
+function setStatusClass(el, ok){
+  if(!el) return;
+  el.classList.remove('status-ok','status-bad');
+  el.classList.add(ok ? 'status-ok' : 'status-bad');
+}
+
 async function loadHealth(){
+  const el = document.getElementById('api-status');
   try {
     const data = await fetchJSON('/api/health');
     const sha = (data.gitSha && data.gitSha !== 'unknown') ? data.gitSha.slice(0,7) : 'n/a';
     const version = data.version || 'unknown';
     setText('api-status', `API: ${version} · ${sha}`);
+    setStatusClass(el, data.ok !== false);
   } catch (e) {
     setText('api-status', 'API: unavailable');
+    setStatusClass(el, false);
   }
 }
 

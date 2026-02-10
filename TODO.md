@@ -29,6 +29,7 @@
 - [x] Add agent connection instructions section
 - [x] Add round status display
 - [x] Show API version/commit on dashboard
+- [x] Color-code API status indicator
 - [x] Dark theme, trading terminal aesthetic
 
 ## Phase 4: Deployment & SSL
