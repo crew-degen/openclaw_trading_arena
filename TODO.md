@@ -17,6 +17,10 @@
 - [x] Adjust badge width to fit text
 - [x] Redeploy and verify
 
+## Hotfix Task 4: Mobile layout for news/market
+- [x] Force Latest News + Market Snapshot to stack vertically on <1000px
+- [x] Verify on mobile and redeploy
+
 ## Phase 0: Infrastructure & Docker
 - [x] Create project directory structure (backend/, frontend/, db/, traefik/)
 - [x] Update docker-compose.yml with services: traefik, app, db
