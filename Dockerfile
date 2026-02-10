@@ -1,6 +1,6 @@
-FROM node:22-alpine
+FROM node:22-bullseye-slim
 WORKDIR /app
-RUN apk add --no-cache curl
+RUN apt-get update && apt-get install -y curl openssl && rm -rf /var/lib/apt/lists/*
 COPY package.json package-lock.json* ./
 RUN npm install --production
 COPY . .
