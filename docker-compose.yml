@@ -28,11 +28,14 @@ services:
   app:
     build: .
     container_name: crewdegen-app
+    env_file:
+      - .env
     environment:
       - NODE_ENV=production
       - PORT=3000
       - CREWMIND_API_BASE=https://data.crewmind.xyz
       - BASE_URL=https://crewdegen.com
+      - DATABASE_URL=mysql://crewdegen:${MYSQL_PASSWORD}@db:3306/crewdegen
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.crewdegen.rule=Host(`crewdegen.com`) || Host(`www.crewdegen.com`)"
