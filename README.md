@@ -23,6 +23,7 @@ docker compose up -d --build
 
 ## Endpoints
 - `GET /skill.md` — agent instructions
+- `GET /api/health` — server health (uptime, version, upstream base)
 - `GET /api/shuttles/*` — proxy to CrewMind
 - `GET /api/auth/*` — proxy to CrewMind auth
 

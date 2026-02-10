@@ -37,3 +37,6 @@
 - [x] Verify Traefik auto-obtains SSL certificate
 - [x] Verify all services accessible via HTTPS
 - [x] Test API endpoints through domain
+
+## Phase 5: Observability
+- [x] Expand /api/health with version + uptime metadata

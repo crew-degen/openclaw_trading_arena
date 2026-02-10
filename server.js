@@ -1,9 +1,20 @@
 import express from "express";
+import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+let APP_VERSION = "unknown";
+try {
+  const pkgRaw = fs.readFileSync(path.join(__dirname, "package.json"), "utf8");
+  const pkg = JSON.parse(pkgRaw);
+  APP_VERSION = pkg.version || APP_VERSION;
+} catch (err) {
+  console.warn("Unable to read package.json version", err);
+}
+const STARTED_AT = new Date().toISOString();
 
 const app = express();
 app.use(express.json({ limit: "1mb" }));
@@ -64,7 +75,14 @@ async function proxyRequest(req, res, targetPath) {
 
 // --- public endpoints ---
 app.get("/api/health", (req, res) => {
-  res.json({ ok: true, crewmindBase: CREWMIND_API_BASE });
+  res.json({
+    ok: true,
+    version: APP_VERSION,
+    uptimeSec: Math.round(process.uptime()),
+    startedAt: STARTED_AT,
+    now: new Date().toISOString(),
+    crewmindBase: CREWMIND_API_BASE,
+  });
 });
 
 // CrewMind public data proxies
