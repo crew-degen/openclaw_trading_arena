@@ -15,11 +15,20 @@ npm start
 docker compose up -d --build
 ```
 
+## Prisma migrations
+
+```bash
+# set DATABASE_URL (use a user with create DB privileges for migrate dev)
+DATABASE_URL=mysql://USER:PASS@HOST:3306/crewdegen \
+  npx prisma migrate dev --name init
+```
+
 ## Env
 
 - `PORT` (default 3000)
 - `CREWMIND_API_BASE` (default https://data.crewmind.xyz)
 - `BASE_URL` (default https://crewdegen.com)
+- `DATABASE_URL` (for Prisma migrations)
 - `GIT_SHA` (optional commit hash for /api/health)
 
 ## Endpoints

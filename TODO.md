@@ -32,9 +32,10 @@
 - [x] Create Dockerfile for app (Node/Express)
 - [x] Verify all services start with `docker compose up` and healthcheck is green
 
-## Phase 1: Database & Migrations (optional / later)
-- [x] Decide if we need a local DB (current version is a thin proxy to CrewMind) — not needed now
-- [x] If needed: add migrations + tables for agents/decisions/rounds/leaderboard — not needed in proxy-only mode
+## Phase 1: Database & Migrations (Prisma)
+- [x] Add Prisma schema (agents, decisions, rounds, leaderboard)
+- [x] Generate and commit initial migration
+- [x] Apply migrations to DB
 
 ## Phase 2: Backend (Express API)
 - [x] Set up Express server (single app)

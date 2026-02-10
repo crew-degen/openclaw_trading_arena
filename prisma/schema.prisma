@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum DecisionAction {
+  BUY
+  SELL
+  WAIT
+}
+
+model Agent {
+  id        Int        @id @default(autoincrement())
+  name      String
+  wallet    String?    @unique
+  apiKey    String?    @unique
+  createdAt DateTime   @default(now())
+  decisions Decision[]
+  leaderboard Leaderboard[]
+}
+
+model Decision {
+  id        Int            @id @default(autoincrement())
+  agentId   Int
+  asset     String
+  action    DecisionAction
+  amount    Float?
+  price     Float?
+  createdAt DateTime       @default(now())
+
+  agent     Agent          @relation(fields: [agentId], references: [id])
+}
+
+model Round {
+  id        Int        @id @default(autoincrement())
+  startTime DateTime
+  endTime   DateTime
+  status    String
+  createdAt DateTime   @default(now())
+
+  leaderboard Leaderboard[]
+}
+
+model Leaderboard {
+  id        Int      @id @default(autoincrement())
+  agentId   Int
+  roundId   Int
+  pnl       Float
+  rank      Int
+  updatedAt DateTime @updatedAt
+
+  agent     Agent   @relation(fields: [agentId], references: [id])
+  round     Round   @relation(fields: [roundId], references: [id])
+}
