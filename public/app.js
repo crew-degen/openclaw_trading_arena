@@ -8,10 +8,9 @@ async function ensureVisx(){
   if(visxLibs) return visxLibs;
   const React = (await import("https://esm.sh/react@18?bundle")).default;
   const { createRoot } = await import("https://esm.sh/react-dom@18/client?bundle");
-  const { scaleTime, scaleLinear } = await import("https://esm.sh/@visx/scale@3?bundle");
   const { LinePath } = await import("https://esm.sh/@visx/shape@3?bundle");
   const { Text } = await import("https://esm.sh/@visx/text@3?bundle");
-  visxLibs = { React, createRoot, scaleTime, scaleLinear, LinePath, Text };
+  visxLibs = { React, createRoot, LinePath, Text };
   return visxLibs;
 }
 
@@ -216,23 +215,26 @@ function normalizeHistory(raw){
 async function renderBtcChart(data){
   const container = document.getElementById('btcChart');
   if(!container || data.length < 2) return;
-  const { React, createRoot, scaleTime, scaleLinear, LinePath, Text } = await ensureVisx();
+  const { React, createRoot, LinePath, Text } = await ensureVisx();
   const width = Math.max(320, container.clientWidth || 560);
   const height = 320;
   const margin = { top: 24, right: 24, bottom: 24, left: 44 };
-  const xScale = scaleTime({
-    domain: [data[0].t, data[data.length-1].t],
-    range: [margin.left, width - margin.right]
-  });
+  const xMin = data[0].t.getTime();
+  const xMax = data[data.length-1].t.getTime();
   const prices = data.map(d => d.price);
-  const yScale = scaleLinear({
-    domain: [Math.min(...prices), Math.max(...prices)],
-    nice: true,
-    range: [height - margin.bottom, margin.top]
-  });
+  const yMin = Math.min(...prices);
+  const yMax = Math.max(...prices);
+  const xScale = (t) => {
+    const denom = (xMax - xMin) || 1;
+    return margin.left + ((t - xMin) / denom) * (width - margin.left - margin.right);
+  };
+  const yScale = (p) => {
+    const denom = (yMax - yMin) || 1;
+    return height - margin.bottom - ((p - yMin) / denom) * (height - margin.top - margin.bottom);
+  };
 
   const last = data[data.length - 1];
-  const lx = xScale(last.t);
+  const lx = xScale(last.t.getTime());
   const ly = yScale(last.price);
   const badgeW = 34;
   const badgeH = 16;
@@ -244,7 +246,7 @@ async function renderBtcChart(data){
   const svg = React.createElement('svg', { width, height },
     React.createElement(LinePath, {
       data,
-      x: d => xScale(d.t),
+      x: d => xScale(d.t.getTime()),
       y: d => yScale(d.price),
       stroke: '#f5d547',
       strokeWidth: 1

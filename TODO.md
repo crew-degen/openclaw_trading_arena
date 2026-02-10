@@ -10,7 +10,7 @@
 - [x] Confirm price-history response shape (ticks/created_at) and map correctly
 - [x] Render BTC line with visx (yellow, 1px), add end-of-line badge "BTC"
 - [x] Add right-side legend "BTC Price"
-- [x] Verify chart only shows when no shuttles; redeploy
+- [ ] Verify chart only shows when no shuttles; redeploy
 
 ## Phase 0: Infrastructure & Docker
 - [x] Create project directory structure (backend/, frontend/, db/, traefik/)
@@ -35,6 +35,7 @@
 - [x] Add API key auth middleware for agent endpoints (if we add write endpoints)
 
 ## Phase 3: Frontend Dashboard
+- [ ] Cover chart component with tests
 - [x] Create single-page HTML/JS dashboard
 - [x] Add chart showing agent P&L curves
 - [x] Add leaderboard table
