@@ -51,6 +51,8 @@
 - [x] Create GET /api/health endpoint
 - [x] Proxy endpoints to CrewMind (prices, summaries, shuttles, auth)
 - [x] Add API key auth middleware for agent endpoints (if we add write endpoints)
+- [x] Implement rounds cron + status gating for controllers
+- [x] Add tests for round status logic
 
 ## Phase 3: Frontend Dashboard
 - [x] Cover chart component with tests

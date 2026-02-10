@@ -2,9 +2,15 @@ import express from "express";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { PrismaClient } from "@prisma/client";
+import { computeRoundStatus, getRoundWindow } from "./lib/rounds.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const prisma = new PrismaClient();
+
+const ROUND_CLOSE_HOUR_UTC = Number(process.env.ROUND_CLOSE_HOUR_UTC || 18);
+let roundCache = { at: 0, round: null };
 
 let APP_VERSION = "unknown";
 try {
@@ -94,8 +100,58 @@ async function proxyRequest(req, res, targetPath) {
   }
 }
 
+async function ensureRound(now = new Date()) {
+  const status = computeRoundStatus(now, ROUND_CLOSE_HOUR_UTC);
+  const { activeStart, activeEnd } = getRoundWindow(now, ROUND_CLOSE_HOUR_UTC);
+  let round = await prisma.round.findFirst({ where: { startTime: activeStart } });
+  if (!round) {
+    round = await prisma.round.create({
+      data: {
+        startTime: activeStart,
+        endTime: activeEnd,
+        status,
+      },
+    });
+  } else if (round.status !== status) {
+    round = await prisma.round.update({ where: { id: round.id }, data: { status } });
+  }
+  return round;
+}
+
+async function getRoundCached() {
+  const now = Date.now();
+  if (roundCache.round && now - roundCache.at < 60000) return roundCache.round;
+  const round = await ensureRound(new Date());
+  roundCache = { at: now, round };
+  return round;
+}
+
+function requireRoundStatus(allowed) {
+  return async (req, res, next) => {
+    try {
+      const round = await getRoundCached();
+      if (!allowed.includes(round.status)) {
+        return res.status(403).json({ error: "round_inactive", status: round.status });
+      }
+      next();
+    } catch (err) {
+      return res.status(500).json({ error: "round_status_failed" });
+    }
+  };
+}
+
+// cron-like updater
+setInterval(() => {
+  ensureRound(new Date()).catch(() => null);
+}, 5 * 60 * 1000);
+
 // --- public endpoints ---
-app.get("/api/health", (req, res) => {
+app.get("/api/health", async (req, res) => {
+  let roundStatus = "unknown";
+  try {
+    const round = await getRoundCached();
+    roundStatus = round?.status || "unknown";
+  } catch {}
   res.json({
     ok: true,
     version: APP_VERSION,
@@ -104,10 +160,25 @@ app.get("/api/health", (req, res) => {
     startedAt: STARTED_AT,
     now: new Date().toISOString(),
     crewmindBase: CREWMIND_API_BASE,
+    roundStatus,
   });
 });
 
 // CrewMind public data proxies
+app.get("/api/rounds/status", async (req, res) => {
+  try {
+    const round = await getRoundCached();
+    res.json({
+      status: round.status,
+      startTime: round.startTime,
+      endTime: round.endTime,
+      roundId: round.id,
+    });
+  } catch (err) {
+    res.status(500).json({ error: "round_status_failed" });
+  }
+});
+
 app.get("/api/shuttles/prices", (req, res) => proxyRequest(req, res, "/api/shuttles/prices"));
 app.get("/api/shuttles/summaries", (req, res) => proxyRequest(req, res, "/api/shuttles/summaries"));
 app.get("/api/shuttles/price-history", (req, res) => proxyRequest(req, res, "/api/shuttles/price-history"));
@@ -128,8 +199,18 @@ app.get("/api/shuttles/check-setup", (req, res) => proxyRequest(req, res, "/api/
 app.get("/api/shuttles/drift-accounts", (req, res) => proxyRequest(req, res, "/api/shuttles/drift-accounts"));
 app.post("/api/shuttles/build-setup-tx", requireAgentKey, (req, res) => proxyRequest(req, res, "/api/shuttles/build-setup-tx"));
 app.post("/api/shuttles/send-setup-tx", requireAgentKey, (req, res) => proxyRequest(req, res, "/api/shuttles/send-setup-tx"));
-app.post("/api/shuttles/create", requireAgentKey, (req, res) => proxyRequest(req, res, "/api/shuttles/create"));
-app.post("/api/shuttles/:id/decision", requireAgentKey, (req, res) => proxyRequest(req, res, `/api/shuttles/${req.params.id}/decision`));
+app.post(
+  "/api/shuttles/create",
+  requireAgentKey,
+  requireRoundStatus(["registration"]),
+  (req, res) => proxyRequest(req, res, "/api/shuttles/create")
+);
+app.post(
+  "/api/shuttles/:id/decision",
+  requireAgentKey,
+  requireRoundStatus(["active"]),
+  (req, res) => proxyRequest(req, res, `/api/shuttles/${req.params.id}/decision`)
+);
 app.post("/api/shuttles/:id/toggle", requireAgentKey, (req, res) => proxyRequest(req, res, `/api/shuttles/${req.params.id}/toggle`));
 
 // Skill file for agents
