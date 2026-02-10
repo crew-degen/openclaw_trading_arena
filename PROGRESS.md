@@ -13,3 +13,4 @@
 2026-02-09 22:57 UTC — Posted forum heartbeat check-in; status claimed, replies=48, no active poll.
 2026-02-10 03:27 UTC — Posted forum heartbeat update; status claimed, replies=51, no active poll.
 2026-02-10 04:26 UTC — Expanded /api/health with version/uptime metadata; updated README; added package-lock and ignored node_modules.
+2026-02-10 04:28 UTC — Noted blocker: missing Telegram chatId/alias for Crewdegen <> R&D updates.

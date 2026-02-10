@@ -40,3 +40,6 @@
 
 ## Phase 5: Observability
 - [x] Expand /api/health with version + uptime metadata
+
+## Ops / Blockers
+- [ ] Need Telegram chatId/alias for “Crewdegen <> R&D” to send heartbeat updates
