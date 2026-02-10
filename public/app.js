@@ -3,6 +3,7 @@ import { normalizeHistory } from "./chart-utils.js";
 let refreshing = false;
 
 const IS_TEST = Boolean(globalThis.__APP_TEST__);
+const DEV_MODE = true; // temporary: load dev (non-minified) bundles for debugging
 let btcRoot = null;
 let btcDataCache = null;
 let showingBtc = false;
@@ -10,9 +11,13 @@ let visxLibs = null;
 
 async function ensureVisx(){
   if(visxLibs) return visxLibs;
-  const React = (await import("https://esm.sh/react@18?bundle")).default;
-  const { createRoot } = await import("https://esm.sh/react-dom@18/client?bundle");
-  const { LinePath } = await import("https://esm.sh/@visx/shape@3?bundle");
+  const dev = DEV_MODE ? "&dev" : "";
+  const reactMod = await import(`https://esm.sh/react@18?bundle${dev}`);
+  const domMod = await import(`https://esm.sh/react-dom@18/client?bundle${dev}`);
+  const shapeMod = await import(`https://esm.sh/@visx/shape@3?bundle${dev}`);
+  const React = reactMod.default || reactMod;
+  const createRoot = domMod.createRoot || domMod.default?.createRoot;
+  const LinePath = shapeMod.LinePath || shapeMod.default?.LinePath;
   visxLibs = { React, createRoot, LinePath };
   return visxLibs;
 }
@@ -205,7 +210,8 @@ async function loadChart(top){
 async function renderBtcChart(data){
   const container = document.getElementById('btcChart');
   if(!container || data.length < 2) return;
-  const { React, createRoot, LinePath, Text } = await ensureVisx();
+  const { React, createRoot, LinePath } = await ensureVisx();
+  if(!React || !createRoot) throw new Error('react runtime not available');
   const width = Math.max(320, container.clientWidth || 560);
   const height = 320;
   const margin = { top: 24, right: 24, bottom: 24, left: 44 };
@@ -233,20 +239,30 @@ async function renderBtcChart(data){
   const by = Math.max(margin.top, Math.min(ly - badgeH / 2, height - margin.bottom - badgeH));
 
   if(!btcRoot) btcRoot = createRoot(container);
+  const pointsStr = data.map(d => `${xScale(d.t.getTime())},${yScale(d.price)}`).join(' ');
+  const lineEl = LinePath
+    ? React.createElement(LinePath, {
+        data,
+        x: d => xScale(d.t.getTime()),
+        y: d => yScale(d.price),
+        stroke: '#f5d547',
+        strokeWidth: 1
+      })
+    : React.createElement('polyline', {
+        points: pointsStr,
+        fill: 'none',
+        stroke: '#f5d547',
+        strokeWidth: 1
+      });
+
   const svg = React.createElement('svg', { width, height },
-    React.createElement(LinePath, {
-      data,
-      x: d => xScale(d.t.getTime()),
-      y: d => yScale(d.price),
-      stroke: '#f5d547',
-      strokeWidth: 1
-    }),
+    lineEl,
     React.createElement('rect', {
       x: bx, y: by, width: badgeW, height: badgeH,
       rx: 6, ry: 6, fill: '#1f2a3a', stroke: '#f5d547'
     }),
-    React.createElement(Text, { x: bx + badgeW/2, y: by + badgeH/2 + 4, fill: '#f5d547', fontSize: 10, textAnchor: 'middle' }, 'BTC'),
-    React.createElement(Text, { x: width - 6, y: height/2, fill: '#8b97a7', fontSize: 12, textAnchor: 'middle', angle: 90 }, 'BTC Price')
+    React.createElement('text', { x: bx + badgeW/2, y: by + badgeH/2 + 4, fill: '#f5d547', fontSize: 10, textAnchor: 'middle' }, 'BTC'),
+    React.createElement('text', { x: width - 6, y: height/2, fill: '#8b97a7', fontSize: 12, textAnchor: 'middle', transform: `rotate(90 ${width - 6} ${height/2})` }, 'BTC Price')
   );
   btcRoot.render(svg);
 }
