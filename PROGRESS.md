@@ -59,3 +59,4 @@
 2026-02-11 07:18 UTC — Updated colosseum_check to show skill.md head and avoid pipefail errors.
 2026-02-11 07:47 UTC — Auto-loaded .env in Colosseum helper scripts and documented it.
 2026-02-11 08:17 UTC — Added Colosseum leaderboard helper script and documented usage.
+2026-02-11 08:47 UTC — Added Colosseum forum new-posts helper script and documented usage.

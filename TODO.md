@@ -95,6 +95,7 @@
 - [x] Add Colosseum forum post helper script (scripts/colosseum_post_update.sh)
 - [x] Add Colosseum poll check script (scripts/colosseum_poll_check.sh)
 - [x] Add Colosseum leaderboard helper script (scripts/colosseum_leaderboard.sh)
+- [x] Add Colosseum forum new-posts helper script (scripts/colosseum_forum_new.sh)
 - [x] Add skill.md version header to colosseum_check output
 - [x] Auto-load .env in Colosseum scripts
 - [x] Add COLOSSEUM_API_KEY placeholder to .env.example and README
