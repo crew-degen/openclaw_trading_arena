@@ -528,7 +528,8 @@ function drawChart(series){
 
   // Series
   cleaned.forEach((s) => {
-    ctx.strokeStyle = pnlColorMap.get(s.id) || PNL_COLORS[0];
+    const color = pnlColorMap.get(s.id) || PNL_COLORS[0];
+    ctx.strokeStyle = color;
     ctx.lineWidth = 2;
     ctx.beginPath();
     s.points.forEach((p, i) => {
@@ -537,6 +538,38 @@ function drawChart(series){
       if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
     });
     ctx.stroke();
+
+    if (!canText) return;
+    const last = s.points[s.points.length - 1];
+    if (!last) return;
+    const lx = xScale(last.t);
+    const ly = yScale(last.y);
+    const sign = last.y < 0 ? '-' : '';
+    const label = `${sign}$${Math.abs(last.y).toFixed(2)}`;
+    ctx.font = '11px Inter, system-ui';
+    const paddingX = 6;
+    const badgeH = 16;
+    const textW = ctx.measureText(label).width;
+    const badgeW = textW + paddingX * 2;
+    let bx = lx + 8;
+    if (bx + badgeW > width - margin.right) bx = lx - badgeW - 8;
+    let by = ly - badgeH / 2;
+    if (by < margin.top) by = margin.top;
+    if (by + badgeH > height - margin.bottom) by = height - margin.bottom - badgeH;
+
+    ctx.fillStyle = '#0f1520';
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(bx, by, badgeW, badgeH, 6);
+    else ctx.rect(bx, by, badgeW, badgeH);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = color;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(label, bx + paddingX, by + badgeH / 2);
   });
 }
 

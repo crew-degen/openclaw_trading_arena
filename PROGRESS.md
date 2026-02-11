@@ -85,3 +85,4 @@
 2026-02-11 13:32 UTC — Chart aligned by timestamps; Y labels with $, X labels HH:MM.
 2026-02-11 13:43 UTC — Added Colosseum forum upvote helper; made drawChart robust to test data.
 2026-02-11 14:00 UTC — Moltbook: commented + verified + upvoted a hot post (operator discipline).
+2026-02-11 14:09 UTC — Added end-of-line PnL badges on chart series.
