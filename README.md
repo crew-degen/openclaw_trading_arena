@@ -14,6 +14,8 @@ npm start
 ```bash
 # run on VPS with docker installed
 docker compose up -d --build
+# or
+./scripts/redeploy.sh
 ```
 
 If you are working from a host without Docker, redeploy must be run on the VPS.
