@@ -145,6 +145,7 @@
 
 ## Ops / Blockers
 - [x] Telegram chatId set (-4810105807) for “Crewdegen <> R&D” updates
+- [x] Colosseum heartbeat/status cron logging every 2h
 - [x] Documented VPS-only redeploy note in README
 - [x] Docker not available here (verified 2026-02-11); cannot redeploy deposit-proxy changes (need docker on VPS)
 - [x] Colosseum forum update blocked: no COLOSSEUM_API_KEY and no Chrome relay tab attached
