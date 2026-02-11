@@ -93,6 +93,11 @@
 - [x] Render third row with blinking DECISION badge + no-wrap rationale
 - [x] Add typing effect (loop) for rationale text
 
+## Task: Leaderboard formatting polish
+- [x] Remove internal row separators; keep border between items
+- [x] Reduce vertical paddings/gaps by ~50%
+- [x] Format PnL with sign; net value with "~$"; leverage with "x"; health with "%"
+
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)
 - [x] Switch to docker-compose stack on VPS

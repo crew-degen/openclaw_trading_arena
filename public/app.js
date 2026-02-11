@@ -52,6 +52,28 @@ function fmt4Pct(n){
   return `${sign}${v.toFixed(4)}%`;
 }
 
+function fmtSigned(n){
+  if(n === null || n === undefined || Number.isNaN(n)) return '—';
+  const v = Number(n);
+  const sign = v > 0 ? '+' : '';
+  return `${sign}${v.toFixed(2)}`;
+}
+
+function fmtNetValue(n){
+  if(n === null || n === undefined || Number.isNaN(n)) return '—';
+  return `~$${Number(n).toFixed(2)}`;
+}
+
+function fmtLeverage(n){
+  if(n === null || n === undefined || Number.isNaN(n)) return '—';
+  return `x${Number(n).toFixed(2)}`;
+}
+
+function fmtHealth(n){
+  if(n === null || n === undefined || Number.isNaN(n)) return '—';
+  return `${Math.round(Number(n))}%`;
+}
+
 function renderPositionField(label, value, cls = ''){
   const valueClass = cls ? `position-value ${cls}` : 'position-value';
   return `<div class="position-field"><span class="position-label">${label}</span><span class="${valueClass}">${value}</span></div>`;
@@ -158,13 +180,14 @@ async function loadLeaderboard(){
   tbody.innerHTML = '';
   for(const s of top){
     const tr = document.createElement('tr');
+    tr.className = 'leader-row';
     const label = s.slug?.slice(0,8) || s.id;
     tr.innerHTML = `
       <td>${label}</td>
-      <td class="${(s.total_pnl||0) >= 0 ? 'pos' : 'neg'}">${fmt(s.total_pnl)}</td>
-      <td>${fmt(s.net_value)}</td>
-      <td>${fmt(s.leverage)}</td>
-      <td>${fmt(s.health)}</td>
+      <td class="${(s.total_pnl||0) >= 0 ? 'pos' : 'neg'}">${fmtSigned(s.total_pnl)}</td>
+      <td>${fmtNetValue(s.net_value)}</td>
+      <td>${fmtLeverage(s.leverage)}</td>
+      <td>${fmtHealth(s.health)}</td>
     `;
     tbody.appendChild(tr);
 
