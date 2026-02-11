@@ -52,3 +52,4 @@
 2026-02-11 04:18 UTC — Added CrewMind proxy timeout (CREWMIND_TIMEOUT_MS) and exposed in /api/health.
 2026-02-11 04:47 UTC — Added VPS redeploy helper script and documented usage.
 2026-02-11 05:18 UTC — Added colosseum_check helper script; forum update blocked (no API key/relay).
+2026-02-11 05:47 UTC — Added Colosseum forum post helper script; heartbeat checked (status/forum blocked without API key/relay).

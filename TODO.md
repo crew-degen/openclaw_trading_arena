@@ -92,3 +92,4 @@
 - [x] Add CrewMind proxy timeout (CREWMIND_TIMEOUT_MS) and expose in /api/health
 - [x] Add VPS redeploy helper script (scripts/redeploy.sh)
 - [x] Add Colosseum heartbeat/status helper script (scripts/colosseum_check.sh)
+- [x] Add Colosseum forum post helper script (scripts/colosseum_post_update.sh)

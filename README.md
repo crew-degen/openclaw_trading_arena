@@ -25,6 +25,10 @@ If you are working from a host without Docker, redeploy must be run on the VPS.
 ```bash
 # heartbeat/status checks (optional; set COLOSSEUM_API_KEY to include agent status)
 ./scripts/colosseum_check.sh
+
+# post forum update (requires COLOSSEUM_API_KEY)
+COLOSSEUM_API_KEY=... TITLE="Update" BODY="What changed..." \
+  ./scripts/colosseum_post_update.sh
 ```
 
 ## Prisma migrations
