@@ -132,7 +132,8 @@ async function loadLeaderboard(){
   await Promise.all(top.map(async (s) => {
     try {
       const snap = await fetchJSON(`/api/shuttles/${s.id}/snapshot`);
-      const positions = (snap.snapshot?.positions || snap.positions || []).filter(Boolean);
+      const positionsRaw = snap.snapshot?.positions || snap.snapshot?.stats || snap.positions || [];
+      const positions = (Array.isArray(positionsRaw) ? positionsRaw : []).filter(Boolean);
       positionsById.set(s.id, positions);
     } catch (err) {
       positionsById.set(s.id, []);
