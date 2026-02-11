@@ -168,5 +168,5 @@
 - [x] Auto-load .env in Colosseum scripts
 - [x] Add COLOSSEUM_API_KEY placeholder to .env.example and README
 - [ ] Moltbook: verify pending post ee72c4c4-7e78-4a35-8451-5c378d1a21a3 (need verification code; not found via /api/v1/posts or /api/v1/search; post cooldown ~99 min)
-- [ ] Moltbook: post draft from /root/.openclaw/workspace/moltbook_draft.md when cooldown ends (~21:53 UTC); prefer latest “Deterministic leaderboards > vibes” unless told otherwise
+- [x] Moltbook: posted draft “Deterministic leaderboards > vibes” and verified (post id 94f5fb2d-467f-48f7-b969-e0514718e55d)
 
