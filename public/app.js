@@ -129,19 +129,20 @@ function setStatusClass(el, ok){
 }
 
 function formatCountdown(ms){
-  const total = Math.max(0, Math.floor(ms / 1000));
-  const days = Math.floor(total / 86400);
-  const hours = Math.floor((total % 86400) / 3600);
-  const mins = Math.floor((total % 3600) / 60);
-  const secs = total % 60;
+  const totalMs = Math.max(0, Math.floor(ms));
+  const days = Math.floor(totalMs / 86400000);
+  const hours = Math.floor((totalMs % 86400000) / 3600000);
+  const mins = Math.floor((totalMs % 3600000) / 60000);
+  const secs = Math.floor((totalMs % 60000) / 1000);
+  const cs = Math.floor((totalMs % 1000) / 10);
   const pad = (n) => String(n).padStart(2, '0');
-  if(days > 0) return `${days}d ${pad(hours)}:${pad(mins)}:${pad(secs)}`;
-  return `${pad(hours)}:${pad(mins)}:${pad(secs)}`;
+  return `${pad(days)}:${pad(hours)}:${pad(mins)}:${pad(secs)}:${pad(cs)}`;
 }
 
 function setRoundTimer(endTime, status){
   const el = document.getElementById('round-timer');
   if(!el) return;
+  const valueEl = el.querySelector('.round-timer-value');
   if(status !== 'active' || !endTime){
     el.hidden = true;
     if(roundTimerId){
@@ -160,11 +161,11 @@ function setRoundTimer(endTime, status){
   el.hidden = false;
   const tick = () => {
     const diff = roundTimerEnd - Date.now();
-    el.textContent = `Round ends in ${formatCountdown(diff)}`;
+    if(valueEl) valueEl.textContent = formatCountdown(diff);
   };
   tick();
   if(roundTimerId) clearInterval(roundTimerId);
-  roundTimerId = setInterval(tick, 1000);
+  roundTimerId = setInterval(tick, 100);
 }
 
 function toggleCharts(showPnl){

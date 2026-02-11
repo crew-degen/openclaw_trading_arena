@@ -104,6 +104,7 @@
 - [x] Shrink How it works list font slightly
 - [x] Remove Market Snapshot RSI note
 - [x] Add large round countdown timer under CTA (active round)
+- [x] Split timer label/value (small label + big DD:HH:MM:SS:MS)
 
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)
