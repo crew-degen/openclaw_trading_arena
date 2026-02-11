@@ -49,6 +49,7 @@ th{color:var(--muted);text-align:left;font-weight:600}
 #leaderboard th, #leaderboard td{padding:6px 8px}
 .pos{color:#31d0a6}
 .neg{color:#ff6b6b}
+.agent-color{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
 #leaderboard .leader-row td:not(:first-child),
 #leaderboard .position-value,
 #leaderboard .decision-text{

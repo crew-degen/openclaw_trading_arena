@@ -15,6 +15,8 @@ const ASSET_ICONS = {
   ETH: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png',
   SOL: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png'
 };
+const PNL_COLORS = ['#f5d547', '#31d0a6', '#4dd2ff', '#ff6b6b', '#9b7bff'];
+let pnlColorMap = new Map();
 
 async function ensureVisx(){
   if(visxLibs) return visxLibs;
@@ -207,6 +209,7 @@ async function loadLeaderboard(){
   const data = await fetchJSON('/api/shuttles/all');
   const rows = (data.shuttles || []).sort((a,b)=> (b.total_pnl||0)-(a.total_pnl||0));
   const top = rows.slice(0,10);
+  pnlColorMap = new Map(top.map((s, i) => [s.id, PNL_COLORS[i % PNL_COLORS.length]]));
   setText('agent-count', `Agents: ${rows.length}`);
 
   const topPnl = rows[0]?.total_pnl ?? null;
@@ -242,8 +245,9 @@ async function loadLeaderboard(){
     const tr = document.createElement('tr');
     tr.className = 'leader-row';
     const label = s.slug?.slice(0,8) || s.id;
+    const color = pnlColorMap.get(s.id) || '#4dd2ff';
     tr.innerHTML = `
-      <td>${label}</td>
+      <td><span class="agent-color" style="background:${color}"></span>${label}</td>
       <td>${fmtLaunched(s.created_at)}</td>
       <td class="${(s.total_pnl||0) >= 0 ? 'pos' : 'neg'}">${fmtSigned(s.total_pnl)}</td>
       <td>${fmtNetValue(s.net_value)}</td>
@@ -452,26 +456,61 @@ function drawChart(series){
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  ctx.strokeStyle = '#1a2333';
-  for(let i=0;i<5;i++){
-    const y = (canvas.height/5)*i;
-    ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); ctx.stroke();
-  }
+  const margin = { top: 16, right: 12, bottom: 24, left: 56 };
+  const width = canvas.width;
+  const height = canvas.height;
 
-  const colors = ['#4dd2ff','#9b7bff','#31d0a6','#ffb347','#ff6b6b'];
+  const allPoints = series.flatMap(s => s.points);
+  if(!allPoints.length) return;
 
-  const allPoints = series.flat();
   const minY = Math.min(...allPoints.map(p=>p.y));
   const maxY = Math.max(...allPoints.map(p=>p.y));
   const yRange = (maxY - minY) || 1;
 
-  series.forEach((points, idx) => {
-    ctx.strokeStyle = colors[idx % colors.length];
+  const xMin = Math.min(...allPoints.map(p=>p.t));
+  const xMax = Math.max(...allPoints.map(p=>p.t));
+  const xRange = (xMax - xMin) || 1;
+
+  const xScale = (t) => margin.left + ((t - xMin)/xRange) * (width - margin.left - margin.right);
+  const yScale = (y) => height - margin.bottom - ((y - minY)/yRange) * (height - margin.top - margin.bottom);
+
+  // Y grid + labels
+  ctx.strokeStyle = '#1a2333';
+  ctx.fillStyle = '#8b97a7';
+  ctx.font = '10px Inter, system-ui';
+  ctx.textAlign = 'right';
+  ctx.textBaseline = 'middle';
+  const yTicks = 5;
+  for(let i=0;i<=yTicks;i++){
+    const v = minY + (yRange / yTicks) * i;
+    const y = yScale(v);
+    ctx.beginPath();
+    ctx.moveTo(margin.left, y);
+    ctx.lineTo(width - margin.right, y);
+    ctx.stroke();
+    ctx.fillText(v.toFixed(2), margin.left - 6, y);
+  }
+
+  // X labels
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  const xTicks = 4;
+  for(let i=0;i<=xTicks;i++){
+    const t = xMin + (xRange / xTicks) * i;
+    const d = new Date(t);
+    const label = `${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`;
+    const x = xScale(t);
+    ctx.fillText(label, x, height - margin.bottom + 6);
+  }
+
+  // Series
+  series.forEach((s) => {
+    ctx.strokeStyle = pnlColorMap.get(s.id) || PNL_COLORS[0];
     ctx.lineWidth = 2;
     ctx.beginPath();
-    points.forEach((p, i) => {
-      const x = (canvas.width) * (i/(points.length-1 || 1));
-      const y = canvas.height - ((p.y - minY)/yRange) * canvas.height;
+    s.points.forEach((p, i) => {
+      const x = xScale(p.t);
+      const y = yScale(p.y);
       if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
     });
     ctx.stroke();
@@ -482,11 +521,14 @@ async function loadChart(top){
   const series = [];
   for(const s of top.slice(0,5)){
     const hist = await fetchJSON(`/api/shuttles/${s.id}/history`);
-    const points = (hist.snapshots || []).slice(-60).map((snap, i)=>({
-      x: i,
-      y: snap.total_pnl ?? snap.net_value ?? 0
-    }));
-    if(points.length) series.push(points);
+    const points = (hist.snapshots || []).slice(-60).map((snap, i)=>{
+      const t = snap.created_at ? new Date(snap.created_at).getTime() : Date.now() + i;
+      return {
+        t,
+        y: snap.total_pnl ?? snap.net_value ?? 0
+      };
+    }).filter(p => !Number.isNaN(p.t));
+    if(points.length) series.push({ id: s.id, points });
   }
   if(series.length) drawChart(series);
 }

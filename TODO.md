@@ -124,6 +124,11 @@
 - [x] Color BUY/SELL, add asset icons, add GIFs for trades
 - [x] Highlight trade items (BUY/SELL) with tinted background
 
+## Task: PnL chart colors + axes
+- [x] Bright palette for series
+- [x] Match chart colors with leaderboard dots
+- [x] Add PnL Y-axis labels and date X-axis labels
+
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)
 - [x] Switch to docker-compose stack on VPS
