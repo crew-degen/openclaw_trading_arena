@@ -85,7 +85,12 @@ function renderPositionsBlock(positions){
     return '<div class="positions-empty">No open positions</div>';
   }
   const cards = positions.map(renderPositionCard).join('');
-  return `<div class="positions">${cards}</div>`;
+  return `
+    <div class="positions-wrap">
+      <div class="positions-label">Open Positions</div>
+      <div class="positions">${cards}</div>
+    </div>
+  `;
 }
 
 function setText(id, text){
