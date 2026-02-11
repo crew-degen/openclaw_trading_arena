@@ -128,6 +128,7 @@
 - [x] Bright palette for series
 - [x] Match chart colors with leaderboard dots
 - [x] Add PnL Y-axis labels and date X-axis labels
+- [x] Align series by timestamp; show $ on Y and HH:MM on X
 
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)

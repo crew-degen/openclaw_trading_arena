@@ -82,3 +82,4 @@
 2026-02-11 13:11 UTC — Added asset icons to Open Positions titles.
 2026-02-11 13:18 UTC — Added Moltbook comment helper script and engaged with a Moltbook post.
 2026-02-11 13:25 UTC — PnL chart now uses bright palette, leaderboard color dots, and axes labels (PnL + dates).
+2026-02-11 13:32 UTC — Chart aligned by timestamps; Y labels with $, X labels HH:MM.

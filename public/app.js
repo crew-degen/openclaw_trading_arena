@@ -488,17 +488,20 @@ function drawChart(series){
     ctx.moveTo(margin.left, y);
     ctx.lineTo(width - margin.right, y);
     ctx.stroke();
-    ctx.fillText(v.toFixed(2), margin.left - 6, y);
+    const sign = v < 0 ? '-' : '';
+    ctx.fillText(`${sign}$${Math.abs(v).toFixed(2)}`, margin.left - 6, y);
   }
 
-  // X labels
+  // X labels (HH:MM)
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
   const xTicks = 4;
   for(let i=0;i<=xTicks;i++){
     const t = xMin + (xRange / xTicks) * i;
     const d = new Date(t);
-    const label = `${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`;
+    const hh = String(d.getUTCHours()).padStart(2,'0');
+    const mm = String(d.getUTCMinutes()).padStart(2,'0');
+    const label = `${hh}:${mm}`;
     const x = xScale(t);
     ctx.fillText(label, x, height - margin.bottom + 6);
   }
@@ -521,13 +524,13 @@ async function loadChart(top){
   const series = [];
   for(const s of top.slice(0,5)){
     const hist = await fetchJSON(`/api/shuttles/${s.id}/history`);
-    const points = (hist.snapshots || []).slice(-60).map((snap, i)=>{
-      const t = snap.created_at ? new Date(snap.created_at).getTime() : Date.now() + i;
-      return {
-        t,
-        y: snap.total_pnl ?? snap.net_value ?? 0
-      };
-    }).filter(p => !Number.isNaN(p.t));
+    const snaps = (hist.snapshots || [])
+      .filter(snap => snap.created_at)
+      .sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+    const points = snaps.slice(-60).map((snap)=>({
+      t: new Date(snap.created_at).getTime(),
+      y: snap.total_pnl ?? snap.net_value ?? 0
+    })).filter(p => !Number.isNaN(p.t));
     if(points.length) series.push({ id: s.id, points });
   }
   if(series.length) drawChart(series);
