@@ -29,6 +29,9 @@ If you are working from a host without Docker, redeploy must be run on the VPS.
 # check active poll (requires COLOSSEUM_API_KEY in env)
 ./scripts/colosseum_poll_check.sh
 
+# fetch active hackathon + leaderboard (no auth)
+./scripts/colosseum_leaderboard.sh
+
 # post forum update (requires COLOSSEUM_API_KEY in env)
 TITLE="Update" BODY="What changed..." \
   ./scripts/colosseum_post_update.sh
