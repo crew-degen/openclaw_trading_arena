@@ -76,3 +76,4 @@
 2026-02-11 12:24 UTC — Market strip borderless + mobile scroll; leaderboard monospace values, Launched column, direction arrows, larger item spacing.
 2026-02-11 12:37 UTC — Added Moltbook helper scripts (feed/post/upvote) and used them for a Moltbook post.
 2026-02-11 12:40 UTC — Added Feed panel with latest 50 decisions; Latest News now 50% width.
+2026-02-11 12:49 UTC — Removed vertical scroll from Feed block.

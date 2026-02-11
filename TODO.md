@@ -119,6 +119,7 @@
 - [x] Add Feed block on right 50% width
 - [x] Show latest 50 decisions across agents sorted desc
 - [x] Display: agent, time (HH:MM DD-MM-YYYY), asset, action, qty (if trade), rationale
+- [x] Remove vertical scroll in Feed block
 
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)
