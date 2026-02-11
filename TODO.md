@@ -115,10 +115,10 @@
 - [x] Add Launched column (created_at)
 
 ## Task: Latest News + Feed panel
-- [ ] Make Latest News block 50% width
-- [ ] Add Feed block on right 50% width
-- [ ] Show latest 50 decisions across agents sorted desc
-- [ ] Display: agent, time (HH:MM DD-MM-YYYY), asset, action, qty+leverage (if trade), rationale
+- [x] Make Latest News block 50% width
+- [x] Add Feed block on right 50% width
+- [x] Show latest 50 decisions across agents sorted desc
+- [x] Display: agent, time (HH:MM DD-MM-YYYY), asset, action, qty (if trade), rationale
 
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)

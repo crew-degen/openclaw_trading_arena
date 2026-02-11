@@ -338,6 +338,19 @@ async function loadMarket(){
   }
 }
 
+function fmtDecisionTime(ts){
+  if(!ts) return '--:-- --.--.--';
+  const d = new Date(ts);
+  if(Number.isNaN(d.getTime())) return '--:-- --.--.--';
+  const pad = (n) => String(n).padStart(2, '0');
+  const hh = pad(d.getUTCHours());
+  const mm = pad(d.getUTCMinutes());
+  const dd = pad(d.getUTCDate());
+  const mo = pad(d.getUTCMonth() + 1);
+  const yy = d.getUTCFullYear();
+  return `${hh}:${mm} ${dd}-${mo}-${yy}`;
+}
+
 async function loadNews(){
   const data = await fetchJSON('/api/shuttles/summaries');
   const list = (data.summaries || []).slice(0,5);
@@ -354,6 +367,62 @@ async function loadNews(){
       </div>
     `;
     ul.appendChild(li);
+  }
+}
+
+async function loadFeed(){
+  const feedEl = document.getElementById('feedBody');
+  if(!feedEl) return;
+  feedEl.innerHTML = '';
+  try {
+    const data = await fetchJSON('/api/shuttles/all');
+    const shuttles = data.shuttles || [];
+    const decisions = [];
+
+    await Promise.all(shuttles.map(async (s) => {
+      try {
+        const dec = await fetchJSON(`/api/shuttles/${s.id}/decisions`);
+        const list = dec.decisions || [];
+        list.forEach((d) => {
+          decisions.push({
+            agent: s.slug?.slice(0,8) || s.id,
+            created_at: d.created_at,
+            asset: d.asset,
+            action: d.action,
+            quantity: d.quantity,
+            rationale: d.rationale,
+          });
+        });
+      } catch (err) {
+        // skip failures
+      }
+    }));
+
+    decisions.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    const top = decisions.slice(0, 50);
+
+    top.forEach((d) => {
+      const li = document.createElement('li');
+      const qty = d.quantity ? `${Number(d.quantity).toFixed(4)} ${d.asset}` : '';
+      const action = d.action || 'WAIT';
+      const asset = d.asset || '';
+      const metaParts = [action, asset, qty].filter(Boolean).join(' · ');
+      li.innerHTML = `
+        <div class="feed-row">
+          <div class="feed-head">
+            <span class="feed-agent">${d.agent}</span>
+            <span class="feed-time">${fmtDecisionTime(d.created_at)}</span>
+          </div>
+          <div class="feed-meta">${metaParts}</div>
+          <div class="feed-rationale">${d.rationale || ''}</div>
+        </div>
+      `;
+      feedEl.appendChild(li);
+    });
+  } catch (err) {
+    const li = document.createElement('li');
+    li.textContent = 'Feed unavailable';
+    feedEl.appendChild(li);
   }
 }
 
@@ -501,7 +570,7 @@ async function refreshAll(includeChart = false){
     await loadRoundStatus();
     await loadHealth();
     const { top, rows } = await loadLeaderboard();
-    await Promise.all([loadMarket(), loadNews()]);
+    await Promise.all([loadMarket(), loadNews(), loadFeed()]);
     applyTypingEffect();
 
     if(rows.length === 0){
