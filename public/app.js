@@ -40,6 +40,54 @@ function fmtPct(n){
   return `${sign}${v.toFixed(2)}%`;
 }
 
+function fmt4(n){
+  if(n === null || n === undefined || Number.isNaN(n)) return '—';
+  return Number(n).toFixed(4);
+}
+
+function fmt4Pct(n){
+  if(n === null || n === undefined || Number.isNaN(n)) return '—';
+  const v = Number(n);
+  const sign = v > 0 ? '+' : '';
+  return `${sign}${v.toFixed(4)}%`;
+}
+
+function renderPositionField(label, value, cls = ''){
+  const valueClass = cls ? `position-value ${cls}` : 'position-value';
+  return `<div class="position-field"><span class="position-label">${label}</span><span class="${valueClass}">${value}</span></div>`;
+}
+
+function renderPositionCard(pos){
+  const asset = pos.asset || '—';
+  const direction = pos.direction || '—';
+  const upnlCls = (pos.upnl_usd ?? 0) >= 0 ? 'pos' : 'neg';
+  const upnlPctCls = (pos.upnl_percent ?? 0) >= 0 ? 'pos' : 'neg';
+  return `
+    <div class="position-card">
+      <div class="position-title">${asset} ${direction}</div>
+      <div class="position-grid">
+        ${renderPositionField('Asset', asset)}
+        ${renderPositionField('Dir', direction)}
+        ${renderPositionField('Size', fmt4(pos.size))}
+        ${renderPositionField('Size USD', fmt4(pos.size_usd))}
+        ${renderPositionField('Entry', fmt4(pos.entry_price))}
+        ${renderPositionField('Cur', fmt4(pos.current_price))}
+        ${renderPositionField('Oracle', fmt4(pos.oracle_usd))}
+        ${renderPositionField('uPnL', fmt4(pos.upnl_usd), upnlCls)}
+        ${renderPositionField('uPnL %', fmt4Pct(pos.upnl_percent), upnlPctCls)}
+      </div>
+    </div>
+  `;
+}
+
+function renderPositionsBlock(positions){
+  if(!positions || positions.length === 0){
+    return '<div class="positions-empty">No open positions</div>';
+  }
+  const cards = positions.map(renderPositionCard).join('');
+  return `<div class="positions">${cards}</div>`;
+}
+
 function setText(id, text){
   const el = document.getElementById(id);
   if(el) el.textContent = text;
@@ -80,6 +128,17 @@ async function loadLeaderboard(){
   setText('avg-pnl', `Avg PnL: ${fmt(avgPnl)}`);
   setText('last-updated', `Updated: ${new Date().toUTCString()}`);
 
+  const positionsById = new Map();
+  await Promise.all(top.map(async (s) => {
+    try {
+      const snap = await fetchJSON(`/api/shuttles/${s.id}/snapshot`);
+      const positions = (snap.snapshot?.positions || snap.positions || []).filter(Boolean);
+      positionsById.set(s.id, positions);
+    } catch (err) {
+      positionsById.set(s.id, []);
+    }
+  }));
+
   const tbody = document.getElementById('leaderboardBody');
   tbody.innerHTML = '';
   for(const s of top){
@@ -93,6 +152,17 @@ async function loadLeaderboard(){
       <td>${fmt(s.health)}</td>
     `;
     tbody.appendChild(tr);
+
+    const positionsRaw = positionsById.get(s.id) || [];
+    const order = { BTC: 0, ETH: 1, SOL: 2 };
+    const positions = positionsRaw.slice().sort((a, b) => (order[a.asset] ?? 9) - (order[b.asset] ?? 9));
+    const posRow = document.createElement('tr');
+    posRow.className = 'positions-row';
+    const posCell = document.createElement('td');
+    posCell.colSpan = 5;
+    posCell.innerHTML = renderPositionsBlock(positions);
+    posRow.appendChild(posCell);
+    tbody.appendChild(posRow);
   }
 
   return { top, rows };

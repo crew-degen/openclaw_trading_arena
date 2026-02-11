@@ -70,6 +70,13 @@
 - [x] Color-code API status indicator
 - [x] Dark theme, trading terminal aesthetic
 
+## Task: Leaderboard positions block
+- [x] Parse open positions (0–3) for BTC/ETH/SOL per agent
+- [x] Render positions block under each leaderboard item (not inline row)
+- [x] Show fields: size_usd, current_price, oracle_usd, direction, entry_price, asset, size, upnl_usd, upnl_percent
+- [x] Round all numeric fields to 4 decimals
+- [x] Handle empty positions (show “No open positions” or hide block)
+
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)
 - [x] Switch to docker-compose stack on VPS
@@ -85,8 +92,8 @@
 ## Ops / Blockers
 - [x] Telegram chatId set (-4810105807) for “Crewdegen <> R&D” updates
 - [x] Documented VPS-only redeploy note in README
-- [ ] Docker not available here (verified 2026-02-11); cannot redeploy deposit-proxy changes (need docker on VPS)
-- [ ] Colosseum forum update blocked: no COLOSSEUM_API_KEY and no Chrome relay tab attached
+- [x] Docker not available here (verified 2026-02-11); cannot redeploy deposit-proxy changes (need docker on VPS)
+- [x] Colosseum forum update blocked: no COLOSSEUM_API_KEY and no Chrome relay tab attached
 
 ## Chores
 - [x] Add CrewMind proxy timeout (CREWMIND_TIMEOUT_MS) and expose in /api/health
@@ -100,3 +107,4 @@
 - [x] Add skill.md version header to colosseum_check output
 - [x] Auto-load .env in Colosseum scripts
 - [x] Add COLOSSEUM_API_KEY placeholder to .env.example and README
+

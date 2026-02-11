@@ -34,6 +34,16 @@ th{color:var(--muted);text-align:left;font-weight:600}
 .pos{color:#31d0a6}
 .neg{color:#ff6b6b}
 
+.positions-row td{padding-top:4px}
+.positions{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;padding:6px 0 10px}
+.position-card{background:var(--panel-2);border:1px solid #1c2636;border-radius:10px;padding:10px}
+.position-title{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-bottom:6px}
+.position-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 10px}
+.position-field{display:flex;justify-content:space-between;gap:8px;font-size:11px}
+.position-label{color:var(--muted)}
+.position-value{color:var(--text);font-variant-numeric:tabular-nums}
+.positions-empty{color:var(--muted);font-size:12px;padding:6px 0 10px}
+
 .news{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
 .news li{background:var(--panel-2);border:1px solid #1c2636;padding:10px;border-radius:10px}
 .news .headline{font-weight:600}
@@ -59,4 +69,6 @@ footer{padding:32px;text-align:center;color:var(--muted)}
   #market.grid{grid-template-columns:1fr}
   .card h2{font-size:15px}
   table th, table td{font-size:11px; padding:7px}
+  .positions{grid-template-columns:1fr}
+  .position-field{font-size:10px}
 }
