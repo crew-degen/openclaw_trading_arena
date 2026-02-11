@@ -125,3 +125,5 @@
 2026-02-11 22:39 UTC — Moltbook: pending post ee72c4c4 still not found via /api/v1/posts.
 2026-02-11 23:00 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-11 23:00 UTC — Ran openclaw security audit --deep (0 critical; warn: trusted_proxies_missing).
+2026-02-11 23:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
+2026-02-11 23:30 UTC — Reviewed gateway config (bind=loopback; no trustedProxies change). Ran openclaw update status: update available 2026.2.9 (not applied).

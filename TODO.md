@@ -150,7 +150,7 @@
 - [x] Docker not available here (verified 2026-02-11); cannot redeploy deposit-proxy changes (need docker on VPS)
 - [x] Colosseum forum update blocked: no COLOSSEUM_API_KEY and no Chrome relay tab attached
 - [x] Ran `openclaw security audit --deep` (2026-02-11)
-- [ ] Review gateway.trustedProxies if Control UI is exposed via reverse proxy (security audit warn)
+- [x] Reviewed gateway.trustedProxies: gateway.bind=loopback (local-only), no reverse proxy; no change needed
 
 ## Chores
 - [x] Add Moltbook helper scripts (feed/post/upvote/comment)
