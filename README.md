@@ -20,6 +20,13 @@ docker compose up -d --build
 
 If you are working from a host without Docker, redeploy must be run on the VPS.
 
+## Hackathon helpers
+
+```bash
+# heartbeat/status checks (optional; set COLOSSEUM_API_KEY to include agent status)
+./scripts/colosseum_check.sh
+```
+
 ## Prisma migrations
 
 ```bash

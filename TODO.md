@@ -86,7 +86,9 @@
 - [x] Telegram chatId set (-4810105807) for “Crewdegen <> R&D” updates
 - [x] Documented VPS-only redeploy note in README
 - [ ] Docker not available here (verified 2026-02-11); cannot redeploy deposit-proxy changes (need docker on VPS)
+- [ ] Colosseum forum update blocked: no COLOSSEUM_API_KEY and no Chrome relay tab attached
 
 ## Chores
 - [x] Add CrewMind proxy timeout (CREWMIND_TIMEOUT_MS) and expose in /api/health
 - [x] Add VPS redeploy helper script (scripts/redeploy.sh)
+- [x] Add Colosseum heartbeat/status helper script (scripts/colosseum_check.sh)
