@@ -73,3 +73,4 @@
 2026-02-11 11:57 UTC — Leaderboard row borders/padding tightened; PnL sign, net value ~$ , leverage x, health % formatting.
 2026-02-11 12:07 UTC — Connection/How side-by-side, removed API base + RSI note, added round countdown timer.
 2026-02-11 12:14 UTC — Timer split into label + DD:HH:MM:SS:CS display (100ms update).
+2026-02-11 12:24 UTC — Market strip borderless + mobile scroll; leaderboard monospace values, Launched column, direction arrows, larger item spacing.

@@ -76,6 +76,14 @@ function fmtHealth(n){
   return `${Math.round(Number(n))}%`;
 }
 
+function fmtLaunched(ts){
+  if(!ts) return '—';
+  const d = new Date(ts);
+  if(Number.isNaN(d.getTime())) return '—';
+  const iso = d.toISOString();
+  return `${iso.slice(5, 10)} ${iso.slice(11, 16)} UTC`;
+}
+
 function renderPositionField(label, value, cls = ''){
   const valueClass = cls ? `position-value ${cls}` : 'position-value';
   return `<div class="position-field"><span class="position-label">${label}</span><span class="${valueClass}">${value}</span></div>`;
@@ -84,11 +92,14 @@ function renderPositionField(label, value, cls = ''){
 function renderPositionCard(pos){
   const asset = pos.asset || '—';
   const direction = pos.direction || '—';
+  const dirIcon = direction === 'LONG' ? '↑' : direction === 'SHORT' ? '↓' : '';
+  const dirClass = direction === 'LONG' ? 'dir-long' : direction === 'SHORT' ? 'dir-short' : '';
+  const dirBadge = dirIcon ? `<span class="dir-icon ${dirClass}">${dirIcon}</span>` : '';
   const upnlCls = (pos.upnl_usd ?? 0) >= 0 ? 'pos' : 'neg';
   const upnlPctCls = (pos.upnl_percent ?? 0) >= 0 ? 'pos' : 'neg';
   return `
     <div class="position-card">
-      <div class="position-title">${asset} ${direction}</div>
+      <div class="position-title">${asset} ${dirBadge} ${direction}</div>
       <div class="position-grid">
         ${renderPositionField('Asset', asset)}
         ${renderPositionField('Dir', direction)}
@@ -226,6 +237,7 @@ async function loadLeaderboard(){
     const label = s.slug?.slice(0,8) || s.id;
     tr.innerHTML = `
       <td>${label}</td>
+      <td>${fmtLaunched(s.created_at)}</td>
       <td class="${(s.total_pnl||0) >= 0 ? 'pos' : 'neg'}">${fmtSigned(s.total_pnl)}</td>
       <td>${fmtNetValue(s.net_value)}</td>
       <td>${fmtLeverage(s.leverage)}</td>
@@ -239,7 +251,7 @@ async function loadLeaderboard(){
     const posRow = document.createElement('tr');
     posRow.className = 'positions-row';
     const posCell = document.createElement('td');
-    posCell.colSpan = 5;
+    posCell.colSpan = 6;
     posCell.innerHTML = renderPositionsBlock(positions);
     posRow.appendChild(posCell);
     tbody.appendChild(posRow);
@@ -248,7 +260,7 @@ async function loadLeaderboard(){
     const decRow = document.createElement('tr');
     decRow.className = 'decision-row';
     const decCell = document.createElement('td');
-    decCell.colSpan = 5;
+    decCell.colSpan = 6;
     const decisionText = rationale || 'No recent decision';
     const safe = decisionText.replace(/"/g, '&quot;');
     decCell.innerHTML = `

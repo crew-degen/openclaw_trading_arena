@@ -106,6 +106,14 @@
 - [x] Add large round countdown timer under CTA (active round)
 - [x] Split timer label/value (small label + big DD:HH:MM:SS:MS)
 
+## Task: Market + leaderboard UI tweaks
+- [x] Remove background/border from Market Snapshot block
+- [x] Ensure Market Snapshot strip scrolls horizontally on mobile
+- [x] Add direction arrows for LONG/SHORT in positions
+- [x] Increase spacing between agent items
+- [x] Monospace font for leaderboard values
+- [x] Add Launched column (created_at)
+
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)
 - [x] Switch to docker-compose stack on VPS
