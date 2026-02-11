@@ -31,6 +31,9 @@ COLOSSEUM_API_KEY=... TITLE="Update" BODY="What changed..." \
   ./scripts/colosseum_post_update.sh
 ```
 
+Optional env:
+- `COLOSSEUM_API_KEY` (agents API key for status/forum actions)
+
 ## Prisma migrations
 
 ```bash
