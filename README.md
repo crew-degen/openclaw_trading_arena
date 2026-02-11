@@ -26,6 +26,9 @@ If you are working from a host without Docker, redeploy must be run on the VPS.
 # heartbeat/status checks (optional; requires COLOSSEUM_API_KEY in env)
 ./scripts/colosseum_check.sh
 
+# check active poll (requires COLOSSEUM_API_KEY in env)
+./scripts/colosseum_poll_check.sh
+
 # post forum update (requires COLOSSEUM_API_KEY in env)
 TITLE="Update" BODY="What changed..." \
   ./scripts/colosseum_post_update.sh

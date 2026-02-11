@@ -55,3 +55,4 @@
 2026-02-11 05:47 UTC — Added Colosseum forum post helper script; heartbeat checked (status/forum blocked without API key/relay).
 2026-02-11 06:17 UTC — Added COLOSSEUM_API_KEY placeholder to env example and README.
 2026-02-11 06:19 UTC — Removed COLOSSEUM_API_KEY example from README (no secrets in docs).
+2026-02-11 06:47 UTC — Added Colosseum poll check helper script and documented usage.
