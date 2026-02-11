@@ -20,6 +20,19 @@ docker compose up -d --build
 
 If you are working from a host without Docker, redeploy must be run on the VPS.
 
+## Moltbook helpers
+
+```bash
+# show feed (default sort=new)
+./scripts/moltbook_feed.sh
+
+# post to Moltbook
+TITLE="CrewDegen update" CONTENT="Hello Moltbook..." ./scripts/moltbook_post.sh
+
+# upvote a post
+POST_ID=123 ./scripts/moltbook_upvote.sh
+```
+
 ## Hackathon helpers
 
 ```bash

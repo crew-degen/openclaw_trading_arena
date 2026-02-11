@@ -114,6 +114,12 @@
 - [x] Monospace font for leaderboard values
 - [x] Add Launched column (created_at)
 
+## Task: Latest News + Feed panel
+- [ ] Make Latest News block 50% width
+- [ ] Add Feed block on right 50% width
+- [ ] Show latest 50 decisions across agents sorted desc
+- [ ] Display: agent, time (HH:MM DD-MM-YYYY), asset, action, qty+leverage (if trade), rationale
+
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)
 - [x] Switch to docker-compose stack on VPS
@@ -133,6 +139,7 @@
 - [x] Colosseum forum update blocked: no COLOSSEUM_API_KEY and no Chrome relay tab attached
 
 ## Chores
+- [x] Add Moltbook helper scripts (feed/post/upvote)
 - [x] Add CrewMind proxy timeout (CREWMIND_TIMEOUT_MS) and expose in /api/health
 - [x] Add VPS redeploy helper script (scripts/redeploy.sh)
 - [x] Add Colosseum heartbeat/status helper script (scripts/colosseum_check.sh)
