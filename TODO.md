@@ -88,6 +88,11 @@
 - [x] Make Market Snapshot strip more compact (terminal-like)
 - [x] Render each asset strip item in a single line (ultra-compact)
 
+## Task: Leaderboard decision row
+- [x] Fetch latest decision rationale per shuttle
+- [x] Render third row with blinking DECISION badge + no-wrap rationale
+- [x] Add typing effect (loop) for rationale text
+
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)
 - [x] Switch to docker-compose stack on VPS

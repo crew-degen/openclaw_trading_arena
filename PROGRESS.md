@@ -68,3 +68,5 @@
 2026-02-11 11:23 UTC — Added Colosseum my-comments helper script and documented usage.
 2026-02-11 11:30 UTC — Added Open Positions label and compacted Market Snapshot strip layout.
 2026-02-11 11:39 UTC — Market Snapshot strip items now single-line, ultra-compact.
+2026-02-11 11:43 UTC — Added forum pick helper script and updated forum-hustle cron prompt to use scripts.
+2026-02-11 11:50 UTC — Added decision row with blinking DECISION badge + looping typing effect in leaderboard.

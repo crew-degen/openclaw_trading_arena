@@ -134,6 +134,7 @@ async function loadLeaderboard(){
   setText('last-updated', `Updated: ${new Date().toUTCString()}`);
 
   const positionsById = new Map();
+  const decisionById = new Map();
   await Promise.all(top.map(async (s) => {
     try {
       const snap = await fetchJSON(`/api/shuttles/${s.id}/snapshot`);
@@ -142,6 +143,14 @@ async function loadLeaderboard(){
       positionsById.set(s.id, positions);
     } catch (err) {
       positionsById.set(s.id, []);
+    }
+
+    try {
+      const dec = await fetchJSON(`/api/shuttles/${s.id}/decisions`);
+      const latest = (dec.decisions || [])[0];
+      decisionById.set(s.id, latest?.rationale || '');
+    } catch (err) {
+      decisionById.set(s.id, '');
     }
   }));
 
@@ -169,6 +178,22 @@ async function loadLeaderboard(){
     posCell.innerHTML = renderPositionsBlock(positions);
     posRow.appendChild(posCell);
     tbody.appendChild(posRow);
+
+    const rationale = (decisionById.get(s.id) || '').trim();
+    const decRow = document.createElement('tr');
+    decRow.className = 'decision-row';
+    const decCell = document.createElement('td');
+    decCell.colSpan = 5;
+    const decisionText = rationale || 'No recent decision';
+    const safe = decisionText.replace(/"/g, '&quot;');
+    decCell.innerHTML = `
+      <div class="decision-line">
+        <span class="decision-badge">DECISION</span>
+        <span class="decision-text" data-text="${safe}"></span>
+      </div>
+    `;
+    decRow.appendChild(decCell);
+    tbody.appendChild(decRow);
   }
 
   return { top, rows };
@@ -362,6 +387,23 @@ async function loadBtcChart(){
   }
 }
 
+function applyTypingEffect(){
+  const nodes = document.querySelectorAll('.decision-text');
+  nodes.forEach(node => {
+    if(node.dataset.typing === '1') return;
+    node.dataset.typing = '1';
+    const full = node.dataset.text || '';
+    let i = 0;
+    const tick = () => {
+      node.textContent = full.slice(0, i);
+      i = (i + 1) % (full.length + 1);
+      const delay = i === 0 ? 800 : 40;
+      node._typingTimer = setTimeout(tick, delay);
+    };
+    tick();
+  });
+}
+
 async function refreshAll(includeChart = false){
   if(refreshing) return;
   refreshing = true;
@@ -370,6 +412,7 @@ async function refreshAll(includeChart = false){
     await loadHealth();
     const { top, rows } = await loadLeaderboard();
     await Promise.all([loadMarket(), loadNews()]);
+    applyTypingEffect();
 
     if(rows.length === 0){
       toggleCharts(false);
