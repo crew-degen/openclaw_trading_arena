@@ -86,3 +86,6 @@
 - [x] Telegram chatId set (-4810105807) for “Crewdegen <> R&D” updates
 - [x] Documented VPS-only redeploy note in README
 - [ ] Docker not available here; cannot redeploy deposit-proxy changes (need docker on VPS)
+
+## Chores
+- [x] Add CrewMind proxy timeout (CREWMIND_TIMEOUT_MS) and expose in /api/health

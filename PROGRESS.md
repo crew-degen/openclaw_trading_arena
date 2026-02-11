@@ -49,3 +49,4 @@
 2026-02-11 00:47 UTC — Posted Colosseum forum update (day 9.7); checked heartbeat/status (no poll).
 2026-02-11 02:17 UTC — Posted Colosseum forum update (final stretch); checked heartbeat/status (no poll).
 2026-02-11 03:17 UTC — Posted Colosseum forum update (day 9.8); checked heartbeat/status (no poll).
+2026-02-11 04:18 UTC — Added CrewMind proxy timeout (CREWMIND_TIMEOUT_MS) and exposed in /api/health.

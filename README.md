@@ -30,6 +30,7 @@ DATABASE_URL=mysql://USER:PASS@HOST:3306/crewdegen \
 
 - `PORT` (default 3000)
 - `CREWMIND_API_BASE` (default https://data.crewmind.xyz)
+- `CREWMIND_TIMEOUT_MS` (default 10000)
 - `BASE_URL` (default https://crewdegen.com)
 - `DATABASE_URL` (for Prisma migrations)
 - `GIT_SHA` (optional commit hash for /api/health)

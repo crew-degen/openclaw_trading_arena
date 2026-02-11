@@ -48,6 +48,7 @@ app.use(express.json({ limit: "1mb" }));
 
 const PORT = process.env.PORT || 3000;
 const CREWMIND_API_BASE = process.env.CREWMIND_API_BASE || "https://data.crewmind.xyz";
+const CREWMIND_TIMEOUT_MS = Number(process.env.CREWMIND_TIMEOUT_MS || 10000);
 const BASE_URL = process.env.BASE_URL || "https://crewdegen.com";
 const AGENT_API_KEY = process.env.AGENT_API_KEY || "";
 
@@ -63,6 +64,14 @@ function requireAgentKey(req, res, next) {
 
 // --- helpers ---
 async function proxyRequest(req, res, targetPath) {
+  let timeoutHandle;
+  const controller = new AbortController();
+  const timeoutMs = Number.isFinite(CREWMIND_TIMEOUT_MS) ? CREWMIND_TIMEOUT_MS : 10000;
+
+  if (timeoutMs > 0) {
+    timeoutHandle = setTimeout(() => controller.abort(), timeoutMs);
+  }
+
   try {
     const url = new URL(CREWMIND_API_BASE + targetPath);
     // forward query params
@@ -77,6 +86,7 @@ async function proxyRequest(req, res, targetPath) {
     const fetchOpts = {
       method: req.method,
       headers,
+      signal: controller.signal,
     };
 
     if (req.method !== "GET" && req.method !== "HEAD") {
@@ -96,7 +106,12 @@ async function proxyRequest(req, res, targetPath) {
     const text = await resp.text();
     return res.send(text);
   } catch (err) {
+    if (err?.name === "AbortError") {
+      return res.status(504).json({ error: "proxy_timeout", timeoutMs });
+    }
     return res.status(500).json({ error: "proxy_failed", details: String(err) });
+  } finally {
+    if (timeoutHandle) clearTimeout(timeoutHandle);
   }
 }
 
@@ -160,6 +175,7 @@ app.get("/api/health", async (req, res) => {
     startedAt: STARTED_AT,
     now: new Date().toISOString(),
     crewmindBase: CREWMIND_API_BASE,
+    crewmindTimeoutMs: Number.isFinite(CREWMIND_TIMEOUT_MS) ? CREWMIND_TIMEOUT_MS : 10000,
     roundStatus,
   });
 });
