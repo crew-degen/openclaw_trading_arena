@@ -35,6 +35,9 @@ If you are working from a host without Docker, redeploy must be run on the VPS.
 # fetch latest forum posts (optional TAGS="defi,ai" LIMIT=20)
 ./scripts/colosseum_forum_new.sh
 
+# pick posts we have NOT commented on yet (requires COLOSSEUM_API_KEY)
+PICK=5 TAGS="trading,defi,infra" ./scripts/colosseum_forum_pick.sh
+
 # fetch comments for a forum post (POST_ID required; optional MIN_ID)
 POST_ID=123 ./scripts/colosseum_forum_comments.sh
 
