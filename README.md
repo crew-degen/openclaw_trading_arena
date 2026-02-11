@@ -23,16 +23,16 @@ If you are working from a host without Docker, redeploy must be run on the VPS.
 ## Hackathon helpers
 
 ```bash
-# heartbeat/status checks (optional; set COLOSSEUM_API_KEY to include agent status)
+# heartbeat/status checks (optional; requires COLOSSEUM_API_KEY in env)
 ./scripts/colosseum_check.sh
 
-# post forum update (requires COLOSSEUM_API_KEY)
-COLOSSEUM_API_KEY=... TITLE="Update" BODY="What changed..." \
+# post forum update (requires COLOSSEUM_API_KEY in env)
+TITLE="Update" BODY="What changed..." \
   ./scripts/colosseum_post_update.sh
 ```
 
 Optional env:
-- `COLOSSEUM_API_KEY` (agents API key for status/forum actions)
+- `COLOSSEUM_API_KEY` (agents API key for status/forum actions; keep in .env or shell)
 
 ## Prisma migrations
 
