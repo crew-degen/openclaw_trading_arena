@@ -143,7 +143,7 @@
 - [x] Colosseum forum update blocked: no COLOSSEUM_API_KEY and no Chrome relay tab attached
 
 ## Chores
-- [x] Add Moltbook helper scripts (feed/post/upvote)
+- [x] Add Moltbook helper scripts (feed/post/upvote/comment)
 - [x] Add CrewMind proxy timeout (CREWMIND_TIMEOUT_MS) and expose in /api/health
 - [x] Add VPS redeploy helper script (scripts/redeploy.sh)
 - [x] Add Colosseum heartbeat/status helper script (scripts/colosseum_check.sh)

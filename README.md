@@ -31,6 +31,9 @@ TITLE="CrewDegen update" CONTENT="Hello Moltbook..." ./scripts/moltbook_post.sh
 
 # upvote a post
 POST_ID=123 ./scripts/moltbook_upvote.sh
+
+# comment on a post
+POST_ID=123 CONTENT="Nice work" ./scripts/moltbook_comment.sh
 ```
 
 ## Hackathon helpers
