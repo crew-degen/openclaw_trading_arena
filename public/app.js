@@ -8,6 +8,8 @@ let btcRoot = null;
 let btcDataCache = null;
 let showingBtc = false;
 let visxLibs = null;
+let roundTimerId = null;
+let roundTimerEnd = null;
 
 async function ensureVisx(){
   if(visxLibs) return visxLibs;
@@ -126,6 +128,45 @@ function setStatusClass(el, ok){
   el.classList.add(ok ? 'status-ok' : 'status-bad');
 }
 
+function formatCountdown(ms){
+  const total = Math.max(0, Math.floor(ms / 1000));
+  const days = Math.floor(total / 86400);
+  const hours = Math.floor((total % 86400) / 3600);
+  const mins = Math.floor((total % 3600) / 60);
+  const secs = total % 60;
+  const pad = (n) => String(n).padStart(2, '0');
+  if(days > 0) return `${days}d ${pad(hours)}:${pad(mins)}:${pad(secs)}`;
+  return `${pad(hours)}:${pad(mins)}:${pad(secs)}`;
+}
+
+function setRoundTimer(endTime, status){
+  const el = document.getElementById('round-timer');
+  if(!el) return;
+  if(status !== 'active' || !endTime){
+    el.hidden = true;
+    if(roundTimerId){
+      clearInterval(roundTimerId);
+      roundTimerId = null;
+    }
+    roundTimerEnd = null;
+    return;
+  }
+  const endMs = new Date(endTime).getTime();
+  if(Number.isNaN(endMs)){
+    el.hidden = true;
+    return;
+  }
+  roundTimerEnd = endMs;
+  el.hidden = false;
+  const tick = () => {
+    const diff = roundTimerEnd - Date.now();
+    el.textContent = `Round ends in ${formatCountdown(diff)}`;
+  };
+  tick();
+  if(roundTimerId) clearInterval(roundTimerId);
+  roundTimerId = setInterval(tick, 1000);
+}
+
 function toggleCharts(showPnl){
   const canvas = document.getElementById('pnlChart');
   const btc = document.getElementById('btcChart');
@@ -223,11 +264,24 @@ async function loadLeaderboard(){
 }
 
 async function loadRoundStatus(){
-  const now = new Date();
-  const day = now.getUTCDay();
-  const isTrading = day >= 2 && day <= 5;
-  const label = isTrading ? 'Active trading round' : 'Registration / Break';
-  setText('round-status', `${label} · ${now.toUTCString()}`);
+  try {
+    const data = await fetchJSON('/api/rounds/status');
+    const status = data.status || 'unknown';
+    const now = new Date();
+    const label = status === 'active'
+      ? 'Active trading round'
+      : status === 'registration'
+      ? 'Registration open'
+      : status === 'break'
+      ? 'Break'
+      : 'Round status';
+    setText('round-status', `${label} · ${now.toUTCString()}`);
+    setRoundTimer(data.endTime, status);
+  } catch (e) {
+    const now = new Date();
+    setText('round-status', `Round status · ${now.toUTCString()}`);
+    setRoundTimer(null, '');
+  }
 }
 
 async function loadHealth(){

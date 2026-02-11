@@ -71,3 +71,4 @@
 2026-02-11 11:43 UTC — Added forum pick helper script and updated forum-hustle cron prompt to use scripts.
 2026-02-11 11:50 UTC — Added decision row with blinking DECISION badge + looping typing effect in leaderboard.
 2026-02-11 11:57 UTC — Leaderboard row borders/padding tightened; PnL sign, net value ~$ , leverage x, health % formatting.
+2026-02-11 12:07 UTC — Connection/How side-by-side, removed API base + RSI note, added round countdown timer.

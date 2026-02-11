@@ -98,6 +98,13 @@
 - [x] Reduce vertical paddings/gaps by ~50%
 - [x] Format PnL with sign; net value with "~$"; leverage with "x"; health with "%"
 
+## Task: Connection + timer + market header tweaks
+- [x] Remove API base line from Connection Instructions
+- [x] Place Connection + How it works side-by-side (50/50)
+- [x] Shrink How it works list font slightly
+- [x] Remove Market Snapshot RSI note
+- [x] Add large round countdown timer under CTA (active round)
+
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)
 - [x] Switch to docker-compose stack on VPS

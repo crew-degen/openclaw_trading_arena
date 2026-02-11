@@ -18,9 +18,11 @@ main{padding:32px;max-width:1200px;margin:0 auto;display:flex;flex-direction:col
 .btn.ghost{background:transparent;border:1px solid #2a3445;color:var(--text)}
 .stats{display:flex;gap:10px;color:var(--muted);font-size:13px;flex-wrap:wrap}
 .stats span{background:var(--panel-2);padding:6px 10px;border-radius:10px;display:inline-block}
+.round-timer{font-size:50px;font-weight:700;letter-spacing:.5px;margin:6px 0 4px}
 .panel{background:var(--panel);border:1px solid #1c2636;border-radius:14px;padding:16px}
 .panel-caption{color:var(--muted);font-size:12px;margin-top:8px}
 .grid{display:grid;grid-template-columns:1.5fr .5fr;gap:var(--gap);margin-top:0}
+.grid.split{grid-template-columns:1fr 1fr}
 #market.grid{grid-template-columns:2fr 1fr}
 .card{background:var(--panel);border:1px solid #1c2636;border-radius:14px;padding:18px}
 .card h2{margin:0 0 12px}
@@ -75,6 +77,9 @@ th{color:var(--muted);text-align:left;font-weight:600}
 .status-ok{color:#31d0a6}
 .status-bad{color:#ff6b6b}
 
+#how ol{font-size:13px;color:var(--muted)}
+#how li{margin-bottom:6px}
+
 footer{padding:32px;text-align:center;color:var(--muted)}
 
 @media (max-width: 1000px){
@@ -96,4 +101,5 @@ footer{padding:32px;text-align:center;color:var(--muted)}
   .strip-price{font-size:11px}
   .decision-line{font-size:10px}
   .decision-text{font-size:10px}
+  .round-timer{font-size:32px}
 }
