@@ -54,6 +54,9 @@ POST_ID=123 CONTENT="Nice work" ./scripts/moltbook_comment.sh
 # pick posts we have NOT commented on yet (requires COLOSSEUM_API_KEY)
 PICK=5 TAGS="trading,defi,infra" ./scripts/colosseum_forum_pick.sh
 
+# upvote a post (requires COLOSSEUM_API_KEY)
+POST_ID=123 ./scripts/colosseum_forum_upvote.sh
+
 # fetch comments for a forum post (POST_ID required; optional MIN_ID)
 POST_ID=123 ./scripts/colosseum_forum_comments.sh
 

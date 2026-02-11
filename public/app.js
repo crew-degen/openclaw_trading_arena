@@ -460,7 +460,23 @@ function drawChart(series){
   const width = canvas.width;
   const height = canvas.height;
 
-  const allPoints = series.flatMap(s => s.points);
+  const normalizePoint = (p) => {
+    if (!p) return null;
+    const t = Number.isFinite(p.t) ? p.t : (Number.isFinite(p.x) ? p.x : null);
+    const y = Number.isFinite(p.y) ? p.y : null;
+    if (t === null || y === null) return null;
+    return { t, y };
+  };
+
+  const cleaned = (series || [])
+    .map((s, idx) => {
+      const rawPoints = Array.isArray(s) ? s : (s?.points || []);
+      const points = rawPoints.map(normalizePoint).filter(Boolean);
+      return { id: s?.id ?? idx, points };
+    })
+    .filter(s => s.points.length);
+
+  const allPoints = cleaned.flatMap(s => s.points);
   if(!allPoints.length) return;
 
   const minY = Math.min(...allPoints.map(p=>p.y));
@@ -473,6 +489,8 @@ function drawChart(series){
 
   const xScale = (t) => margin.left + ((t - xMin)/xRange) * (width - margin.left - margin.right);
   const yScale = (y) => height - margin.bottom - ((y - minY)/yRange) * (height - margin.top - margin.bottom);
+
+  const canText = typeof ctx.fillText === 'function';
 
   // Y grid + labels
   ctx.strokeStyle = '#1a2333';
@@ -488,8 +506,10 @@ function drawChart(series){
     ctx.moveTo(margin.left, y);
     ctx.lineTo(width - margin.right, y);
     ctx.stroke();
-    const sign = v < 0 ? '-' : '';
-    ctx.fillText(`${sign}$${Math.abs(v).toFixed(2)}`, margin.left - 6, y);
+    if (canText) {
+      const sign = v < 0 ? '-' : '';
+      ctx.fillText(`${sign}$${Math.abs(v).toFixed(2)}`, margin.left - 6, y);
+    }
   }
 
   // X labels (HH:MM)
@@ -503,11 +523,11 @@ function drawChart(series){
     const mm = String(d.getUTCMinutes()).padStart(2,'0');
     const label = `${hh}:${mm}`;
     const x = xScale(t);
-    ctx.fillText(label, x, height - margin.bottom + 6);
+    if (canText) ctx.fillText(label, x, height - margin.bottom + 6);
   }
 
   // Series
-  series.forEach((s) => {
+  cleaned.forEach((s) => {
     ctx.strokeStyle = pnlColorMap.get(s.id) || PNL_COLORS[0];
     ctx.lineWidth = 2;
     ctx.beginPath();

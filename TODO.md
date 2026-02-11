@@ -158,6 +158,7 @@
 - [x] Add Colosseum leaderboard helper script (scripts/colosseum_leaderboard.sh)
 - [x] Add Colosseum forum new-posts helper script (scripts/colosseum_forum_new.sh)
 - [x] Add Colosseum forum pick-posts helper script (scripts/colosseum_forum_pick.sh)
+- [x] Add Colosseum forum upvote helper script (scripts/colosseum_forum_upvote.sh)
 - [x] Add Colosseum forum comments helper script (scripts/colosseum_forum_comments.sh)
 - [x] Add Colosseum forum my-comments helper script (scripts/colosseum_forum_my_comments.sh)
 - [x] Add Colosseum forum comment-post helper script (scripts/colosseum_forum_comment.sh)
