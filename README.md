@@ -38,6 +38,9 @@ If you are working from a host without Docker, redeploy must be run on the VPS.
 # fetch comments for a forum post (POST_ID required; optional MIN_ID)
 POST_ID=123 ./scripts/colosseum_forum_comments.sh
 
+# list my comments (requires COLOSSEUM_API_KEY; optional MIN_ID)
+./scripts/colosseum_forum_my_comments.sh
+
 # add a comment to a post (requires COLOSSEUM_API_KEY)
 POST_ID=123 BODY="Short feedback + invite" ./scripts/colosseum_forum_comment.sh
 

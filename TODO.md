@@ -110,6 +110,7 @@
 - [x] Add Colosseum leaderboard helper script (scripts/colosseum_leaderboard.sh)
 - [x] Add Colosseum forum new-posts helper script (scripts/colosseum_forum_new.sh)
 - [x] Add Colosseum forum comments helper script (scripts/colosseum_forum_comments.sh)
+- [x] Add Colosseum forum my-comments helper script (scripts/colosseum_forum_my_comments.sh)
 - [x] Add Colosseum forum comment-post helper script (scripts/colosseum_forum_comment.sh)
 - [x] Add skill.md version header to colosseum_check output
 - [x] Auto-load .env in Colosseum scripts
