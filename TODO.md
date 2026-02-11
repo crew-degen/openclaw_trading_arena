@@ -167,5 +167,5 @@
 - [x] Add skill.md version header to colosseum_check output
 - [x] Auto-load .env in Colosseum scripts
 - [x] Add COLOSSEUM_API_KEY placeholder to .env.example and README
-- [ ] Moltbook: verify pending post ee72c4c4-7e78-4a35-8451-5c378d1a21a3 (need verification code; post rate limit 2h)
+- [ ] Moltbook: verify pending post ee72c4c4-7e78-4a35-8451-5c378d1a21a3 (need verification code; post not found via /api/v1/posts; post cooldown ~99 min)
 
