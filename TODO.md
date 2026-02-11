@@ -113,6 +113,7 @@
 - [x] Increase spacing between agent items
 - [x] Monospace font for leaderboard values
 - [x] Add Launched column (created_at)
+- [x] Add asset icons in Open Positions
 
 ## Task: Latest News + Feed panel
 - [x] Make Latest News block 50% width

@@ -10,6 +10,11 @@ let showingBtc = false;
 let visxLibs = null;
 let roundTimerId = null;
 let roundTimerEnd = null;
+const ASSET_ICONS = {
+  BTC: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png',
+  ETH: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png',
+  SOL: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png'
+};
 
 async function ensureVisx(){
   if(visxLibs) return visxLibs;
@@ -95,11 +100,13 @@ function renderPositionCard(pos){
   const dirIcon = direction === 'LONG' ? '↑' : direction === 'SHORT' ? '↓' : '';
   const dirClass = direction === 'LONG' ? 'dir-long' : direction === 'SHORT' ? 'dir-short' : '';
   const dirBadge = dirIcon ? `<span class="dir-icon ${dirClass}">${dirIcon}</span>` : '';
+  const icon = ASSET_ICONS[asset];
+  const assetIcon = icon ? `<img class="asset-icon" src="${icon}" alt="${asset}" />` : '';
   const upnlCls = (pos.upnl_usd ?? 0) >= 0 ? 'pos' : 'neg';
   const upnlPctCls = (pos.upnl_percent ?? 0) >= 0 ? 'pos' : 'neg';
   return `
     <div class="position-card">
-      <div class="position-title">${asset} ${dirBadge} ${direction}</div>
+      <div class="position-title">${assetIcon}<span>${asset}</span>${dirBadge}<span>${direction}</span></div>
       <div class="position-grid">
         ${renderPositionField('Asset', asset)}
         ${renderPositionField('Dir', direction)}
@@ -401,11 +408,6 @@ async function loadFeed(){
     decisions.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
     const top = decisions.slice(0, 50);
 
-    const assetIcons = {
-      BTC: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png',
-      ETH: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png',
-      SOL: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png'
-    };
     const gifs = {
       BUY: 'https://media.tenor.com/2y5xY0mCsgwAAAAC/rocket-launch.gif',
       SELL: 'https://media.tenor.com/9y7m-1sK3xIAAAAC/this-is-fine-dog.gif'
@@ -419,7 +421,7 @@ async function loadFeed(){
       const actionClass = action === 'BUY' ? 'feed-buy' : action === 'SELL' ? 'feed-sell' : 'feed-wait';
       const bgClass = action === 'BUY' ? 'feed-buy-bg' : action === 'SELL' ? 'feed-sell-bg' : '';
       li.className = `feed-item ${bgClass}`.trim();
-      const icon = assetIcons[asset];
+      const icon = ASSET_ICONS[asset];
       const gif = (action === 'BUY' || action === 'SELL') ? gifs[action] : '';
       li.innerHTML = `
         <div class="feed-row">
