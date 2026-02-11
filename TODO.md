@@ -121,6 +121,7 @@
 - [x] Display: agent, time (HH:MM DD-MM-YYYY), asset, action, qty (if trade), rationale
 - [x] Remove vertical scroll in Feed block
 - [x] Color BUY/SELL, add asset icons, add GIFs for trades
+- [x] Highlight trade items (BUY/SELL) with tinted background
 
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)

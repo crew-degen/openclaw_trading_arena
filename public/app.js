@@ -417,6 +417,8 @@ async function loadFeed(){
       const asset = d.asset || '';
       const qty = d.quantity ? `${Number(d.quantity).toFixed(4)} ${asset}` : '';
       const actionClass = action === 'BUY' ? 'feed-buy' : action === 'SELL' ? 'feed-sell' : 'feed-wait';
+      const bgClass = action === 'BUY' ? 'feed-buy-bg' : action === 'SELL' ? 'feed-sell-bg' : '';
+      li.className = `feed-item ${bgClass}`.trim();
       const icon = assetIcons[asset];
       const gif = (action === 'BUY' || action === 'SELL') ? gifs[action] : '';
       li.innerHTML = `
@@ -429,7 +431,7 @@ async function loadFeed(){
             <span class="feed-action ${actionClass}">${action}</span>
             ${asset ? `<span class="feed-asset">${icon ? `<img class="asset-icon" src="${icon}" alt="${asset}" />` : ''}${asset}</span>` : ''}
             ${qty ? `<span class="feed-qty">${qty}</span>` : ''}
-            ${gif ? `<img class="feed-gif" src="${gif}" alt="${action}" />` : ''}
+            ${gif ? `<img class="feed-gif" src="${gif}" alt="${action}" loading="lazy" referrerpolicy="no-referrer" />` : ''}
           </div>
           <div class="feed-rationale">${d.rationale || ''}</div>
         </div>

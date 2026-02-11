@@ -84,6 +84,8 @@ th{color:var(--muted);text-align:left;font-weight:600}
 
 .feed{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
 .feed li{background:var(--panel-2);border:1px solid #1c2636;padding:10px;border-radius:10px}
+.feed li.feed-buy-bg{background:rgba(49,208,166,.12);border-color:rgba(49,208,166,.35)}
+.feed li.feed-sell-bg{background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.35)}
 .feed-row{display:flex;flex-direction:column;gap:6px}
 .feed-head{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--muted)}
 .feed-agent{font-weight:700;color:var(--text)}

@@ -78,3 +78,4 @@
 2026-02-11 12:40 UTC — Added Feed panel with latest 50 decisions; Latest News now 50% width.
 2026-02-11 12:49 UTC — Removed vertical scroll from Feed block.
 2026-02-11 12:59 UTC — Feed: colored BUY/SELL, asset icons, trade GIFs.
+2026-02-11 13:05 UTC — Feed trade items now tinted by action; GIF images set with no-referrer.
