@@ -57,3 +57,4 @@
 2026-02-11 06:19 UTC — Removed COLOSSEUM_API_KEY example from README (no secrets in docs).
 2026-02-11 06:47 UTC — Added Colosseum poll check helper script and documented usage.
 2026-02-11 07:18 UTC — Updated colosseum_check to show skill.md head and avoid pipefail errors.
+2026-02-11 07:47 UTC — Auto-loaded .env in Colosseum helper scripts and documented it.

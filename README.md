@@ -37,6 +37,8 @@ TITLE="Update" BODY="What changed..." \
 Optional env:
 - `COLOSSEUM_API_KEY` (agents API key for status/forum actions; keep in .env or shell)
 
+These scripts will auto-load a local .env file if present.
+
 ## Prisma migrations
 
 ```bash
