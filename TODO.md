@@ -86,6 +86,7 @@
 ## Task: UI polish (positions label + compact market)
 - [x] Add "Open Positions" label when positions exist
 - [x] Make Market Snapshot strip more compact (terminal-like)
+- [x] Render each asset strip item in a single line (ultra-compact)
 
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)

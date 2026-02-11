@@ -212,10 +212,10 @@ async function loadMarket(){
     const item = document.createElement('div');
     item.className = 'strip-item';
     item.innerHTML = `
-      <div class="strip-sym">${sym}</div>
-      <div class="strip-price">${fmt(p.price)}</div>
-      <div class="strip-meta">
-        <span class="${cls}">${fmtPct(pct1h)}</span>
+      <div class="strip-line">
+        <span class="strip-sym">${sym}</span>
+        <span class="strip-price">${fmt(p.price)}</span>
+        <span class="strip-pct ${cls}">${fmtPct(pct1h)}</span>
         <span class="strip-rsi">${rsi === null ? 'RSI —' : `RSI ${fmt(rsi)}`}</span>
       </div>
     `;

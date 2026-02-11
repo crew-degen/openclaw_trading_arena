@@ -27,13 +27,14 @@ main{padding:32px;max-width:1200px;margin:0 auto;display:flex;flex-direction:col
 pre.code{background:var(--panel-2);padding:10px;border-radius:10px;color:#b8c4d4;overflow:auto}
 code{color:#b8c4d4}
 
-.market-strip{padding:8px 12px;display:flex;align-items:center;gap:12px}
-.market-strip h2{margin:0;font-size:12px;white-space:nowrap}
-.strip-row{flex:1;display:flex;gap:10px;overflow-x:auto;padding:2px 0}
-.strip-item{min-width:150px;background:var(--panel-2);border:1px solid #1c2636;border-radius:10px;padding:6px 10px;display:flex;flex-direction:column;gap:4px}
+.market-strip{padding:6px 10px;display:flex;align-items:center;gap:10px}
+.market-strip h2{margin:0;font-size:11px;white-space:nowrap}
+.strip-row{flex:1;display:flex;gap:8px;overflow-x:auto;padding:2px 0}
+.strip-item{min-width:0;background:var(--panel-2);border:1px solid #1c2636;border-radius:8px;padding:4px 8px;display:flex;align-items:center}
+.strip-line{display:flex;align-items:center;gap:8px;white-space:nowrap;font-size:11px}
 .strip-sym{font-weight:700;letter-spacing:.4px}
-.strip-price{font-size:14px}
-.strip-meta{display:flex;gap:8px;font-size:10px;color:var(--muted)}
+.strip-price{font-size:12px;font-variant-numeric:tabular-nums}
+.strip-pct{font-variant-numeric:tabular-nums}
 .strip-rsi{color:var(--muted)}
 
 .table-wrap{overflow:auto}
@@ -83,6 +84,6 @@ footer{padding:32px;text-align:center;color:var(--muted)}
   .positions{grid-template-columns:1fr}
   .position-field{font-size:10px}
   .market-strip{flex-direction:column;align-items:flex-start}
-  .strip-item{min-width:140px}
-  .strip-price{font-size:13px}
+  .strip-line{font-size:10px}
+  .strip-price{font-size:11px}
 }

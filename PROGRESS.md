@@ -67,3 +67,4 @@
 2026-02-11 11:20 UTC — Moved Market Snapshot to top ticker strip; Connection Instructions now above full-width Leaderboard.
 2026-02-11 11:23 UTC — Added Colosseum my-comments helper script and documented usage.
 2026-02-11 11:30 UTC — Added Open Positions label and compacted Market Snapshot strip layout.
+2026-02-11 11:39 UTC — Market Snapshot strip items now single-line, ultra-compact.
