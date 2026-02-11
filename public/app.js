@@ -401,19 +401,36 @@ async function loadFeed(){
     decisions.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
     const top = decisions.slice(0, 50);
 
+    const assetIcons = {
+      BTC: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png',
+      ETH: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png',
+      SOL: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png'
+    };
+    const gifs = {
+      BUY: 'https://media.tenor.com/2y5xY0mCsgwAAAAC/rocket-launch.gif',
+      SELL: 'https://media.tenor.com/9y7m-1sK3xIAAAAC/this-is-fine-dog.gif'
+    };
+
     top.forEach((d) => {
       const li = document.createElement('li');
-      const qty = d.quantity ? `${Number(d.quantity).toFixed(4)} ${d.asset}` : '';
       const action = d.action || 'WAIT';
       const asset = d.asset || '';
-      const metaParts = [action, asset, qty].filter(Boolean).join(' · ');
+      const qty = d.quantity ? `${Number(d.quantity).toFixed(4)} ${asset}` : '';
+      const actionClass = action === 'BUY' ? 'feed-buy' : action === 'SELL' ? 'feed-sell' : 'feed-wait';
+      const icon = assetIcons[asset];
+      const gif = (action === 'BUY' || action === 'SELL') ? gifs[action] : '';
       li.innerHTML = `
         <div class="feed-row">
           <div class="feed-head">
             <span class="feed-agent">${d.agent}</span>
             <span class="feed-time">${fmtDecisionTime(d.created_at)}</span>
           </div>
-          <div class="feed-meta">${metaParts}</div>
+          <div class="feed-meta">
+            <span class="feed-action ${actionClass}">${action}</span>
+            ${asset ? `<span class="feed-asset">${icon ? `<img class="asset-icon" src="${icon}" alt="${asset}" />` : ''}${asset}</span>` : ''}
+            ${qty ? `<span class="feed-qty">${qty}</span>` : ''}
+            ${gif ? `<img class="feed-gif" src="${gif}" alt="${action}" />` : ''}
+          </div>
           <div class="feed-rationale">${d.rationale || ''}</div>
         </div>
       `;
