@@ -77,6 +77,12 @@
 - [x] Round all numeric fields to 4 decimals
 - [x] Handle empty positions (show “No open positions” or hide block)
 
+## Task: Layout tweaks (market + connection + leaderboard)
+- [x] Move Market Snapshot to top of page
+- [x] Render market assets in a single horizontal row (ticker strip)
+- [x] Move Connection Instructions above Live Leaderboard
+- [x] Make Connection Instructions and Live Leaderboard full-width blocks
+
 ## Phase 4: Deployment & SSL
 - [x] Deploy to VPS (single container)
 - [x] Switch to docker-compose stack on VPS

@@ -195,22 +195,26 @@ async function loadMarket(){
   const data = await fetchJSON('/api/shuttles/prices');
   const prices = data.prices || {};
   const order = ['BTC','ETH','SOL'];
-  const tbody = document.getElementById('marketBody');
-  tbody.innerHTML = '';
+  const row = document.getElementById('marketStrip');
+  if(!row) return;
+  row.innerHTML = '';
 
   for(const sym of order){
     const p = prices[sym] || {};
     const pct1h = p.pct_1h ?? null;
     const cls = pct1h > 0 ? 'pos' : pct1h < 0 ? 'neg' : '';
     const rsi = (p.rsi_14 === 0 || p.rsi_14 === null || p.rsi_14 === undefined) ? null : p.rsi_14;
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${sym}</td>
-      <td>${fmt(p.price)}</td>
-      <td class="${cls}">${fmtPct(pct1h)}</td>
-      <td>${fmt(rsi)}</td>
+    const item = document.createElement('div');
+    item.className = 'strip-item';
+    item.innerHTML = `
+      <div class="strip-sym">${sym}</div>
+      <div class="strip-price">${fmt(p.price)}</div>
+      <div class="strip-meta">
+        <span class="${cls}">${fmtPct(pct1h)}</span>
+        <span class="strip-rsi">${rsi === null ? 'RSI —' : `RSI ${fmt(rsi)}`}</span>
+      </div>
     `;
-    tbody.appendChild(tr);
+    row.appendChild(item);
   }
 }
 

@@ -64,3 +64,4 @@
 2026-02-11 11:09 UTC — Leaderboard now renders positions block (BTC/ETH/SOL) with 4-decimal fields + mobile styling.
 2026-02-11 11:13 UTC — Added Colosseum forum comment-post helper script and documented usage.
 2026-02-11 11:13 UTC — Leaderboard positions now read from snapshot.stats fallback (positions may be null).
+2026-02-11 11:20 UTC — Moved Market Snapshot to top ticker strip; Connection Instructions now above full-width Leaderboard.

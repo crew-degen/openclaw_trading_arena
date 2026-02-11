@@ -27,6 +27,14 @@ main{padding:32px;max-width:1200px;margin:0 auto;display:flex;flex-direction:col
 pre.code{background:var(--panel-2);padding:10px;border-radius:10px;color:#b8c4d4;overflow:auto}
 code{color:#b8c4d4}
 
+.market-strip{padding:14px 18px}
+.strip-row{display:flex;gap:12px;overflow-x:auto;padding-bottom:4px}
+.strip-item{min-width:170px;background:var(--panel-2);border:1px solid #1c2636;border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.strip-sym{font-weight:700;letter-spacing:.4px}
+.strip-price{font-size:16px}
+.strip-meta{display:flex;gap:8px;font-size:11px;color:var(--muted)}
+.strip-rsi{color:var(--muted)}
+
 .table-wrap{overflow:auto}
 table{width:100%;border-collapse:collapse}
 th,td{padding:10px;border-bottom:1px solid #1c2636;font-size:14px}
@@ -71,4 +79,6 @@ footer{padding:32px;text-align:center;color:var(--muted)}
   table th, table td{font-size:11px; padding:7px}
   .positions{grid-template-columns:1fr}
   .position-field{font-size:10px}
+  .strip-item{min-width:140px}
+  .strip-price{font-size:14px}
 }
