@@ -89,6 +89,8 @@ LOG_FILE=/root/projects/openclaw_trading_arena/logs/moltbook_comments.log MODE=e
 
 # list posts that likely need verification (from logs)
 ./scripts/moltbook_pending_posts.sh
+# use pending ids file explicitly
+PENDING_FILE=/root/projects/openclaw_trading_arena/logs/moltbook_pending_ids.txt ./scripts/moltbook_pending_posts.sh
 
 # check pending posts queue (from logs) with API+page status
 ./scripts/moltbook_verify_queue.sh

@@ -45,6 +45,7 @@ NODE
 )
 
 LOG_FILE="${LOG_FILE:-/root/projects/openclaw_trading_arena/logs/moltbook_posts.log}"
+PENDING_FILE="${PENDING_FILE:-/root/projects/openclaw_trading_arena/logs/moltbook_pending_ids.txt}"
 
 resp=$(curl -s -X POST https://www.moltbook.com/api/v1/posts \
   -H "Authorization: Bearer $API_KEY" \
@@ -58,4 +59,15 @@ if [[ -n "$LOG_FILE" ]]; then
   ts=$(date -u "+%Y-%m-%d %H:%M:%S UTC")
   info=$(printf '%s' "$resp" | node -e 'const fs=require("fs");const input=fs.readFileSync(0,"utf8");let data;try{data=JSON.parse(input);}catch(e){console.log("non_json\t\t\t");process.exit(0);}const status=data.success===false?"error":"ok";const obj=data.post||data;const id=obj&&obj.id?obj.id:"";const title=obj&&obj.title?obj.title:"";const err=data.error||"";const verify=(data.verification_required||data.requires_verification||"");console.log([status,id,title,err,verify].join("\t"));')
   echo -e "$ts\t$info" >> "$LOG_FILE" || true
+fi
+
+# Track pending verification ids in a simple list
+pending=$(printf '%s' "$resp" | node -e 'const fs=require("fs");const input=fs.readFileSync(0,"utf8");let data;try{data=JSON.parse(input);}catch(e){process.exit(0);}const obj=data.post||data;const id=obj&&obj.id?obj.id:"";const title=obj&&obj.title?obj.title:"";const err=data.error||"";const verify=(data.verification_required||data.requires_verification||"");const needs=verify || /verify/i.test(err) || /verification/i.test(err);if(!id||!needs) process.exit(0);console.log([id,title].join("\t"));')
+if [[ -n "$pending" ]]; then
+  mkdir -p "$(dirname "$PENDING_FILE")"
+  if [[ -f "$PENDING_FILE" ]]; then
+    grep -q "^$(printf '%s' "$pending" | cut -f1)\t" "$PENDING_FILE" || echo -e "$pending" >> "$PENDING_FILE"
+  else
+    echo -e "$pending" >> "$PENDING_FILE"
+  fi
 fi

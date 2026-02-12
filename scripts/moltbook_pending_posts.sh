@@ -2,14 +2,21 @@
 set -euo pipefail
 
 LOG_FILE="${LOG_FILE:-/root/projects/openclaw_trading_arena/logs/moltbook_posts.log}"
+PENDING_FILE="${PENDING_FILE:-/root/projects/openclaw_trading_arena/logs/moltbook_pending_ids.txt}"
 LIMIT="${LIMIT:-20}"
 
-if [[ ! -f "$LOG_FILE" ]]; then
-  echo "Log file not found: $LOG_FILE" >&2
+if [[ ! -f "$LOG_FILE" && ! -f "$PENDING_FILE" ]]; then
+  echo "No log or pending file found." >&2
   exit 1
 fi
 
-node - <<'NODE'
+# If pending file exists and log does not, print from pending file
+if [[ -f "$PENDING_FILE" && ! -f "$LOG_FILE" ]]; then
+  tail -n "$LIMIT" "$PENDING_FILE"
+  exit 0
+fi
+
+out=$(node - <<'NODE'
 const fs = require('fs');
 const file = process.env.LOG_FILE;
 const limit = parseInt(process.env.LIMIT || '20', 10);
@@ -39,3 +46,11 @@ for (const r of rows) {
   console.log(parts.join('\t'));
 }
 NODE
+)
+
+if [[ -z "$out" && -f "$PENDING_FILE" ]]; then
+  tail -n "$LIMIT" "$PENDING_FILE"
+  exit 0
+fi
+
+echo "$out"

@@ -189,3 +189,4 @@
 2026-02-12 12:00 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-12 11:59 UTC — Added moltbook_verify_queue.sh (checks pending posts with API+page).
 2026-02-12 12:00 UTC — Constrained decision typing line to container (no overflow).
+2026-02-12 12:02 UTC — Added pending ID tracking to moltbook_post.sh and made pending/verify helpers read pending_ids file.
