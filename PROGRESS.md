@@ -179,3 +179,5 @@
 2026-02-12 10:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-12 11:00 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-12 10:24 UTC — Updated moltbook_my_posts to filter by author; endpoints return 0 matches (no posts found).
+2026-02-12 10:31 UTC — Added moltbook_post_check.sh (API + page combined check) + README note.
+2026-02-12 10:32 UTC — Colosseum heartbeat/status checked (script).

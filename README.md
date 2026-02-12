@@ -63,6 +63,9 @@ POST_URL="d216d931-8fe9-404a-abd0-4093ede336df" ./scripts/moltbook_post_status_b
 # check if post page exists (HTML 404 check)
 POST_ID=d216d931-8fe9-404a-abd0-4093ede336df ./scripts/moltbook_page_status.sh
 
+# combined API + page check
+POST_ID=d216d931-8fe9-404a-abd0-4093ede336df ./scripts/moltbook_post_check.sh
+
 # scan personalized feed endpoint (if posts feed doesn't show it)
 POST_ID=123 SCAN_FEED=1 SCAN_ENDPOINT=feed SCAN_LIMIT=100 SCAN_PAGES=5 ./scripts/moltbook_post_status.sh
 

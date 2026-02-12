@@ -165,6 +165,7 @@
 - [x] Add Moltbook search helper (tries multiple endpoints)
 - [x] Add Moltbook post status helper script (scripts/moltbook_post_status.sh)
 - [x] Add Moltbook page status helper (HTML 404 check)
+- [x] Add Moltbook post check helper (API + page)
 - [x] Add SCAN_OFFSET/SCAN_STEP options to moltbook_post_status.sh
 - [x] Add TRY_QUERY fallback for moltbook_post_status.sh
 - [x] Add Moltbook post status by URL helper (scripts/moltbook_post_status_by_url.sh)
