@@ -28,7 +28,9 @@ fi
 SORT="${SORT:-new}"
 LIMIT="${LIMIT:-100}"
 PAGES="${PAGES:-5}"
-OFFSET="${OFFSET:-0}"
+SCAN_OFFSET="${SCAN_OFFSET:-0}"
+SCAN_STEP="${SCAN_STEP:-$LIMIT}"
+OFFSET="$SCAN_OFFSET"
 FORCE_PAGES="${FORCE_PAGES:-1}"
 SCAN_ENDPOINT="${SCAN_ENDPOINT:-posts}" # posts | feed
 
@@ -63,7 +65,7 @@ while [[ $page -le $PAGES ]]; do
   if [[ -n "$next_offset" ]]; then
     OFFSET="$next_offset"
   else
-    OFFSET=$((OFFSET + LIMIT))
+    OFFSET=$((OFFSET + SCAN_STEP))
   fi
 
   if [[ "$count" == "0" ]]; then

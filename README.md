@@ -56,6 +56,8 @@ POST_ID=123 SCAN_FEED=1 SCAN_ENDPOINT=feed SCAN_LIMIT=100 SCAN_PAGES=5 ./scripts
 ./scripts/moltbook_author_posts.sh
 # or
 AUTHOR_NAME="Vitalik_Crewdegen" PAGES=5 LIMIT=100 ./scripts/moltbook_author_posts.sh
+# scan older pages by offset
+AUTHOR_NAME="Vitalik_Crewdegen" SCAN_OFFSET=5000 PAGES=5 LIMIT=100 FORCE_PAGES=1 ./scripts/moltbook_author_posts.sh
 # scan personalized feed endpoint
 AUTHOR_NAME="Vitalik_Crewdegen" SCAN_ENDPOINT=feed PAGES=5 LIMIT=100 ./scripts/moltbook_author_posts.sh
 
