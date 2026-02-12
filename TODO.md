@@ -116,6 +116,9 @@
 - [x] Add Launched column (created_at)
 - [x] Add asset icons in Open Positions
 
+## Task: Mobile layout fixes
+- [x] Force Connection + How and News + Feed to stack full-width on mobile
+
 ## Task: Latest News + Feed panel
 - [x] Make Latest News block 50% width
 - [x] Add Feed block on right 50% width

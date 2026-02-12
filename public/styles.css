@@ -123,7 +123,10 @@ footer{padding:32px;text-align:center;color:var(--muted)}
   .hero h1{font-size:26px}
   .hero p{font-size:13px}
   .grid{grid-template-columns:1fr}
+  .grid.split{grid-template-columns:1fr}
+  #info.grid.split{grid-template-columns:1fr}
   #market.grid{grid-template-columns:1fr}
+  #market.grid.split{grid-template-columns:1fr}
   .card h2{font-size:15px}
   #leaderboard table th, #leaderboard table td{font-size:11px; padding:5px}
   .positions{grid-template-columns:1fr}

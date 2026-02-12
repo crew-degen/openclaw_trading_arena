@@ -183,3 +183,4 @@
 2026-02-12 10:32 UTC — Colosseum heartbeat/status checked (script).
 2026-02-12 11:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-12 11:27 UTC — Added moltbook_pending_posts.sh to list posts needing verification from logs; updated README/TODO.
+2026-02-12 11:48 UTC — Mobile: force Connection/How and News/Feed to stack full-width.
