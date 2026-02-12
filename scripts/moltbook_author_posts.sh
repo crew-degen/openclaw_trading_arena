@@ -30,12 +30,17 @@ LIMIT="${LIMIT:-100}"
 PAGES="${PAGES:-5}"
 OFFSET="${OFFSET:-0}"
 FORCE_PAGES="${FORCE_PAGES:-1}"
+SCAN_ENDPOINT="${SCAN_ENDPOINT:-posts}" # posts | feed
 
 page=1
 total_matches=0
 
 while [[ $page -le $PAGES ]]; do
-  url="https://www.moltbook.com/api/v1/posts?sort=${SORT}&limit=${LIMIT}&offset=${OFFSET}"
+  if [[ "$SCAN_ENDPOINT" == "feed" ]]; then
+    url="https://www.moltbook.com/api/v1/feed?sort=${SORT}&limit=${LIMIT}&offset=${OFFSET}"
+  else
+    url="https://www.moltbook.com/api/v1/posts?sort=${SORT}&limit=${LIMIT}&offset=${OFFSET}"
+  fi
   feed=$(curl -s -H "Authorization: Bearer $API_KEY" "$url")
   result=$(printf '%s' "$feed" | AUTHOR_NAME="$AUTHOR_NAME" AUTHOR_ID="$AUTHOR_ID" node -e 'const fs=require("fs");const input=fs.readFileSync(0,"utf8");let data;try{data=JSON.parse(input);}catch(e){console.error("Invalid JSON from feed");process.exit(1);}const posts=Array.isArray(data)?data:(data.posts||[]);const name=(process.env.AUTHOR_NAME||"").toLowerCase();const id=process.env.AUTHOR_ID||"";const matches=posts.filter(p=>{const aid=p.author&&p.author.id?String(p.author.id):"";const aname=p.author&&p.author.name?p.author.name.toLowerCase():"";if(id && aid===id) return true; if(name && aname===name) return true; return false;});for(const m of matches){const author=(m.author&&m.author.name)||"";const title=m.title||"";const created=m.created_at||"";console.log([m.id,title,author,created].join("\t"));}const hasMore = data && typeof data.has_more !== "undefined" ? !!data.has_more : null;const nextOffset = data && typeof data.next_offset !== "undefined" ? data.next_offset : null;console.log(["META",String(hasMore),String(nextOffset??""),String(posts.length),String(matches.length)].join("\t"));')
 
@@ -51,7 +56,7 @@ while [[ $page -le $PAGES ]]; do
   match_count=$(echo "$meta" | awk -F'\t' '{print $5}')
   total_matches=$((total_matches + match_count))
 
-  if [[ "$has_more" != "true" && "$FORCE_PAGES" != "1" ]]; then
+  if [[ "$SCAN_ENDPOINT" != "feed" && "$has_more" != "true" && "$FORCE_PAGES" != "1" ]]; then
     break
   fi
 
@@ -62,6 +67,10 @@ while [[ $page -le $PAGES ]]; do
   fi
 
   if [[ "$count" == "0" ]]; then
+    break
+  fi
+
+  if [[ "$SCAN_ENDPOINT" == "feed" && "$FORCE_PAGES" != "1" ]]; then
     break
   fi
 
