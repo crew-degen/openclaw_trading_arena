@@ -29,6 +29,7 @@ SCAN_OFFSET="${SCAN_OFFSET:-0}"
 SCAN_STEP="${SCAN_STEP:-$SCAN_LIMIT}"
 AUTH_MODE="${AUTH_MODE:-bearer}" # bearer | x-api-key
 TRY_X_API_KEY="${TRY_X_API_KEY:-0}" # 1 = retry post lookup with X-API-Key if not found
+TRY_QUERY="${TRY_QUERY:-1}" # 1 = try query-param lookup if direct /posts/:id not found
 
 auth_header() {
   if [[ "$AUTH_MODE" == "x-api-key" ]]; then
@@ -47,6 +48,28 @@ fi
 if [[ -n "$RAW" ]]; then
   echo "$resp"
   exit 0
+fi
+
+# optional query-param lookup if direct lookup fails
+if [[ "$TRY_QUERY" == "1" ]] && echo "$resp" | grep -q '"success":false' && echo "$resp" | grep -q 'Post not found'; then
+  endpoints=(
+    "/api/v1/post/$POST_ID"
+    "/api/v1/posts?id=$POST_ID"
+    "/api/v1/posts?post_id=$POST_ID"
+    "/api/v1/posts?ids=$POST_ID"
+    "/api/v1/posts?uuid=$POST_ID"
+    "/api/v1/posts?slug=$POST_ID"
+  )
+  for ep in "${endpoints[@]}"; do
+    alt=$(curl -s -H "$(auth_header)" "https://www.moltbook.com${ep}")
+    found=$(printf '%s' "$alt" | POST_ID="$POST_ID" node -e 'const fs=require("fs");const input=fs.readFileSync(0,"utf8");let data;try{data=JSON.parse(input);}catch(e){process.exit(0);}const id=process.env.POST_ID;const candidates=[];if(data){if(Array.isArray(data)) candidates.push(...data);if(data.posts) candidates.push(...data.posts);if(data.post) candidates.push(data.post);if(data.result) candidates.push(data.result);if(data.results) candidates.push(...(Array.isArray(data.results)?data.results:[data.results]));}
+const match=candidates.find(p=>p&&p.id===id);
+if(!match){process.exit(0);}const author=(match.author&&match.author.name)?match.author.name:"";const title=match.title||"";const created=match.created_at||"";console.log([match.id,title,author,created].join("\t"));')
+    if [[ -n "$found" ]]; then
+      echo "$found"
+      exit 0
+    fi
+  done
 fi
 
 if [[ -n "$SCAN_FEED" ]] && echo "$resp" | grep -q '"success":false' && echo "$resp" | grep -q 'Post not found'; then

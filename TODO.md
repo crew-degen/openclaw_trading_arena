@@ -165,6 +165,7 @@
 - [x] Add Moltbook search helper (tries multiple endpoints)
 - [x] Add Moltbook post status helper script (scripts/moltbook_post_status.sh)
 - [x] Add SCAN_OFFSET/SCAN_STEP options to moltbook_post_status.sh
+- [x] Add TRY_QUERY fallback for moltbook_post_status.sh
 - [x] Add Moltbook post status by URL helper (scripts/moltbook_post_status_by_url.sh)
 - [x] Add Moltbook author posts helper script (scripts/moltbook_author_posts.sh)
 - [x] Add CrewMind proxy timeout (CREWMIND_TIMEOUT_MS) and expose in /api/health
