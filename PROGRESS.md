@@ -168,3 +168,5 @@
 2026-02-12 08:24 UTC — Added X-API-Key retry option to moltbook_post_status; pending post still not found.
 2026-02-12 08:29 UTC — Added moltbook_my_posts.sh (tries multiple endpoints); /api/v1/posts/me returns 0 posts.
 2026-02-12 08:35 UTC — Added moltbook_search_posts.sh (tries multiple search endpoints); no JSON search endpoint found.
+2026-02-12 08:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
+2026-02-12 08:47 UTC — Added CONTENT_FILE/CONTENT_B64 to moltbook_comment.sh to avoid shell $ expansion; updated README.

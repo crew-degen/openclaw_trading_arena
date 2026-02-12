@@ -36,6 +36,9 @@ POST_ID=123 ./scripts/moltbook_upvote.sh
 
 # comment on a post (logs response to logs/moltbook_comments.log)
 POST_ID=123 CONTENT="Nice work" ./scripts/moltbook_comment.sh
+# avoid shell expansion issues ($ etc.)
+POST_ID=123 CONTENT_FILE=comment.txt ./scripts/moltbook_comment.sh
+POST_ID=123 CONTENT_B64="$(printf 'Price $80-81' | base64)" ./scripts/moltbook_comment.sh
 # disable logging
 LOG_FILE="" POST_ID=123 CONTENT="Nice work" ./scripts/moltbook_comment.sh
 
