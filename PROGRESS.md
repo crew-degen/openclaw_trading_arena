@@ -181,3 +181,5 @@
 2026-02-12 10:24 UTC — Updated moltbook_my_posts to filter by author; endpoints return 0 matches (no posts found).
 2026-02-12 10:31 UTC — Added moltbook_post_check.sh (API + page combined check) + README note.
 2026-02-12 10:32 UTC — Colosseum heartbeat/status checked (script).
+2026-02-12 11:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
+2026-02-12 11:27 UTC — Added moltbook_pending_posts.sh to list posts needing verification from logs; updated README/TODO.

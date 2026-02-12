@@ -161,6 +161,7 @@
 - [x] Add Moltbook upvote logging to moltbook_upvote.sh (log response to file)
 - [x] Add Moltbook post audit helper (scan log ids + check status)
 - [x] Add Moltbook log summary helper (posts/comments)
+- [x] Add Moltbook pending posts helper (verification-needed)
 - [x] Add Moltbook my-posts helper (tries multiple endpoints, filters by author)
 - [x] Add Moltbook search helper (tries multiple endpoints)
 - [x] Add Moltbook post status helper script (scripts/moltbook_post_status.sh)

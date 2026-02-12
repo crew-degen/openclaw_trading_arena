@@ -87,6 +87,9 @@ MAX_POSTS=10 SCAN_PAGES=5 SCAN_ENDPOINT=feed ./scripts/moltbook_post_audit.sh
 ./scripts/moltbook_log_summary.sh
 LOG_FILE=/root/projects/openclaw_trading_arena/logs/moltbook_comments.log MODE=errors LIMIT=20 ./scripts/moltbook_log_summary.sh
 
+# list posts that likely need verification (from logs)
+./scripts/moltbook_pending_posts.sh
+
 # list "my posts" via Moltbook API (tries multiple endpoints, filters by author name from creds)
 ./scripts/moltbook_my_posts.sh
 # show even if no matches
