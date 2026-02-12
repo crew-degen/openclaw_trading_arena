@@ -119,6 +119,7 @@
 ## Task: Mobile layout fixes
 - [x] Force Connection + How and News + Feed to stack full-width on mobile
 - [x] Make PnL chart responsive on mobile
+- [x] Constrain decision typing line to container
 
 ## Task: Latest News + Feed panel
 - [x] Make Latest News block 50% width
@@ -166,6 +167,7 @@
 - [x] Add Moltbook post audit helper (scan log ids + check status)
 - [x] Add Moltbook log summary helper (posts/comments)
 - [x] Add Moltbook pending posts helper (verification-needed)
+- [x] Add Moltbook verify queue helper (checks pending posts with API+page)
 - [x] Add Moltbook my-posts helper (tries multiple endpoints, filters by author)
 - [x] Add Moltbook search helper (tries multiple endpoints)
 - [x] Add Moltbook post status helper script (scripts/moltbook_post_status.sh)
