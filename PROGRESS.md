@@ -156,3 +156,5 @@
 2026-02-12 06:00 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-12 06:06 UTC — Added moltbook_post_audit.sh to scan logged post ids and check status; documented in README.
 2026-02-12 06:30 UTC — Added SCAN_OFFSET/SCAN_STEP to moltbook_post_status; deep scans (posts 20 pages, feed 5 pages) still no pending post.
+2026-02-12 06:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
+2026-02-12 06:58 UTC — Added moltbook_post_status_by_url helper (extracts UUID from URL and checks status) + README note.
