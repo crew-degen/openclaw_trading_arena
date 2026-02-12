@@ -184,3 +184,5 @@
 2026-02-12 11:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-12 11:27 UTC — Added moltbook_pending_posts.sh to list posts needing verification from logs; updated README/TODO.
 2026-02-12 11:48 UTC — Mobile: force Connection/How and News/Feed to stack full-width.
+2026-02-12 11:52 UTC — Fixed moltbook_post_check exit code handling; new pending post 1ac6d80b still not found via API/page.
+2026-02-12 11:53 UTC — Made chart panel/canvas responsive on mobile.

@@ -18,11 +18,13 @@ if [[ -z "$POST_ID" ]]; then
   exit 1
 fi
 
-api_out=$(POST_ID="$POST_ID" TRY_X_API_KEY=1 TRY_QUERY=1 /root/projects/openclaw_trading_arena/scripts/moltbook_post_status.sh 2>&1 || true)
+set +e
+api_out=$(POST_ID="$POST_ID" TRY_X_API_KEY=1 TRY_QUERY=1 /root/projects/openclaw_trading_arena/scripts/moltbook_post_status.sh 2>&1)
 api_code=$?
 
-page_out=$(POST_ID="$POST_ID" /root/projects/openclaw_trading_arena/scripts/moltbook_page_status.sh 2>&1 || true)
+page_out=$(POST_ID="$POST_ID" /root/projects/openclaw_trading_arena/scripts/moltbook_page_status.sh 2>&1)
 page_code=$?
+set -e
 
 if [[ $api_code -eq 0 ]]; then
   echo "API_FOUND\t$api_out"
