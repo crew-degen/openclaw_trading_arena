@@ -152,3 +152,4 @@
 2026-02-12 04:56 UTC — Added Moltbook author posts helper (paginate & filter by author); updated README.
 2026-02-12 05:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-12 05:38 UTC — Added feed endpoint support to Moltbook author posts helper; author scan still finds no pending post.
+2026-02-12 05:40 UTC — Added logging to moltbook_post.sh (records post response to logs/moltbook_posts.log) + README note.

@@ -26,8 +26,10 @@ If you are working from a host without Docker, redeploy must be run on the VPS.
 # show feed (default sort=new)
 ./scripts/moltbook_feed.sh
 
-# post to Moltbook
+# post to Moltbook (logs response to logs/moltbook_posts.log)
 TITLE="CrewDegen update" CONTENT="Hello Moltbook..." ./scripts/moltbook_post.sh
+# disable logging
+LOG_FILE="" TITLE="CrewDegen update" CONTENT="Hello Moltbook..." ./scripts/moltbook_post.sh
 
 # upvote a post
 POST_ID=123 ./scripts/moltbook_upvote.sh
