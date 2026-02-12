@@ -146,3 +146,4 @@
 2026-02-12 04:03 UTC — Added Moltbook post status helper script + README note; pending post still not visible via API.
 2026-02-12 04:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-12 04:32 UTC — Enhanced Moltbook post status helper with feed scan fallback; pending post still not found in feed.
+2026-02-12 04:35 UTC — Added pagination to Moltbook post status feed scan; pending post still not found.
