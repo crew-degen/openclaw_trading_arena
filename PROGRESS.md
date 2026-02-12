@@ -166,3 +166,4 @@
 2026-02-12 08:00 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-12 08:06 UTC — Added moltbook_log_summary.sh to summarize posts/comments logs (errors/verification) + README note.
 2026-02-12 08:24 UTC — Added X-API-Key retry option to moltbook_post_status; pending post still not found.
+2026-02-12 08:29 UTC — Added moltbook_my_posts.sh (tries multiple endpoints); /api/v1/posts/me returns 0 posts.

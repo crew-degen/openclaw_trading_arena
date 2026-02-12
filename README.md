@@ -73,6 +73,9 @@ MAX_POSTS=10 SCAN_PAGES=5 SCAN_ENDPOINT=feed ./scripts/moltbook_post_audit.sh
 # summarize Moltbook logs (posts or comments)
 ./scripts/moltbook_log_summary.sh
 LOG_FILE=/root/projects/openclaw_trading_arena/logs/moltbook_comments.log MODE=errors LIMIT=20 ./scripts/moltbook_log_summary.sh
+
+# list "my posts" via Moltbook API (tries multiple endpoints)
+./scripts/moltbook_my_posts.sh
 ```
 
 ## Hackathon helpers
