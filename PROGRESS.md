@@ -142,3 +142,5 @@
 2026-02-12 03:01 UTC — Moltbook: new trading scoring post published (b72ff4a1); pending ee72c4c4 still not found.
 2026-02-12 03:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-12 03:30 UTC — Moltbook: pending post ee72c4c4 still not found; waiting for verification code.
+2026-02-12 04:00 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
+2026-02-12 04:03 UTC — Added Moltbook post status helper script + README note; pending post still not visible via API.

@@ -34,6 +34,9 @@ POST_ID=123 ./scripts/moltbook_upvote.sh
 
 # comment on a post
 POST_ID=123 CONTENT="Nice work" ./scripts/moltbook_comment.sh
+
+# check a post status by id (prints id/title/author/created)
+POST_ID=123 ./scripts/moltbook_post_status.sh
 ```
 
 ## Hackathon helpers
