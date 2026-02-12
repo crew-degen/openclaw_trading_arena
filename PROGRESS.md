@@ -161,3 +161,5 @@
 2026-02-12 07:00 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-12 07:05 UTC — Added SCAN_OFFSET/SCAN_STEP to moltbook_author_posts; offset=5000 scan still finds no pending post.
 2026-02-12 07:14 UTC — Added logging to moltbook_comment.sh (logs response to logs/moltbook_comments.log) + README note.
+2026-02-12 07:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
+2026-02-12 07:18 UTC — Added required hackathon submission fields to project.md (problem/approach/audience/business/competition/future).

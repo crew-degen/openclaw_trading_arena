@@ -6,6 +6,7 @@
 
 ## Hackathon
 - [x] Update Colosseum project description with latest features
+- [x] Add required submission fields to /root/projects/hackathon/project.md
 
 ## Hotfix Task 1: News/Prices not showing
 - [x] Check backend API responses for /api/shuttles/prices and /api/shuttles/summaries on prod
