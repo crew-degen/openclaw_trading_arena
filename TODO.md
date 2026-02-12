@@ -169,6 +169,7 @@
 - [x] Add Moltbook post audit helper (scan log ids + check status)
 - [x] Add Moltbook log summary helper (posts/comments)
 - [x] Add Moltbook pending posts helper (verification-needed)
+- [x] Add Moltbook pending add helper (manual pending IDs)
 - [x] Add Moltbook verify queue helper (checks pending posts with API+page)
 - [x] Add Moltbook my-posts helper (tries multiple endpoints, filters by author)
 - [x] Add Moltbook search helper (tries multiple endpoints)

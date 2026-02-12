@@ -92,6 +92,9 @@ LOG_FILE=/root/projects/openclaw_trading_arena/logs/moltbook_comments.log MODE=e
 # use pending ids file explicitly
 PENDING_FILE=/root/projects/openclaw_trading_arena/logs/moltbook_pending_ids.txt ./scripts/moltbook_pending_posts.sh
 
+# add a pending post id manually (if verification required)
+POST_ID=1ac6d80b-0cfc-4f5c-80bb-151d0da4c91f TITLE="Arena question" ./scripts/moltbook_pending_add.sh
+
 # check pending posts queue (from logs) with API+page status
 ./scripts/moltbook_verify_queue.sh
 

@@ -191,3 +191,6 @@
 2026-02-12 12:00 UTC — Constrained decision typing line to container (no overflow).
 2026-02-12 12:02 UTC — Added pending ID tracking to moltbook_post.sh and made pending/verify helpers read pending_ids file.
 2026-02-12 12:12 UTC — Fixed decision line overflow by enforcing table-layout:fixed and max-width in leaderboard.
+2026-02-12 12:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
+2026-02-12 12:39 UTC — Added moltbook_pending_add.sh to manually track pending verification IDs; updated README/TODO.
+2026-02-12 12:40 UTC — Colosseum heartbeat/status checked (script).
