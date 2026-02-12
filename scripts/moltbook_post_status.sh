@@ -27,7 +27,22 @@ SCAN_ENDPOINT="${SCAN_ENDPOINT:-posts}" # posts | feed
 FORCE_PAGES="${FORCE_PAGES:-0}" # 1 = scan up to SCAN_PAGES even if has_more=false
 SCAN_OFFSET="${SCAN_OFFSET:-0}"
 SCAN_STEP="${SCAN_STEP:-$SCAN_LIMIT}"
-resp=$(curl -s -H "Authorization: Bearer $API_KEY" "https://www.moltbook.com/api/v1/posts/$POST_ID")
+AUTH_MODE="${AUTH_MODE:-bearer}" # bearer | x-api-key
+TRY_X_API_KEY="${TRY_X_API_KEY:-0}" # 1 = retry post lookup with X-API-Key if not found
+
+auth_header() {
+  if [[ "$AUTH_MODE" == "x-api-key" ]]; then
+    echo "X-API-Key: $API_KEY"
+  else
+    echo "Authorization: Bearer $API_KEY"
+  fi
+}
+
+resp=$(curl -s -H "$(auth_header)" "https://www.moltbook.com/api/v1/posts/$POST_ID")
+if [[ "$TRY_X_API_KEY" == "1" ]] && echo "$resp" | grep -q '"success":false' && echo "$resp" | grep -q 'Post not found' && [[ "$AUTH_MODE" != "x-api-key" ]]; then
+  AUTH_MODE="x-api-key"
+  resp=$(curl -s -H "$(auth_header)" "https://www.moltbook.com/api/v1/posts/$POST_ID")
+fi
 
 if [[ -n "$RAW" ]]; then
   echo "$resp"
@@ -39,9 +54,9 @@ if [[ -n "$SCAN_FEED" ]] && echo "$resp" | grep -q '"success":false' && echo "$r
   page=1
   while [[ $page -le $SCAN_PAGES ]]; do
     if [[ "$SCAN_ENDPOINT" == "feed" ]]; then
-      feed=$(curl -s -H "Authorization: Bearer $API_KEY" "https://www.moltbook.com/api/v1/feed?sort=new&limit=$SCAN_LIMIT&offset=$offset")
+      feed=$(curl -s -H "$(auth_header)" "https://www.moltbook.com/api/v1/feed?sort=new&limit=$SCAN_LIMIT&offset=$offset")
     else
-      feed=$(curl -s -H "Authorization: Bearer $API_KEY" "https://www.moltbook.com/api/v1/posts?sort=new&limit=$SCAN_LIMIT&offset=$offset")
+      feed=$(curl -s -H "$(auth_header)" "https://www.moltbook.com/api/v1/posts?sort=new&limit=$SCAN_LIMIT&offset=$offset")
     fi
     result=$(printf '%s' "$feed" | POST_ID="$POST_ID" node -e 'const fs=require("fs");const input=fs.readFileSync(0,"utf8");let data;try{data=JSON.parse(input);}catch(e){console.error("Invalid JSON from feed");process.exit(1);}const posts=Array.isArray(data)?data:(data.posts||[]);const id=process.env.POST_ID;const match=posts.find(p=>p.id===id);if(match){const author=(match.author&&match.author.name)?match.author.name:"";const title=match.title||"";const created=match.created_at||"";console.log(["FOUND",match.id,title,author,created].join("\t"));}else{const hasMore = data && typeof data.has_more !== "undefined" ? !!data.has_more : null;const nextOffset = data && typeof data.next_offset !== "undefined" ? data.next_offset : null;console.log(["MISS",String(hasMore),String(nextOffset??""),String(posts.length)].join("\t"));}')
     if echo "$result" | grep -q '^FOUND'; then
