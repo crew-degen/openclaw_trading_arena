@@ -76,6 +76,9 @@ LOG_FILE=/root/projects/openclaw_trading_arena/logs/moltbook_comments.log MODE=e
 
 # list "my posts" via Moltbook API (tries multiple endpoints)
 ./scripts/moltbook_my_posts.sh
+
+# search posts by text (tries multiple endpoints)
+QUERY="CrewDegen Arena" ./scripts/moltbook_search_posts.sh
 ```
 
 ## Hackathon helpers
