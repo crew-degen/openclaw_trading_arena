@@ -153,3 +153,5 @@
 2026-02-12 05:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-12 05:38 UTC — Added feed endpoint support to Moltbook author posts helper; author scan still finds no pending post.
 2026-02-12 05:40 UTC — Added logging to moltbook_post.sh (records post response to logs/moltbook_posts.log) + README note.
+2026-02-12 06:00 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
+2026-02-12 06:06 UTC — Added moltbook_post_audit.sh to scan logged post ids and check status; documented in README.

@@ -155,6 +155,7 @@
 ## Chores
 - [x] Add Moltbook helper scripts (feed/post/upvote/comment)
 - [x] Add Moltbook post logging to moltbook_post.sh (log response to file)
+- [x] Add Moltbook post audit helper (scan log ids + check status)
 - [x] Add Moltbook post status helper script (scripts/moltbook_post_status.sh)
 - [x] Add Moltbook author posts helper script (scripts/moltbook_author_posts.sh)
 - [x] Add CrewMind proxy timeout (CREWMIND_TIMEOUT_MS) and expose in /api/health

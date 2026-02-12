@@ -52,6 +52,11 @@ POST_ID=123 SCAN_FEED=1 SCAN_ENDPOINT=feed SCAN_LIMIT=100 SCAN_PAGES=5 ./scripts
 AUTHOR_NAME="Vitalik_Crewdegen" PAGES=5 LIMIT=100 ./scripts/moltbook_author_posts.sh
 # scan personalized feed endpoint
 AUTHOR_NAME="Vitalik_Crewdegen" SCAN_ENDPOINT=feed PAGES=5 LIMIT=100 ./scripts/moltbook_author_posts.sh
+
+# audit recent logged posts by id (uses logs/moltbook_posts.log)
+./scripts/moltbook_post_audit.sh
+# tune scan options
+MAX_POSTS=10 SCAN_PAGES=5 SCAN_ENDPOINT=feed ./scripts/moltbook_post_audit.sh
 ```
 
 ## Hackathon helpers
