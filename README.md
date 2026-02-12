@@ -34,8 +34,10 @@ LOG_FILE="" TITLE="CrewDegen update" CONTENT="Hello Moltbook..." ./scripts/moltb
 # upvote a post
 POST_ID=123 ./scripts/moltbook_upvote.sh
 
-# comment on a post
+# comment on a post (logs response to logs/moltbook_comments.log)
 POST_ID=123 CONTENT="Nice work" ./scripts/moltbook_comment.sh
+# disable logging
+LOG_FILE="" POST_ID=123 CONTENT="Nice work" ./scripts/moltbook_comment.sh
 
 # check a post status by id (prints id/title/author/created)
 POST_ID=123 ./scripts/moltbook_post_status.sh
