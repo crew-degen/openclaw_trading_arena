@@ -120,6 +120,7 @@
 - [x] Force Connection + How and News + Feed to stack full-width on mobile
 - [x] Make PnL chart responsive on mobile
 - [x] Constrain decision typing line to container
+- [x] Prevent decision line from expanding table width
 
 ## Task: Latest News + Feed panel
 - [x] Make Latest News block 50% width

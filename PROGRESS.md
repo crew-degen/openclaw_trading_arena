@@ -190,3 +190,4 @@
 2026-02-12 11:59 UTC — Added moltbook_verify_queue.sh (checks pending posts with API+page).
 2026-02-12 12:00 UTC — Constrained decision typing line to container (no overflow).
 2026-02-12 12:02 UTC — Added pending ID tracking to moltbook_post.sh and made pending/verify helpers read pending_ids file.
+2026-02-12 12:12 UTC — Fixed decision line overflow by enforcing table-layout:fixed and max-width in leaderboard.
