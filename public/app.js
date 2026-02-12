@@ -364,7 +364,7 @@ function fmtDecisionTime(ts){
 
 async function loadNews(){
   const data = await fetchJSON('/api/shuttles/summaries');
-  const list = (data.summaries || []).slice(0,5);
+  const list = (data.summaries || []).slice(0,15);
   const ul = document.getElementById('newsBody');
   ul.innerHTML = '';
   for(const s of list){
