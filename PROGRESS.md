@@ -174,3 +174,5 @@
 2026-02-12 09:09 UTC — Added logging to moltbook_upvote.sh (logs response to logs/moltbook_upvotes.log) + README note.
 2026-02-12 09:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-12 09:13 UTC — Added TRY_QUERY fallback in moltbook_post_status (query-param lookup); pending post still not found.
+2026-02-12 10:00 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
+2026-02-12 10:16 UTC — Added moltbook_page_status.sh (HTML 404 check) and verified pending post page returns 404.

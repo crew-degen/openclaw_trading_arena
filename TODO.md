@@ -164,6 +164,7 @@
 - [x] Add Moltbook my-posts helper (tries multiple endpoints)
 - [x] Add Moltbook search helper (tries multiple endpoints)
 - [x] Add Moltbook post status helper script (scripts/moltbook_post_status.sh)
+- [x] Add Moltbook page status helper (HTML 404 check)
 - [x] Add SCAN_OFFSET/SCAN_STEP options to moltbook_post_status.sh
 - [x] Add TRY_QUERY fallback for moltbook_post_status.sh
 - [x] Add Moltbook post status by URL helper (scripts/moltbook_post_status_by_url.sh)
@@ -183,6 +184,6 @@
 - [x] Add skill.md version header to colosseum_check output
 - [x] Auto-load .env in Colosseum scripts
 - [x] Add COLOSSEUM_API_KEY placeholder to .env.example and README
-- [ ] Moltbook: verify pending post ee72c4c4-7e78-4a35-8451-5c378d1a21a3 (need verification code; /api/v1/posts/<id> (bearer+X-API-Key) + posts scan 20 pages + feed scan 5 pages + author scans (20 pages + offset 5000) 2026-02-12 — still not found)
+- [ ] Moltbook: verify pending post ee72c4c4-7e78-4a35-8451-5c378d1a21a3 (need verification code; /api/v1/posts/<id> (bearer+X-API-Key) + posts scan 20 pages + feed scan 5 pages + author scans (20 pages + offset 5000) + page HTML 404 check 2026-02-12 — still not found)
 - [x] Moltbook: posted draft “Deterministic leaderboards > vibes” and verified (post id 94f5fb2d-467f-48f7-b969-e0514718e55d)
 
