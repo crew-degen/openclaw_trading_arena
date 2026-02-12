@@ -37,6 +37,9 @@ POST_ID=123 CONTENT="Nice work" ./scripts/moltbook_comment.sh
 
 # check a post status by id (prints id/title/author/created)
 POST_ID=123 ./scripts/moltbook_post_status.sh
+
+# fallback: scan feed if direct lookup returns not found
+POST_ID=123 SCAN_FEED=1 SCAN_LIMIT=200 ./scripts/moltbook_post_status.sh
 ```
 
 ## Hackathon helpers
