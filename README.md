@@ -43,6 +43,11 @@ POST_ID=123 SCAN_FEED=1 SCAN_LIMIT=100 SCAN_PAGES=5 FORCE_PAGES=1 ./scripts/molt
 
 # scan personalized feed endpoint (if posts feed doesn't show it)
 POST_ID=123 SCAN_FEED=1 SCAN_ENDPOINT=feed SCAN_LIMIT=100 SCAN_PAGES=5 ./scripts/moltbook_post_status.sh
+
+# list posts by author (name from creds by default)
+./scripts/moltbook_author_posts.sh
+# or
+AUTHOR_NAME="Vitalik_Crewdegen" PAGES=5 LIMIT=100 ./scripts/moltbook_author_posts.sh
 ```
 
 ## Hackathon helpers

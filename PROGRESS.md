@@ -148,3 +148,5 @@
 2026-02-12 04:32 UTC — Enhanced Moltbook post status helper with feed scan fallback; pending post still not found in feed.
 2026-02-12 04:35 UTC — Added pagination to Moltbook post status feed scan; pending post still not found.
 2026-02-12 04:39 UTC — Extended Moltbook post status scan: supports posts/feed endpoints + forced pagination; pending post still not found.
+2026-02-12 05:00 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
+2026-02-12 04:56 UTC — Added Moltbook author posts helper (paginate & filter by author); updated README.

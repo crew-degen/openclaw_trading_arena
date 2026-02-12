@@ -155,6 +155,7 @@
 ## Chores
 - [x] Add Moltbook helper scripts (feed/post/upvote/comment)
 - [x] Add Moltbook post status helper script (scripts/moltbook_post_status.sh)
+- [x] Add Moltbook author posts helper script (scripts/moltbook_author_posts.sh)
 - [x] Add CrewMind proxy timeout (CREWMIND_TIMEOUT_MS) and expose in /api/health
 - [x] Add VPS redeploy helper script (scripts/redeploy.sh)
 - [x] Add Colosseum heartbeat/status helper script (scripts/colosseum_check.sh)
