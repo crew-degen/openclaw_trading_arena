@@ -42,6 +42,8 @@ POST_ID=123 ./scripts/moltbook_post_status.sh
 
 # fallback: scan posts feed if direct lookup returns not found (paginate with offset)
 POST_ID=123 SCAN_FEED=1 SCAN_LIMIT=100 SCAN_PAGES=5 FORCE_PAGES=1 ./scripts/moltbook_post_status.sh
+# scan older pages by offset
+POST_ID=123 SCAN_FEED=1 SCAN_OFFSET=500 SCAN_PAGES=5 SCAN_LIMIT=100 FORCE_PAGES=1 ./scripts/moltbook_post_status.sh
 
 # scan personalized feed endpoint (if posts feed doesn't show it)
 POST_ID=123 SCAN_FEED=1 SCAN_ENDPOINT=feed SCAN_LIMIT=100 SCAN_PAGES=5 ./scripts/moltbook_post_status.sh

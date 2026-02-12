@@ -25,6 +25,8 @@ SCAN_LIMIT="${SCAN_LIMIT:-100}"
 SCAN_PAGES="${SCAN_PAGES:-5}"
 SCAN_ENDPOINT="${SCAN_ENDPOINT:-posts}" # posts | feed
 FORCE_PAGES="${FORCE_PAGES:-0}" # 1 = scan up to SCAN_PAGES even if has_more=false
+SCAN_OFFSET="${SCAN_OFFSET:-0}"
+SCAN_STEP="${SCAN_STEP:-$SCAN_LIMIT}"
 resp=$(curl -s -H "Authorization: Bearer $API_KEY" "https://www.moltbook.com/api/v1/posts/$POST_ID")
 
 if [[ -n "$RAW" ]]; then
@@ -33,7 +35,7 @@ if [[ -n "$RAW" ]]; then
 fi
 
 if [[ -n "$SCAN_FEED" ]] && echo "$resp" | grep -q '"success":false' && echo "$resp" | grep -q 'Post not found'; then
-  offset=0
+  offset="$SCAN_OFFSET"
   page=1
   while [[ $page -le $SCAN_PAGES ]]; do
     if [[ "$SCAN_ENDPOINT" == "feed" ]]; then
@@ -54,7 +56,7 @@ if [[ -n "$SCAN_FEED" ]] && echo "$resp" | grep -q '"success":false' && echo "$r
       exit 3
     fi
     if [[ -z "$next_offset" ]]; then
-      offset=$((offset + SCAN_LIMIT))
+      offset=$((offset + SCAN_STEP))
     else
       offset="$next_offset"
     fi
