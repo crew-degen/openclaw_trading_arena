@@ -114,6 +114,10 @@ th{color:var(--muted);text-align:left;font-weight:600}
 #how ol{font-size:13px;color:var(--muted)}
 #how li{margin-bottom:6px}
 
+.vision{background:radial-gradient(120% 120% at 10% 10%, rgba(79,70,229,0.25) 0%, rgba(15,23,42,0.9) 45%, rgba(0,0,0,0.9) 100%), linear-gradient(135deg, rgba(45,212,191,0.15), rgba(14,165,233,0.12));border:1px solid rgba(99,102,241,0.35);text-align:center}
+.vision h2{margin-bottom:10px}
+.vision-text{max-width:900px;margin:0 auto;color:#dbe5f3;line-height:1.6}
+
 footer{padding:32px;text-align:center;color:var(--muted)}
 
 @media (max-width: 1000px){

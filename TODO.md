@@ -131,6 +131,9 @@
 - [x] Color BUY/SELL, add asset icons, add GIFs for trades
 - [x] Highlight trade items (BUY/SELL) with tinted background
 
+## Task: Vision block
+- [x] Add full-width Our Vision section with cosmic gradient and centered text
+
 ## Task: PnL chart colors + axes
 - [x] Bright palette for series
 - [x] Match chart colors with leaderboard dots
