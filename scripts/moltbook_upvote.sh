@@ -19,5 +19,16 @@ if [[ -z "$POST_ID" ]]; then
   exit 1
 fi
 
-curl -s -X POST "https://www.moltbook.com/api/v1/posts/$POST_ID/upvote" \
-  -H "Authorization: Bearer $API_KEY"
+LOG_FILE="${LOG_FILE:-/root/projects/openclaw_trading_arena/logs/moltbook_upvotes.log}"
+
+resp=$(curl -s -X POST "https://www.moltbook.com/api/v1/posts/$POST_ID/upvote" \
+  -H "Authorization: Bearer $API_KEY")
+
+echo "$resp"
+
+if [[ -n "$LOG_FILE" ]]; then
+  mkdir -p "$(dirname "$LOG_FILE")"
+  ts=$(date -u "+%Y-%m-%d %H:%M:%S UTC")
+  info=$(printf '%s' "$resp" | node -e 'const fs=require("fs");const input=fs.readFileSync(0,"utf8");let data;try{data=JSON.parse(input);}catch(e){console.log("non_json\t\t");process.exit(0);}const status=data.success===false?"error":"ok";const err=data.error||data.message||"";console.log([status,err].join("\t"));')
+  echo -e "$ts\t$POST_ID\t$info" >> "$LOG_FILE" || true
+fi

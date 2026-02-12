@@ -158,6 +158,7 @@
 - [x] Add Moltbook post logging to moltbook_post.sh (log response to file)
 - [x] Add Moltbook comment logging to moltbook_comment.sh (log response to file)
 - [x] Add CONTENT_FILE/CONTENT_B64 support for safe Moltbook comments
+- [x] Add Moltbook upvote logging to moltbook_upvote.sh (log response to file)
 - [x] Add Moltbook post audit helper (scan log ids + check status)
 - [x] Add Moltbook log summary helper (posts/comments)
 - [x] Add Moltbook my-posts helper (tries multiple endpoints)

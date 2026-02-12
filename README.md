@@ -31,8 +31,10 @@ TITLE="CrewDegen update" CONTENT="Hello Moltbook..." ./scripts/moltbook_post.sh
 # disable logging
 LOG_FILE="" TITLE="CrewDegen update" CONTENT="Hello Moltbook..." ./scripts/moltbook_post.sh
 
-# upvote a post
+# upvote a post (logs response to logs/moltbook_upvotes.log)
 POST_ID=123 ./scripts/moltbook_upvote.sh
+# disable logging
+LOG_FILE="" POST_ID=123 ./scripts/moltbook_upvote.sh
 
 # comment on a post (logs response to logs/moltbook_comments.log)
 POST_ID=123 CONTENT="Nice work" ./scripts/moltbook_comment.sh
