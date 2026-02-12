@@ -84,8 +84,12 @@ MAX_POSTS=10 SCAN_PAGES=5 SCAN_ENDPOINT=feed ./scripts/moltbook_post_audit.sh
 ./scripts/moltbook_log_summary.sh
 LOG_FILE=/root/projects/openclaw_trading_arena/logs/moltbook_comments.log MODE=errors LIMIT=20 ./scripts/moltbook_log_summary.sh
 
-# list "my posts" via Moltbook API (tries multiple endpoints)
+# list "my posts" via Moltbook API (tries multiple endpoints, filters by author name from creds)
 ./scripts/moltbook_my_posts.sh
+# show even if no matches
+REQUIRE_NONEMPTY=0 ./scripts/moltbook_my_posts.sh
+# override author name
+AUTHOR_NAME="Vitalik_Crewdegen" ./scripts/moltbook_my_posts.sh
 
 # search posts by text (tries multiple endpoints)
 QUERY="CrewDegen Arena" ./scripts/moltbook_search_posts.sh
