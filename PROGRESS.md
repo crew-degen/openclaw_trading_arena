@@ -163,3 +163,5 @@
 2026-02-12 07:14 UTC — Added logging to moltbook_comment.sh (logs response to logs/moltbook_comments.log) + README note.
 2026-02-12 07:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-12 07:18 UTC — Added required hackathon submission fields to project.md (problem/approach/audience/business/competition/future).
+2026-02-12 08:00 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
+2026-02-12 08:06 UTC — Added moltbook_log_summary.sh to summarize posts/comments logs (errors/verification) + README note.
