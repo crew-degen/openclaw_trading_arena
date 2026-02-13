@@ -140,6 +140,11 @@
 ## Task: Skeleton loaders
 - [x] Add skeletons for timer, chart, leaderboard, news, feed
 
+## Task: Hero wrap + background effect
+- [x] Group top blocks into hero section
+- [x] Add crystal/parallax background effect
+- [x] Ensure mobile-friendly (disable canvas on small screens)
+
 ## Task: PnL chart colors + axes
 - [x] Bright palette for series
 - [x] Match chart colors with leaderboard dots

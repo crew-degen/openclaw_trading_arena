@@ -255,3 +255,5 @@
 2026-02-13 10:00 UTC — Chart skeleton now absolute overlay to avoid double height.
 2026-02-13 10:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-13 10:55 UTC — Updated chart caption to recent values.
+2026-02-13 11:00 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
+2026-02-13 11:14 UTC — Wrapped top area into hero section with crystal parallax canvas background.
