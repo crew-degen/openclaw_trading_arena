@@ -147,7 +147,7 @@
 - [x] Ensure mobile-friendly (disable effect on small screens)
 - [x] Remove Market Snapshot label; remove top padding for hero
 - [x] Full-bleed hero spacing + card gradients
-- [x] Make header background transparent
+- [x] Make header background subtle translucent with blur
 
 ## Task: PnL chart colors + axes
 - [x] Bright palette for series

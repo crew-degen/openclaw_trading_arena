@@ -263,3 +263,4 @@
 2026-02-13 11:47 UTC — Adjusted hero spacing (margin-top -57, padding 70) and added card gradients; removed horizontal scroll.
 2026-02-13 12:00 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-13 12:01 UTC — Made header background transparent.
+2026-02-13 12:03 UTC — Added subtle translucent header background with blur.
