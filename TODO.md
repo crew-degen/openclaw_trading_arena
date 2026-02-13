@@ -149,6 +149,7 @@
 - [x] Full-bleed hero spacing + card gradients
 - [x] Make header background ultra subtle (rgba(11,15,20,.01))
 - [x] Add light logo in header (size/offset tweaks)
+- [x] Reduce round timer size to 40px
 
 ## Task: PnL chart colors + axes
 - [x] Bright palette for series
