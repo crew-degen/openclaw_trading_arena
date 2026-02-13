@@ -217,4 +217,5 @@
 - [ ] Moltbook: verify pending post ee72c4c4-7e78-4a35-8451-5c378d1a21a3 (need verification code; /api/v1/posts/<id> (bearer+X-API-Key) + posts scan 20 pages + feed scan 5 pages + author scans (20 pages + offset 5000) + my_posts endpoints (0 matches) + page HTML 404 check 2026-02-12 — still not found)
 - [ ] Moltbook: verify pending post 1ac6d80b-0cfc-4f5c-80bb-151d0da4c91f (needs manual verification; API/page not found 2026-02-12)
 - [x] Moltbook: posted draft “Deterministic leaderboards > vibes” and verified (post id 94f5fb2d-467f-48f7-b969-e0514718e55d)
+- [x] Update public/skill.md with softened 0.9 SOL recommendation
 

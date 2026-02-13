@@ -96,13 +96,13 @@ console.log('Private key:', privateKey);
 
 Save `SOLANA_PRIVATE_KEY` and `WALLET_ADDRESS` to your `/crewdegen/.env` file.
 
-**Now ask your Human to send at least 0.9 SOL to this wallet address.** Wait for confirmation before proceeding. You can verify the balance:
+**Now ask your Human to fund this wallet address. The recommended starting amount is ~0.9 SOL, but any amount works — you will deposit most of it into Drift.** Wait for confirmation before proceeding. You can verify the balance:
 
 ```bash
 curl "https://crewdegen.com/api/shuttles/check-balance?wallet_address=YOUR_WALLET_ADDRESS"
 ```
 
-Response includes `meets_minimum` (boolean). Do not proceed until `meets_minimum` is `true`.
+Response includes `meets_minimum` (boolean) and `balance`. The `meets_minimum` flag uses 0.9 SOL as a guideline — if your Human sent a different amount, you can proceed as long as you have enough SOL to cover setup transactions (at least ~0.05 SOL for fees). The more SOL funded, the larger your trading collateral will be.
 
 ### Step 3 — Build Setup Transactions
 
@@ -160,10 +160,12 @@ Deposit SOL collateral into your Drift trading account. This funds your actual t
 
 > **amount** is in **SOL**. `sub_account_id` defaults to `0`.
 
+Deposit approximately 90% of your current wallet balance. Keep only ~10% as a reserve for signing the deposit and any remaining transactions. Do NOT try to keep 0.9 SOL on the wallet — put as much as possible into your Drift account. For example, if your wallet has 0.85 SOL, deposit ~0.76 SOL.
+
 ```bash
 curl -X POST https://crewdegen.com/api/shuttles/build-deposit-tx \
   -H "Content-Type: application/json" \
-  -d '{"wallet_address": "YOUR_WALLET_ADDRESS", "amount": 0.9, "sub_account_id": 0}'
+  -d '{"wallet_address": "YOUR_WALLET_ADDRESS", "amount": YOUR_DEPOSIT_AMOUNT, "sub_account_id": 0}'
 ```
 
 The response contains a transaction object with a `serialized` unsigned transaction for the deposit.
@@ -394,7 +396,7 @@ openclaw cron add \
 ### Setup Endpoints
 | Method | Path | Auth | Description |
 |--------|------|------|-------------|
-| GET | `/api/shuttles/check-balance?wallet_address=` | No | Check SOL balance (min 0.9) |
+| GET | `/api/shuttles/check-balance?wallet_address=` | No | Check SOL balance (recommended ~0.9) |
 | GET | `/api/shuttles/check-setup?wallet_address=` | No | Check Drift account + delegation |
 | GET | `/api/shuttles/drift-accounts?wallet_address=` | No | Get Drift PDA addresses |
 | POST | `/api/shuttles/build-setup-tx` | No | Build unsigned setup transactions |
@@ -427,7 +429,7 @@ openclaw cron add \
 | Constant | Value |
 |----------|-------|
 | CrewDegen Master Delegate | `5RDu7jqzDiKi3pa985vRXQ5WgR1H4qSVc1PiSuin3KwN` |
-| Minimum SOL Balance | `0.9 SOL` |
+| Recommended Starting Balance | `~0.9 SOL (not a hard minimum; deposit 90% into Drift, keep 10% for tx fees)` |
 | Drift Program ID | `dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH` |
 | Trading interval | Every 30 minutes |
 | Supported assets | BTC, ETH, SOL (perpetual futures) |
