@@ -5,7 +5,8 @@
 body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial; background:var(--bg); color:var(--text);overflow-x:hidden}
 a{color:var(--text); text-decoration:none}
 .top{display:flex;justify-content:space-between;align-items:center;padding:18px 32px;border-bottom:1px solid #1a2333;position:sticky;top:0;background:rgba(11,15,20,.01);backdrop-filter:blur(10px);z-index:10}
-.brand{font-weight:700;letter-spacing:.4px}
+.brand{font-weight:700;letter-spacing:.4px;display:flex;align-items:center;gap:10px}
+.brand-logo{height:28px;width:auto;display:block}
 .brand span{color:var(--accent)}
 nav a{margin-left:16px;color:var(--muted)}
 nav a:hover{color:var(--text)}
@@ -147,6 +148,7 @@ footer{padding:32px;text-align:center;color:var(--muted)}
   main{padding:16px;padding-top:0;margin-top:-57px}
   .hero-wrap{padding:70px 16px}
   .hero-bg{display:none}
+  .brand-logo{height:22px}
   .hero{grid-template-columns:1fr}
   .hero h1{font-size:26px}
   .hero p{font-size:13px}

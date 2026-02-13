@@ -148,6 +148,7 @@
 - [x] Remove Market Snapshot label; remove top padding for hero
 - [x] Full-bleed hero spacing + card gradients
 - [x] Make header background ultra subtle (rgba(11,15,20,.01))
+- [x] Add light logo in header
 
 ## Task: PnL chart colors + axes
 - [x] Bright palette for series

@@ -265,3 +265,5 @@
 2026-02-13 12:01 UTC — Made header background transparent.
 2026-02-13 12:03 UTC — Added subtle translucent header background with blur.
 2026-02-13 12:09 UTC — Set header background to rgba(11,15,20,0.01) with blur.
+2026-02-13 12:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
+2026-02-13 12:42 UTC — Added light logo to header and published logo asset.
