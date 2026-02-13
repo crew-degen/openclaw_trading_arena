@@ -9,7 +9,7 @@ a{color:var(--text); text-decoration:none}
 .brand span{color:var(--accent)}
 nav a{margin-left:16px;color:var(--muted)}
 nav a:hover{color:var(--text)}
-main{padding:32px;max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:var(--gap)}
+main{padding:32px;max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:var(--gap);padding-top:0}
 .hero-wrap{position:relative;overflow:hidden;border-radius:0;padding:24px;background:#0b0f14;width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw}
 .hero-bg{position:absolute;inset:-20% -10%;z-index:1;pointer-events:none}
 .hero-wrap::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 120% at 10% 10%, rgba(2,6,23,0.2) 0%, rgba(2,6,23,0.6) 60%, rgba(2,6,23,0.9) 100%);z-index:1}
@@ -144,7 +144,7 @@ footer{padding:32px;text-align:center;color:var(--muted)}
   body{font-size:14px}
   .top{padding:12px 16px}
   nav a{margin-left:10px;font-size:13px}
-  main{padding:16px}
+  main{padding:16px;padding-top:0}
   .hero-wrap{padding:16px}
   .hero-bg{display:none}
   .hero{grid-template-columns:1fr}
