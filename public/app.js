@@ -694,99 +694,7 @@ function applyTypingEffect(){
 }
 
 function initHeroCanvas(){
-  const canvas = document.getElementById('hero-canvas');
-  const wrap = document.getElementById('hero-wrap');
-  if(!canvas || !wrap) return;
-  const ctx = canvas.getContext('2d');
-  const dpr = window.devicePixelRatio || 1;
-  let width = 0;
-  let height = 0;
-  let crystals = [];
-  let mouseX = 0.5;
-  let mouseY = 0.5;
-  let running = true;
-
-  const makeCrystals = () => {
-    const count = 10;
-    const list = [];
-    for(let i=0;i<count;i++){
-      const cx = Math.random() * width;
-      const cy = Math.random() * height;
-      const size = 80 + Math.random() * 140;
-      const sides = 4 + Math.floor(Math.random() * 3);
-      const points = [];
-      for(let j=0;j<sides;j++){
-        const ang = (Math.PI * 2 / sides) * j + Math.random() * 0.4;
-        const r = size * (0.6 + Math.random() * 0.5);
-        points.push([Math.cos(ang) * r, Math.sin(ang) * r]);
-      }
-      const hue = 220 + Math.random() * 60;
-      list.push({ cx, cy, points, depth: 0.2 + Math.random() * 0.6, hue });
-    }
-    crystals = list;
-  };
-
-  const resize = () => {
-    width = wrap.clientWidth;
-    height = wrap.clientHeight;
-    canvas.width = Math.floor(width * dpr);
-    canvas.height = Math.floor(height * dpr);
-    canvas.style.width = width + 'px';
-    canvas.style.height = height + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    makeCrystals();
-  };
-
-  const draw = (t) => {
-    if(!running) return;
-    ctx.clearRect(0,0,width,height);
-    const grad = ctx.createLinearGradient(0,0,width,height);
-    grad.addColorStop(0, '#0b0f14');
-    grad.addColorStop(1, '#0c1220');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0,0,width,height);
-
-    const mx = (mouseX - 0.5) * 40;
-    const my = (mouseY - 0.5) * 40;
-
-    crystals.forEach((c, idx) => {
-      const drift = Math.sin((t/1000) + idx) * 6;
-      const ox = mx * c.depth + drift;
-      const oy = my * c.depth - drift;
-      ctx.beginPath();
-      const [p0x, p0y] = c.points[0];
-      ctx.moveTo(c.cx + p0x + ox, c.cy + p0y + oy);
-      for(let i=1;i<c.points.length;i++){
-        const [px, py] = c.points[i];
-        ctx.lineTo(c.cx + px + ox, c.cy + py + oy);
-      }
-      ctx.closePath();
-      ctx.fillStyle = `hsla(${c.hue}, 70%, 55%, 0.18)`;
-      ctx.fill();
-      ctx.strokeStyle = `hsla(${c.hue}, 70%, 70%, 0.25)`;
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    });
-
-    requestAnimationFrame(draw);
-  };
-
-  wrap.addEventListener('mousemove', (e) => {
-    const rect = wrap.getBoundingClientRect();
-    mouseX = (e.clientX - rect.left) / rect.width;
-    mouseY = (e.clientY - rect.top) / rect.height;
-  });
-  wrap.addEventListener('mouseleave', () => {
-    mouseX = 0.5; mouseY = 0.5;
-  });
-
-  resize();
-  requestAnimationFrame(draw);
-  window.addEventListener('resize', resize);
-  document.addEventListener('visibilitychange', () => {
-    running = !document.hidden;
-    if(running) requestAnimationFrame(draw);
-  });
+  // deprecated: hero background now CSS stripes
 }
 
 async function refreshAll(includeChart = false){
@@ -823,7 +731,6 @@ if(!IS_TEST && typeof window !== 'undefined'){
   });
 
   (async function init(){
-    initHeroCanvas();
     await refreshAll(true);
     setInterval(() => refreshAll(false), 30000);
     setInterval(() => refreshAll(true), 120000);

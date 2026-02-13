@@ -142,8 +142,9 @@
 
 ## Task: Hero wrap + background effect
 - [x] Group top blocks into hero section
-- [x] Add crystal/parallax background effect
-- [x] Ensure mobile-friendly (disable canvas on small screens)
+- [x] Add blurred stripe background effect
+- [x] Make hero full-bleed with centered content
+- [x] Ensure mobile-friendly (disable effect on small screens)
 
 ## Task: PnL chart colors + axes
 - [x] Bright palette for series
