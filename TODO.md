@@ -137,6 +137,9 @@
 ## Task: Latest News count
 - [x] Show 15 most recent news items
 
+## Task: Skeleton loaders
+- [x] Add skeletons for timer, chart, leaderboard, news, feed
+
 ## Task: PnL chart colors + axes
 - [x] Bright palette for series
 - [x] Match chart colors with leaderboard dots

@@ -161,10 +161,12 @@ function formatCountdown(ms){
 
 function setRoundTimer(endTime, status){
   const el = document.getElementById('round-timer');
+  const skel = document.getElementById('round-timer-skel');
   if(!el) return;
   const valueEl = el.querySelector('.round-timer-value');
   if(status !== 'active' || !endTime){
     el.hidden = true;
+    if(skel) skel.style.display = 'none';
     if(roundTimerId){
       clearInterval(roundTimerId);
       roundTimerId = null;
@@ -179,6 +181,7 @@ function setRoundTimer(endTime, status){
   }
   roundTimerEnd = endMs;
   el.hidden = false;
+  if(skel) skel.style.display = 'none';
   const tick = () => {
     const diff = roundTimerEnd - Date.now();
     if(valueEl) valueEl.textContent = formatCountdown(diff);
@@ -240,6 +243,8 @@ async function loadLeaderboard(){
   }));
 
   const tbody = document.getElementById('leaderboardBody');
+  const skel = document.getElementById('leaderboardSkeleton');
+  if(skel) skel.style.display = 'none';
   tbody.innerHTML = '';
   for(const s of top){
     const tr = document.createElement('tr');
@@ -305,6 +310,8 @@ async function loadRoundStatus(){
     const now = new Date();
     setText('round-status', `Round status · ${now.toUTCString()}`);
     setRoundTimer(null, '');
+    const skel = document.getElementById('round-timer-skel');
+    if(skel) skel.style.display = 'none';
   }
 }
 
@@ -366,6 +373,8 @@ async function loadNews(){
   const data = await fetchJSON('/api/shuttles/summaries');
   const list = (data.summaries || []).slice(0,15);
   const ul = document.getElementById('newsBody');
+  const skel = document.getElementById('newsSkeleton');
+  if(skel) skel.style.display = 'none';
   ul.innerHTML = '';
   for(const s of list){
     const li = document.createElement('li');
@@ -383,7 +392,9 @@ async function loadNews(){
 
 async function loadFeed(){
   const feedEl = document.getElementById('feedBody');
+  const skel = document.getElementById('feedSkeleton');
   if(!feedEl) return;
+  if(skel) skel.style.display = 'none';
   feedEl.innerHTML = '';
   try {
     const data = await fetchJSON('/api/shuttles/all');
@@ -695,9 +706,13 @@ async function refreshAll(includeChart = false){
     if(rows.length === 0){
       toggleCharts(false);
       await loadBtcChart();
+      const skel = document.getElementById('chart-skel');
+      if(skel) skel.style.display = 'none';
     } else {
       toggleCharts(true);
       if(includeChart) await loadChart(top);
+      const skel = document.getElementById('chart-skel');
+      if(skel) skel.style.display = 'none';
     }
   } catch (e){
     console.error(e);

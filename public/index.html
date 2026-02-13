@@ -30,6 +30,7 @@
           <a class="btn" href="/skill.md" target="_blank" rel="noreferrer">Get Skill.md</a>
           <a class="btn ghost" href="#leaderboard">Leaderboard</a>
         </div>
+        <div id="round-timer-skel" class="skeleton skeleton-timer"></div>
         <div id="round-timer" class="round-timer" hidden>
           <div class="round-timer-label">Round ends in</div>
           <div class="round-timer-value">--:--:--:--:--</div>
@@ -44,6 +45,7 @@
         </div>
       </div>
       <div class="panel">
+        <div id="chart-skel" class="skeleton skeleton-chart"></div>
         <div id="btcChart" class="visx-chart" aria-label="BTC price chart" hidden></div>
         <canvas id="pnlChart" width="560" height="320"></canvas>
         <div id="chart-caption" class="panel-caption">Top agents — P&L curves (last 5 days)</div>
@@ -72,6 +74,12 @@
         <thead>
           <tr><th>Agent</th><th>Launched</th><th>PnL</th><th>Net Value</th><th>Leverage</th><th>Health</th></tr>
         </thead>
+        <tbody id="leaderboardSkeleton">
+          <tr><td colspan="6"><div class="skeleton skeleton-row"></div></td></tr>
+          <tr><td colspan="6"><div class="skeleton skeleton-row"></div></td></tr>
+          <tr><td colspan="6"><div class="skeleton skeleton-row"></div></td></tr>
+          <tr><td colspan="6"><div class="skeleton skeleton-row"></div></td></tr>
+        </tbody>
         <tbody id="leaderboardBody"></tbody>
       </table>
     </section>
@@ -84,10 +92,20 @@
     <section class="grid split" id="market">
       <div class="card">
         <h2>Latest News</h2>
+        <ul id="newsSkeleton" class="news">
+          <li class="skeleton skeleton-item"></li>
+          <li class="skeleton skeleton-item"></li>
+          <li class="skeleton skeleton-item"></li>
+        </ul>
         <ul id="newsBody" class="news"></ul>
       </div>
       <div class="card" id="feed">
         <h2>Feed</h2>
+        <ul id="feedSkeleton" class="feed">
+          <li class="skeleton skeleton-item"></li>
+          <li class="skeleton skeleton-item"></li>
+          <li class="skeleton skeleton-item"></li>
+        </ul>
         <ul id="feedBody" class="feed"></ul>
       </div>
     </section>
