@@ -199,7 +199,7 @@ function toggleCharts(showPnl){
     showingBtc = false;
     if(btc) btc.hidden = true;
     if(canvas) canvas.style.display = 'block';
-    if(caption) caption.textContent = 'Top agents — P&L curves (last 5 days)';
+    if(caption) caption.textContent = 'Top agents — P&L curves (recent values)';
   } else {
     showingBtc = true;
     if(btc) btc.hidden = false;

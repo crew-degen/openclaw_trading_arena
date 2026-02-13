@@ -253,3 +253,5 @@
 2026-02-13 09:51 UTC — Added skeleton loaders for timer, chart, leaderboard, news, feed.
 2026-02-13 10:00 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-13 10:00 UTC — Chart skeleton now absolute overlay to avoid double height.
+2026-02-13 10:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
+2026-02-13 10:55 UTC — Updated chart caption to recent values.
