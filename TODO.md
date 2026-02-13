@@ -146,6 +146,7 @@
 - [x] Make hero full-bleed with centered content
 - [x] Ensure mobile-friendly (disable effect on small screens)
 - [x] Remove Market Snapshot label; remove top padding for hero
+- [x] Full-bleed hero spacing + card gradients
 
 ## Task: PnL chart colors + axes
 - [x] Bright palette for series

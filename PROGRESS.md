@@ -260,3 +260,4 @@
 2026-02-13 11:27 UTC — Replaced hero background with blurred stripes and full-bleed layout.
 2026-02-13 11:30 UTC — Colosseum heartbeat/status checked (heartbeat=200, status=200, hasActivePoll=false).
 2026-02-13 11:35 UTC — Removed Market Snapshot label and hero top padding.
+2026-02-13 11:47 UTC — Adjusted hero spacing (margin-top -57, padding 70) and added card gradients; removed horizontal scroll.
